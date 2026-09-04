@@ -68,4 +68,45 @@ mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', 
   menuToggle.setAttribute('aria-expanded', 'false');
 }));
 
+// Maze-inspired scroll + reveal animations
+const progress = document.querySelector('#scrollProgress');
+const header = document.querySelector('.site-header');
+function onScroll() {
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+  if (progress) progress.style.width = pct + '%';
+  if (header) header.classList.toggle('scrolled', window.scrollY > 12);
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      // stagger tool cards
+      if (el.classList.contains('tool-card')) {
+        const index = Array.from(document.querySelectorAll('.tool-card')).indexOf(el);
+        el.style.transitionDelay = (index % 3) * 0.08 + 's';
+      }
+      el.classList.add('in-view');
+      observer.unobserve(el);
+    }
+  });
+}, { threshold: 0.15 });
+
+function observeStatic() {
+  document.querySelectorAll('.section-heading, .toolbar').forEach(el => observer.observe(el));
+}
+
+// Hook into renderTools to re-observe after each render
+const _renderToolsOrig = renderTools;
+renderTools = function() {
+  _renderToolsOrig();
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.tool-card').forEach(el => observer.observe(el));
+  });
+};
+
+observeStatic();
 renderTools();

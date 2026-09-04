@@ -127,3 +127,50 @@ h1, h2, h3 { font-family: "Manrope", "DM Sans", sans-serif; }.hero h1 { font-wei
 .site-footer { margin-top: 35px; }
 @media (max-width: 900px) { .tool-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }.hero { padding-inline: 4%; } }
 @media (max-width: 700px) { .desktop-nav { display:none; }.hero { padding-top:62px; padding-bottom:62px; }.tool-grid { grid-template-columns:1fr; }.about-panel { padding:28px; } }
+
+/* === OmniTools Maze-inspired Multi Animated UI === */
+.scroll-progress { position: fixed; top: 0; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, var(--primary), var(--accent)); z-index: 9999; transition: width 0.08s linear; }
+.hero-watermark { position: absolute; left: 2%; top: 50%; transform: translateY(-50%); font-family: "Manrope", sans-serif; font-size: clamp(6rem, 18vw, 22rem); font-weight: 800; letter-spacing: -0.07em; color: transparent; -webkit-text-stroke: 1px color-mix(in srgb, var(--primary) 10%, transparent); opacity: 0.55; pointer-events: none; user-select: none; line-height: 1; }
+.hero { isolation: isolate; }
+.hero-copy { animation: heroIn 0.8s ease both; }
+.hero-copy .eyebrow { animation: heroIn 0.7s ease 0.1s both; }
+.hero-copy h1 { animation: heroIn 0.7s ease 0.2s both; }
+.hero-copy > p { animation: heroIn 0.7s ease 0.35s both; }
+.hero-copy .button { animation: heroIn 0.7s ease 0.5s both; }
+.hero-orbit { animation: orbitIn 0.9s ease 0.4s both; }
+@keyframes heroIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes orbitIn { from { opacity: 0; transform: scale(0.92) rotate(-4deg); } to { opacity: 1; transform: scale(1) rotate(0); } }
+
+/* Orbit continuous - Maze slow rotation + float */
+.orbit-ring.ring-one { animation: ringRotate 30s linear infinite; }
+.orbit-ring.ring-two { animation: ringRotate 42s linear reverse infinite; }
+@keyframes ringRotate { to { transform: rotate(360deg); } }
+.orbit-core { animation: corePulse 3.2s ease-in-out infinite; }
+@keyframes corePulse { 0%,100% { transform: rotate(-8deg) scale(1); box-shadow: 0 20px 45px color-mix(in srgb, var(--primary) 28%, transparent); } 50% { transform: rotate(-8deg) scale(1.04); box-shadow: 0 28px 60px color-mix(in srgb, var(--primary) 36%, transparent); } }
+.orbit-chip { animation: chipFloat 4s ease-in-out infinite; }
+.chip-one { animation-delay: 0s; } .chip-two { animation-delay: 0.6s; } .chip-three { animation-delay: 1.1s; } .chip-four { animation-delay: 1.7s; }
+@keyframes chipFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+.status-dot { animation: dotPulse 2s ease-in-out infinite; }
+@keyframes dotPulse { 0%,100% { box-shadow: 0 0 0 4px color-mix(in srgb, var(--success) 15%, transparent); } 50% { box-shadow: 0 0 0 7px color-mix(in srgb, var(--success) 8%, transparent); } }
+
+/* Workspace reveal - Maze grid stagger */
+.section-heading { opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.section-heading.in-view { opacity: 1; transform: translateY(0); }
+.toolbar { opacity: 0; transform: translateY(10px); transition: opacity 0.6s ease 0.15s, transform 0.6s ease 0.15s; }
+.toolbar.in-view { opacity: 1; transform: translateY(0); }
+.tool-card { opacity: 0; transform: translateY(18px) scale(0.98); transition: opacity 0.55s ease, transform 0.55s ease, box-shadow 0.22s, border-color 0.22s; }
+.tool-card.in-view { opacity: 1; transform: translateY(0) scale(1); }
+.tool-card:hover { transform: translateY(-6px) scale(1.015); }
+.tool-card:hover .tool-icon { transform: scale(1.08) rotate(-4deg); }
+.tool-icon { transition: transform 0.25s ease; }
+.search-box input:focus { transform: scale(1.005); }
+.category-button { position: relative; overflow: hidden; }
+.category-button.active { transform: scale(1.03); }
+.site-header { transition: box-shadow 0.3s, background 0.3s; }
+.site-header.scrolled { box-shadow: 0 8px 32px rgba(15,23,42,0.08); background: color-mix(in srgb, var(--surface) 92%, transparent); }
+.footer-links a[href*="t.me"] { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 99px; background: color-mix(in srgb, var(--primary) 10%, var(--surface)); color: var(--primary); font-weight: 700; transition: transform 0.2s, background 0.2s; }
+.footer-links a[href*="t.me"]:hover { transform: translateY(-1px); background: color-mix(in srgb, var(--primary) 16%, var(--surface)); }
+.desktop-nav a[href*="t.me"] { background: var(--primary); color: #fff !important; padding: 8px 16px; border-radius: 99px; font-size: 0.8rem; transition: transform 0.2s, filter 0.2s; }
+.desktop-nav a[href*="t.me"]:hover { transform: translateY(-1px); filter: brightness(1.08); }
+
+@media (prefers-reduced-motion: reduce) { .hero-copy,.hero-copy .eyebrow,.hero-copy h1,.hero-copy > p,.hero-copy .button,.hero-orbit,.orbit-ring,.orbit-core,.orbit-chip,.status-dot { animation: none !important; } .tool-card,.section-heading,.toolbar { opacity: 1 !important; transform: none !important; transition: none !important; } }
