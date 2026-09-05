@@ -10,10 +10,85 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    /* Security Gate - Polished */
+    #securityGate{position:fixed;inset:0;z-index:9999;background:#0a0c10;display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
+    #securityGate.hidden{display:none}
+    .gate-card{background:linear-gradient(180deg,#1a1d24 0%,#171a22 100%);padding:32px;border-radius:20px;width:100%;max-width:440px;border:1px solid #2a2e39;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+    .gate-card h2{color:#fff;margin:8px 0 6px;font-size:22px;font-weight:700;letter-spacing:-0.3px}
+    .gate-card p.muted{color:#888;font-size:13px}
+    .gate-input{width:100%;padding:13px 14px;margin:8px 0;background:#0f1115;border:1px solid #2a2e39;color:#fff;border-radius:10px;text-align:center;letter-spacing:1px;font-size:14px;transition:border-color 0.2s}
+    .gate-input:focus{outline:none;border-color:#4f46e5}
+    .gate-input.left{text-align:left;letter-spacing:0}
+    .gate-btn{width:100%;padding:13px;background:#4f46e5;color:#fff;border:0;border-radius:10px;cursor:pointer;font-weight:700;font-size:14px;margin-top:10px;transition:all 0.2s;letter-spacing:0.2px}
+    .gate-btn:hover{background:#4338ca;transform:translateY(-1px)}
+    .gate-btn:active{transform:translateY(0)}
+    .gate-btn.secondary{background:#242836;border:1px solid #2a2e39}
+    .gate-btn.secondary:hover{background:#2a2e39}
+    .gate-btn:disabled{opacity:0.6;cursor:not-allowed;transform:none}
+    .gate-link{color:#6366f1;cursor:pointer;font-size:13px;margin-top:16px;display:inline-block;font-weight:600;transition:color 0.2s}
+    .gate-link:hover{color:#818cf8}
+    .gate-error{color:#ef4444;font-size:13px;margin-top:10px;min-height:18px}
+    .gate-admin-panel{text-align:left;max-height:380px;overflow:auto;margin-top:14px;border:1px solid #2a2e39;border-radius:12px;padding:8px;background:#0f1115}
+    .gate-key{font-family:monospace;background:#0f1115;padding:10px 10px;border-radius:8px;margin:6px 0;font-size:11px;border:1px solid #2a2e39;color:#fff;cursor:pointer;transition:all 0.2s}
+    .gate-key:hover{border-color:#4f46e5;background:#13151a}
+    .gate-key-header{display:flex;justify-content:space-between;align-items:center;gap:8px}
+    .gate-key-details{margin-top:8px;padding-top:8px;border-top:1px solid #1f2330;font-family:system-ui;font-size:11px;color:#a1a1aa;line-height:1.6;display:none}
+    .gate-key.expanded .gate-key-details{display:block}
+    .gate-key-details b{color:#e4e4e7}
+    .gate-badge{padding:3px 8px;border-radius:20px;font-size:10px;font-weight:700;white-space:nowrap}
+    .gate-badge-unused{background:#10b981;color:#fff}
+    .gate-badge-used{background:#ef4444;color:#fff}
+    .gate-badge-online{background:#22c55e;color:#fff;animation:pulse 2s infinite}
+    .gate-badge-offline{background:#52525b;color:#fff}
+    .gate-badge-dead{background:#27272a;color:#a1a1aa;border:1px solid #3f3f46}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.7}}
+    #appShell.hidden{display:none}
+    .gate-logout{position:fixed;top:14px;right:14px;z-index:9998;background:#1a1d24;color:#fff;border:1px solid #2a2e39;padding:8px 14px;border-radius:20px;font-size:12px;cursor:pointer;display:none;font-weight:600}
+    .gate-logout.show{display:block}
+    .gate-logout:hover{background:#242836}
+  </style>
 </head>
 <body>
+  <!-- Security Gate -->
+  <div id="securityGate">
+    <div class="gate-card" id="gateLogin">
+      <div style="font-size:32px;margin-bottom:4px">🔑</div>
+      <h2>Enter Security Key</h2>
+      <p class="muted">One-time use only. After logout key expires.</p>
+      <input id="gateKeyInput" class="gate-input" placeholder="XXXX-XXXX-XXXX-XXXX" autocomplete="off" spellcheck="false">
+      <button id="gateUnlockBtn" class="gate-btn" onclick="gateUserLogin()">Unlock OmniTools →</button>
+      <div id="gateLoginMsg" class="gate-error"></div>
+      <div style="margin-top:18px;padding-top:16px;border-top:1px solid #1f2330">
+        <span class="gate-link" onclick="gateShowAdminLogin()">Admin Login →</span>
+      </div>
+      <p class="muted" style="margin-top:10px;font-size:11px;opacity:0.7">Protected by one-time keys</p>
+    </div>
+    <div class="gate-card hidden" id="gateAdminLogin">
+      <div style="font-size:24px;margin-bottom:4px">🛡️</div>
+      <h2>Admin Access</h2>
+      <p class="muted" style="margin-bottom:12px">Enter admin credentials</p>
+      <input id="gateAdminId" class="gate-input left" placeholder="Admin ID" autocomplete="username" spellcheck="false">
+      <input id="gateAdminPass" type="password" class="gate-input left" placeholder="Password" autocomplete="current-password">
+      <button class="gate-btn" onclick="gateAdminLogin()">Login to Dashboard →</button>
+      <div id="gateAdminMsg" class="gate-error"></div>
+      <span class="gate-link" onclick="gateShowUserLogin()">← Back to User Login</span>
+    </div>
+    <div class="gate-card hidden" id="gateAdminPanel" style="max-width:560px;text-align:left">
+      <h2 style="text-align:center">Admin Dashboard <span style="font-size:10px;background:#4f46e5;padding:3px 7px;border-radius:20px;vertical-align:middle">DB</span></h2>
+      <p class="muted" style="text-align:center;margin:6px 0 12px">Unused: <b id="gateUnused" style="color:#10b981">-</b> &nbsp;|&nbsp; Used: <b id="gateUsed" style="color:#ef4444">-</b> &nbsp;|&nbsp; Total: <b id="gateTotal">-</b></p>
+      <div style="display:flex;gap:8px"><button class="gate-btn" onclick="gateGenerateKeys(100)">Generate 100 Keys</button><button class="gate-btn secondary" onclick="gateGenerateKeys(10)">+10</button></div>
+      <div style="display:flex;gap:8px"><button class="gate-btn secondary" onclick="gateLoadKeys()">↻ Refresh</button><button class="gate-btn" style="background:#ef4444" onclick="gateClearUsed()">Delete Used</button></div>
+      <div id="gateKeyList" class="gate-admin-panel">Loading...</div>
+      <p class="muted" style="font-size:11px;text-align:center;margin-top:8px">💡 Click a <b>used</b> key to see device, location & time</p>
+      <button class="gate-btn" style="background:#10b981" onclick="gateDownloadKeys()">Download Unused (txt)</button>
+      <button class="gate-btn secondary" onclick="gateAdminLogout()">Logout</button>
+    </div>
+  </div>
+  <button id="gateLogoutBtn" class="gate-logout" onclick="gateLogout()">Logout & Burn Key</button>
   <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
-  <div class="app-shell">
+  <div class="app-shell hidden" id="appShell">
     <header class="site-header">
       <a class="brand" href="index.html" aria-label="OmniTools home">
         <span class="brand-mark" aria-hidden="true"><span>O</span></span>
@@ -110,5 +185,142 @@
   </div>
   <script src="js/theme.js"></script>
   <script src="js/app.js"></script>
+  <script>
+  // Gate Config - already wired to your Supabase
+  const GATE_SUPABASE_URL = "https://hbsocnezfyptmxmblxpv.supabase.co";
+  const GATE_SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhic29jbmV6ZnlwdG14bWJseHB2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg2MDczNDMsImV4cCI6MjEwNDE4MzM0M30.V9QVgGtJjCbwG_5OsVeiCRRrsvwc714N-dhIvushia0";
+  const GATE_ADMIN_ID = "admin";
+  const GATE_ADMIN_PASS = "GroguTheChotu";
+  let gateSupabase=null;
+  try{ if(window.supabase) gateSupabase=window.supabase.createClient(GATE_SUPABASE_URL, GATE_SUPABASE_KEY); }catch(e){console.warn("gate supabase init",e)}
+  const gateEl=document.getElementById("securityGate"), appEl=document.getElementById("appShell"), logoutBtn=document.getElementById("gateLogoutBtn");
+  // auto-unlock if session exists
+  if(sessionStorage.getItem("omni_gate_key")){ gateUnlockUI(); }
+  function gateUnlockUI(){ gateEl.classList.add("hidden"); appEl.classList.remove("hidden"); logoutBtn.classList.add("show"); }
+  function gateLockUI(){ gateEl.classList.remove("hidden"); appEl.classList.add("hidden"); logoutBtn.classList.remove("show"); }
+  function gateShowAdminLogin(){ document.getElementById("gateLogin").classList.add("hidden"); document.getElementById("gateAdminLogin").classList.remove("hidden"); document.getElementById("gateAdminPanel").classList.add("hidden"); }
+  function gateShowUserLogin(){ document.getElementById("gateAdminLogin").classList.add("hidden"); document.getElementById("gateAdminPanel").classList.add("hidden"); document.getElementById("gateLogin").classList.remove("hidden"); }
+  function gateAdminLogout(){ gateShowUserLogin(); }
+  async function gateLogout(){
+    const k=sessionStorage.getItem("omni_gate_key");
+    if(k && gateSupabase){
+      try{ await gateSupabase.from("security_keys").update({is_online:false, last_seen:new Date().toISOString()}).eq("key", k); }catch(e){ console.warn("offline mark failed",e); }
+    }
+    sessionStorage.removeItem("omni_gate_key");
+    location.reload();
+  }
+  async function gateRequireDB(){ if(!gateSupabase) throw new Error("DB not connected - check internet/adblock"); }
+  function gateGetDevice(){
+    const ua=navigator.userAgent;
+    let device="Desktop";
+    if(/Android/i.test(ua)) device="Android";
+    else if(/iPhone|iPad|iPod/i.test(ua)) device="iOS";
+    else if(/Windows/i.test(ua)) device="Windows";
+    else if(/Mac/i.test(ua)) device="Mac";
+    else if(/Linux/i.test(ua)) device="Linux";
+    const mobile=/Mobi|Android/i.test(ua)?" • Mobile":" • Desktop";
+    return device+mobile;
+  }
+  async function gateGetLocation(){
+    try{
+      const r=await fetch("https://ipapi.co/json/");
+      if(!r.ok) throw new Error("ipapi fail");
+      const j=await r.json();
+      return {ip:j.ip||"unknown", location:(j.city?j.city+", ":"")+(j.country_name||"Unknown")};
+    }catch(e){
+      try{
+        const r2=await fetch("https://ipwho.is/");
+        const j2=await r2.json();
+        if(j2.success) return {ip:j2.ip, location:(j2.city?j2.city+", ":"")+(j2.country||"Unknown")};
+      }catch{}
+      return {ip:"unknown", location:"Unknown"};
+    }
+  }
+  async function gateUserLogin(){
+    const k=document.getElementById("gateKeyInput").value.trim().toUpperCase();
+    const msg=document.getElementById("gateLoginMsg"), btn=document.getElementById("gateUnlockBtn");
+    if(!k) return msg.textContent="Enter a key";
+    btn.disabled=true; btn.textContent="Checking..."; msg.textContent="";
+    try{
+      await gateRequireDB();
+      const {data:found, error} = await gateSupabase.from("security_keys").select("*").eq("key", k).single();
+      if(error || !found){ msg.textContent="Invalid key"; return; }
+      if(found.status==="used"){ msg.textContent="Key already used! Need new key."; return; }
+      btn.textContent="Getting location...";
+      const device=gateGetDevice();
+      const ua=navigator.userAgent.slice(0,180);
+      const loc=await gateGetLocation();
+      const now=new Date().toISOString();
+      const payload={status:"used", used_at:now, user_agent:ua, device:device, ip:loc.ip, location:loc.location, is_online:true, last_seen:now};
+      // try with new columns, fallback to minimal if columns missing
+      let {error:updErr}=await gateSupabase.from("security_keys").update(payload).eq("key", k);
+      if(updErr && updErr.message && updErr.message.includes("column")){
+        console.warn("new columns missing, run ALTER TABLE - fallback", updErr.message);
+        const fallback={status:"used", used_at:now};
+        const r2=await gateSupabase.from("security_keys").update(fallback).eq("key", k);
+        updErr=r2.error;
+      }
+      if(updErr) throw updErr;
+      sessionStorage.setItem("omni_gate_key", k);
+      gateUnlockUI();
+    }catch(e){ msg.textContent="Error: "+(e.message||e); }finally{ btn.disabled=false; btn.textContent="Unlock OmniTools →"; }
+  }
+  function gateAdminLogin(){
+    const id=document.getElementById("gateAdminId").value.trim();
+    const pw=document.getElementById("gateAdminPass").value;
+    if(id===GATE_ADMIN_ID && pw===GATE_ADMIN_PASS){
+      document.getElementById("gateAdminLogin").classList.add("hidden");
+      document.getElementById("gateAdminPanel").classList.remove("hidden");
+      document.getElementById("gateAdminMsg").textContent="";
+      gateLoadKeys();
+    } else document.getElementById("gateAdminMsg").textContent="Wrong ID or password";
+  }
+  function gateGenKey(){ const c="ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; let s=""; for(let i=0;i<16;i++) s+=c[Math.floor(Math.random()*c.length)]; return s.match(/.{1,4}/g).join("-"); }
+  async function gateGenerateKeys(n){
+    try{ await gateRequireDB(); const keys=[]; for(let i=0;i<n;i++) keys.push({key:gateGenKey(), status:"unused"}); const {error}=await gateSupabase.from("security_keys").insert(keys); if(error) throw error; alert(n+" keys generated!"); gateLoadKeys(); }catch(e){ alert(e.message); }
+  }
+  function gateFormatDate(s){
+    if(!s) return "—";
+    try{ const d=new Date(s); return d.toLocaleString(); }catch{ return s; }
+  }
+  async function gateLoadKeys(){
+    try{
+      await gateRequireDB();
+      const list=document.getElementById("gateKeyList"); list.textContent="Loading...";
+      const {data, error}=await gateSupabase.from("security_keys").select("*").order("created_at",{ascending:false}).limit(500);
+      if(error) throw error;
+      document.getElementById("gateUnused").textContent=data.filter(k=>k.status==="unused").length;
+      document.getElementById("gateUsed").textContent=data.filter(k=>k.status==="used").length;
+      document.getElementById("gateTotal").textContent=data.length;
+      if(!data.length){ list.innerHTML="<p class='muted' style='text-align:center'>No keys yet. Generate 100.</p>"; return; }
+      list.innerHTML="";
+      data.forEach(k=>{
+        const isUsed=k.status==="used";
+        const isOnline=k.is_online===true;
+        let badgeClass="gate-badge-unused", badgeText="UNUSED";
+        if(isUsed) { badgeClass=isOnline?"gate-badge-online":"gate-badge-dead"; badgeText=isOnline?"● ONLINE":"○ OFFLINE / DEAD"; }
+        const d=document.createElement("div"); d.className="gate-key"+(isUsed?" used":"");
+        const details=isUsed?`
+          <div class="gate-key-details">
+            <div><b>Device:</b> ${k.device||"Unknown"}</div>
+            <div><b>Location:</b> ${k.location||"Unknown"} ${k.ip?`(${k.ip})`:""}</div>
+            <div><b>Used:</b> ${gateFormatDate(k.used_at)}</div>
+            <div><b>Last seen:</b> ${gateFormatDate(k.last_seen||k.used_at)}</div>
+            <div><b>Status:</b> ${isOnline?'<span style="color:#22c55e">● Online</span>':'<span style="color:#a1a1aa">○ Offline / Dead (logged out)</span>'}</div>
+            <div style="margin-top:4px;opacity:0.7;word-break:break-all"><b>UA:</b> ${k.user_agent||"—"}</div>
+          </div>`:`<div class="gate-key-details"><b>Status:</b> Never used • Ready to assign</div>`;
+        d.innerHTML=`<div class="gate-key-header"><span>${k.key}</span><span class="gate-badge ${badgeClass}">${badgeText}</span></div>${details}`;
+        if(isUsed) d.onclick=()=> d.classList.toggle("expanded");
+        list.appendChild(d);
+      });
+    }catch(e){ document.getElementById("gateKeyList").textContent="Error: "+e.message; }
+  }
+  async function gateClearUsed(){ if(!confirm("Delete used keys?")) return; try{ await gateRequireDB(); const {error}=await gateSupabase.from("security_keys").delete().eq("status","used"); if(error) throw error; gateLoadKeys(); }catch(e){ alert(e.message);} }
+  async function gateDownloadKeys(){ try{ await gateRequireDB(); const {data,error}=await gateSupabase.from("security_keys").select("key").eq("status","unused").order("created_at"); if(error) throw error; if(!data.length) return alert("No unused keys"); const txt=data.map(r=>r.key).join("\n"); const b=new Blob([txt],{type:"text/plain"}); const a=document.createElement("a"); a.href=URL.createObjectURL(b); a.download="omni-keys.txt"; a.click(); }catch(e){ alert(e.message);} }
+  // Enter key submits
+  document.getElementById("gateKeyInput")?.addEventListener("keydown", e=>{ if(e.key==="Enter") gateUserLogin(); });
+  document.getElementById("gateAdminPass")?.addEventListener("keydown", e=>{ if(e.key==="Enter") gateAdminLogin(); });
+  document.getElementById("gateAdminId")?.addEventListener("keydown", e=>{ if(e.key==="Enter") gateAdminLogin(); });
+  </script>
 </body>
 </html>
