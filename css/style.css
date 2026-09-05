@@ -173,4 +173,12 @@ h1, h2, h3 { font-family: "Manrope", "DM Sans", sans-serif; }.hero h1 { font-wei
 .desktop-nav a[href*="t.me"] { background: var(--primary); color: #fff !important; padding: 8px 16px; border-radius: 99px; font-size: 0.8rem; transition: transform 0.2s, filter 0.2s; }
 .desktop-nav a[href*="t.me"]:hover { transform: translateY(-1px); filter: brightness(1.08); }
 
+/* Card NEW badge + date */
+.card-badges { display: flex; align-items: center; gap: 8px; }
+.card-new-badge { display: inline-flex; align-items: center; padding: 4px 9px; border: 1px solid #fdba74; border-radius: 999px; background: #fff7ed; color: #c2410c; font-size: .58rem; font-weight: 800; letter-spacing: .07em; animation: cardNewPulse 2s ease-in-out infinite; }
+.card-version { display: inline-flex; margin-left: 6px; padding: 1px 7px; border-radius: 6px; background: color-mix(in srgb, var(--primary) 10%, var(--surface)); color: var(--primary); font-size: .62rem; font-weight: 800; vertical-align: middle; }
+.card-updated { display: inline-flex; align-items: center; gap: 6px; margin: 0 0 14px; padding: 6px 10px; border: 1px solid var(--border); border-radius: 999px; background: color-mix(in srgb, var(--primary) 5%, var(--surface)); color: var(--muted-strong); font-size: .68rem; font-weight: 600; width: fit-content; }
+.updated-dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 3px rgba(34,197,94,.15); animation: dotPulse 2s ease-in-out infinite; }
+@keyframes cardNewPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(249,115,22,.18); } 50% { box-shadow: 0 0 0 6px rgba(249,115,22,.07); } }
+
 @media (prefers-reduced-motion: reduce) { .hero-copy,.hero-copy .eyebrow,.hero-copy h1,.hero-copy > p,.hero-copy .button,.hero-orbit,.orbit-ring,.orbit-core,.orbit-chip,.status-dot { animation: none !important; } .tool-card,.section-heading,.toolbar { opacity: 1 !important; transform: none !important; transition: none !important; } }
