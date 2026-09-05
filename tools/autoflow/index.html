@@ -8,7 +8,7 @@
   <link rel="icon" href="../../assets/omnitools-mark.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/tokens.css">
   <link rel="stylesheet" href="../../css/tool-page.css">
   <link rel="stylesheet" href="../../css/tool-theme.css">
 </head>
@@ -26,21 +26,24 @@
     <main>
       <section class="tool-intro">
         <div>
-        <div class="eyebrow">Chrome extension / Google Labs Flow</div>
+          <p style="margin:0 0 6px;color:var(--tool-muted);font-size:var(--text-sm)">Chrome extension for Google Labs Flow</p>
           <h1>Auto Flow for Chrome</h1>
-          <p>Queue prompts and automate bulk AI image generation in Google Labs Flow with a focused Chrome workflow.</p>
-          <p class="last-updated"><span class="last-updated-dot" aria-hidden="true"></span> Last updated: <time datetime="2026-09-05">September 5, 2026</time> &middot; v3.1.0 &middot; Auto Flow</p>
+          <p>Queue prompts and automate bulk image generation in Google Labs Flow with a focused Chrome workflow.</p>
+          <div class="fact-strip" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;font-size:11px">
+            <span style="display:inline-flex;gap:6px;align-items:center;padding:6px 10px;border:1px solid var(--tool-border);border-radius:var(--radius-pill);background:var(--tool-surface-soft)"><span style="color:var(--tool-muted)">Version</span> <span class="mono" style="font-family:var(--font-mono);font-weight:600">v3.1.0</span></span>
+            <span style="display:inline-flex;gap:6px;align-items:center;padding:6px 10px;border:1px solid var(--tool-border);border-radius:var(--radius-pill);background:var(--tool-surface-soft)"><span style="color:var(--tool-muted)">Updated</span> <time datetime="2026-09-05" class="mono" style="font-family:var(--font-mono)">2026-09-05</time></span>
+            <span style="display:inline-flex;gap:6px;align-items:center;padding:6px 10px;border:1px solid var(--tool-border);border-radius:var(--radius-pill);background:var(--tool-surface-soft)"><span style="color:var(--tool-muted)">Platform</span> Chrome · Windows/Linux</span>
+          </div>
         </div>
         <div class="tool-badge">Chrome extension</div>
       </section>
 
       <section class="extension-hero">
-        <div class="eyebrow">Power up your workflow</div>
-        <h2>More prompts. Less repetition.</h2>
+        <p style="margin:0 0 8px;color:var(--tool-muted);font-size:var(--text-sm)">Power up your workflow</p>
+        <h2>More prompts. Less repetition</h2>
         <p class="tool-intro-description">The extension runs beside Google Labs Flow, keeps your prompt queue organized, and handles the repetitive steps while you focus on the creative direction.</p>
         <div class="extension-actions">
           <a class="extension-button" href="../../assets/autoflow-v3.1.zip" download>Download extension v3.1.0</a>
-          <a class="extension-button secondary" href="../../assets/AutoFlow.zip" download>Download Auto Flow.zip</a>
         </div>
         <div class="extension-note">Built for Google Chrome on Windows and Linux. The automation runs locally in Chrome and uses Chrome tabs, storage, downloads, and Google Labs Flow access.</div>
       </section>
@@ -79,7 +82,7 @@
           <figure><img src="../../assets/extension-step-3.svg" alt="Auto Flow running beside Google Flow"><figcaption>Open Google Flow and start your queue.</figcaption></figure>
         </div>
       </section>
-      <p class="tool-note">Auto Flow version 3.1.0 &middot; Last updated: September 5, 2026. Requires Google Chrome and access to Google Labs Flow. macOS is not supported by this guide.</p>
+      <p class="tool-note">Auto Flow version 3.1.0 — Last updated 2026-09-05. Requires Google Chrome and access to Google Labs Flow. macOS is not supported by this guide.</p>
     </main>
   </div>
   <script src="../../js/theme.js"></script>

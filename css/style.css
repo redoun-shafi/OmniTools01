@@ -184,4 +184,38 @@ h1, h2, h3 { font-family: "DM Sans", system-ui, -apple-system, sans-serif; } .he
 .updated-dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 3px rgba(34,197,94,.15); animation: dotPulse 2s ease-in-out infinite; }
 @keyframes cardNewPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(249,115,22,.18); } 50% { box-shadow: 0 0 0 6px rgba(249,115,22,.07); } }
 
-@media (prefers-reduced-motion: reduce) { .hero-copy,.hero-copy .eyebrow,.hero-copy h1,.hero-copy > p,.hero-copy .button,.hero-orbit,.orbit-ring,.orbit-core,.orbit-chip,.status-dot { animation: none !important; } .tool-card,.section-heading,.toolbar { opacity: 1 !important; transform: none !important; transition: none !important; } }
+/* Instrument Panel — hero as framed preview, not orbiting graphic */
+.hero{ min-height: 520px; display:flex; align-items:center; justify-content:space-between; gap:48px; padding:64px 0; border-bottom:1px solid var(--border); }
+.hero-copy{ max-width:560px; }
+.hero-copy h1{ font-family:var(--font-sans); font-weight:700; letter-spacing:var(--tracking-tight); line-height:var(--leading-heading); color:var(--text); margin:12px 0 14px; font-size:var(--text-3xl); }
+.hero-copy > p{ color:var(--text-muted); font-size:var(--text-base-r); max-width:52ch; }
+.hero-panel{ width:min(42vw,420px); flex:0 0 auto; border:1px solid var(--border); border-radius:var(--radius-panel); background:var(--panel); overflow:hidden; position:relative; }
+.hero-panel-head{ display:flex; justify-content:space-between; align-items:center; padding:10px 14px; border-bottom:1px solid var(--border); background:var(--panel-soft); font-size:11px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-faint); }
+.hero-panel-body{ padding:14px; display:grid; gap:10px; }
+.hero-key-row{ display:flex; justify-content:space-between; align-items:center; padding:10px 12px; border:1px solid var(--border); border-radius:var(--radius-control); background:var(--canvas); }
+.hero-key{ font-family:var(--font-mono); font-size:12px; letter-spacing:0.06em; color:var(--text); }
+.hero-panel-foot{ display:flex; justify-content:space-between; padding:8px 2px 2px; font-size:11px; color:var(--text-faint); border-top:1px solid var(--border); margin-top:4px; }
+.hero-panel-rail{ position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--brass); }
+@media (max-width:900px){ .hero{ flex-direction:column; align-items:stretch; } .hero-panel{ width:100%; } }
+
+/* Instrument Panel — tool cards as hairline panels, not shadow cards */
+.tool-grid{ gap:16px; }
+.tool-card{ border:1px solid var(--border); border-radius:var(--radius-panel); background:var(--panel); box-shadow:none; transition:border-color var(--duration-fast) var(--ease-out); }
+.tool-card:hover{ transform:none; border-color:var(--border-strong); box-shadow:none; }
+.tool-card:focus-within{ border-color:var(--brass); }
+.tool-card .tool-icon{ border-radius:var(--radius-control); transition:none; }
+.tool-card:hover .tool-icon{ transform:none; }
+
+/* Button voice — no arrow decoration */
+.button{ border-radius:var(--radius-control); font-family:var(--font-sans); font-weight:600; letter-spacing:0.01em; }
+.button-primary{ background:var(--brass); color:#1B1C1E; border:1px solid var(--brass); box-shadow:none; }
+.button-primary:hover{ background:var(--brass-hover); border-color:var(--brass-hover); transform:none; filter:none; box-shadow:none; }
+
+/* Motion — single entrance, not scroll spam */
+.hero-copy{ animation: heroIn 420ms var(--ease-out) both; }
+.hero-panel{ animation: heroIn 420ms var(--ease-out) 80ms both; }
+@keyframes heroIn{ from{ opacity:0; transform:translateY(6px)} to{opacity:1; transform:translateY(0)} }
+.tool-card{ opacity:1; transform:none; transition:border-color var(--duration-fast) var(--ease-out); }
+.tool-card:hover{ transform:none; }
+
+@media (prefers-reduced-motion: reduce) { .hero-copy,.hero-copy .eyebrow,.hero-copy h1,.hero-copy > p,.hero-copy .button,.hero-orbit,.orbit-ring,.orbit-core,.orbit-chip,.status-dot { animation: none !important; } .tool-card,.section-heading,.toolbar { opacity: 1 !important; transform: none !important; transition: none !important; } .hero-panel,.hero-copy{ animation:none !important; } }

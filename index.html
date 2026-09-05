@@ -9,80 +9,134 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
-    /* Security Gate - Polished */
-    #securityGate{position:fixed;inset:0;z-index:9999;background:#0a0c10;display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
+    /* Security Gate — Instrument Panel (dark, hairline, brass) */
+    #securityGate{position:fixed;inset:0;z-index:9999;background:var(--ink-canvas);display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
     #securityGate.hidden{display:none}
-    .gate-card{background:linear-gradient(180deg,#1a1d24 0%,#171a22 100%);padding:32px;border-radius:20px;width:100%;max-width:440px;border:1px solid #2a2e39;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.5)}
-    .gate-card h2{color:#fff;margin:8px 0 6px;font-size:22px;font-weight:700;letter-spacing:-0.3px}
-    .gate-card p.muted{color:#888;font-size:13px}
-    .gate-input{width:100%;padding:13px 14px;margin:8px 0;background:#0f1115;border:1px solid #2a2e39;color:#fff;border-radius:10px;text-align:center;letter-spacing:1px;font-size:14px;transition:border-color 0.2s}
-    .gate-input:focus{outline:none;border-color:#4f46e5}
-    .gate-input.left{text-align:left;letter-spacing:0}
-    .gate-btn{width:100%;padding:13px;background:#4f46e5;color:#fff;border:0;border-radius:10px;cursor:pointer;font-weight:700;font-size:14px;margin-top:10px;transition:all 0.2s;letter-spacing:0.2px}
-    .gate-btn:hover{background:#4338ca;transform:translateY(-1px)}
-    .gate-btn:active{transform:translateY(0)}
-    .gate-btn.secondary{background:#242836;border:1px solid #2a2e39}
-    .gate-btn.secondary:hover{background:#2a2e39}
-    .gate-btn:disabled{opacity:0.6;cursor:not-allowed;transform:none}
-    .gate-link{color:#6366f1;cursor:pointer;font-size:13px;margin-top:16px;display:inline-block;font-weight:600;transition:color 0.2s}
-    .gate-link:hover{color:#818cf8}
-    .gate-error{color:#ef4444;font-size:13px;margin-top:10px;min-height:18px}
-    .gate-admin-panel{text-align:left;max-height:380px;overflow:auto;margin-top:14px;border:1px solid #2a2e39;border-radius:12px;padding:8px;background:#0f1115}
-    .gate-key{font-family:monospace;background:#0f1115;padding:10px 10px;border-radius:8px;margin:6px 0;font-size:11px;border:1px solid #2a2e39;color:#fff;cursor:pointer;transition:all 0.2s}
-    .gate-key:hover{border-color:#4f46e5;background:#13151a}
-    .gate-key-header{display:flex;justify-content:space-between;align-items:center;gap:8px}
-    .gate-key-details{margin-top:8px;padding-top:8px;border-top:1px solid #1f2330;font-family:system-ui;font-size:11px;color:#a1a1aa;line-height:1.6;display:none}
-    .gate-key.expanded .gate-key-details{display:block}
-    .gate-key-details b{color:#e4e4e7}
-    .gate-badge{padding:3px 8px;border-radius:20px;font-size:10px;font-weight:700;white-space:nowrap}
-    .gate-badge-unused{background:#10b981;color:#fff}
-    .gate-badge-used{background:#ef4444;color:#fff}
-    .gate-badge-online{background:#22c55e;color:#fff;animation:pulse 2s infinite}
-    .gate-badge-offline{background:#52525b;color:#fff}
-    .gate-badge-dead{background:#27272a;color:#a1a1aa;border:1px solid #3f3f46}
-    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.7}}
+    .gate-card{background:var(--ink-panel);padding:32px;border:1px solid var(--ink-border);border-radius:var(--radius-panel);width:100%;max-width:440px;text-align:center}
+    .gate-card h2{color:var(--ink-text);margin:8px 0 6px;font-family:var(--font-sans);font-size:var(--text-lg);font-weight:700;letter-spacing:var(--tracking-tight);line-height:var(--leading-heading)}
+    .gate-card p.muted{color:var(--ink-text-muted);font-size:var(--text-sm)}
+    .gate-field{margin:8px 0;text-align:left}
+    .gate-label{display:block;margin-bottom:6px;color:var(--ink-text-muted);font-size:var(--text-xs);font-weight:600;letter-spacing:0.02em}
+    .gate-input{width:100%;padding:12px 14px;background:var(--ink-canvas);border:1px solid var(--ink-border);color:var(--ink-text);border-radius:var(--radius-control);text-align:center;letter-spacing:0.06em;font-family:var(--font-mono);font-size:14px;transition:border-color var(--duration-fast) var(--ease-out)}
+    .gate-input.left{text-align:left;letter-spacing:0;font-family:var(--font-sans)}
+    .gate-input:focus{outline:none;border-color:var(--brass)}
+    .gate-input.mono{font-family:var(--font-mono)}
+    .gate-password-wrap{position:relative}
+    .gate-password-wrap .gate-input{padding-right:44px}
+    .gate-show-btn{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:36px;height:32px;border:1px solid var(--ink-border);border-radius:6px;background:var(--ink-panel-soft);color:var(--ink-text-muted);font-size:10px;font-weight:700;cursor:pointer}
+    .gate-show-btn:hover{border-color:var(--ink-border-strong);color:var(--ink-text)}
+    .gate-btn{width:100%;padding:12px 16px;background:var(--brass);color:#1B1C1E;border:1px solid var(--brass);border-radius:var(--radius-control);cursor:pointer;font-family:var(--font-sans);font-weight:700;font-size:var(--text-sm);margin-top:10px;transition:background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out)}
+    .gate-btn:hover{background:var(--brass-hover);border-color:var(--brass-hover)}
+    .gate-btn.secondary{background:transparent;color:var(--ink-text);border:1px solid var(--ink-border)}
+    .gate-btn.secondary:hover{background:var(--ink-panel-soft);border-color:var(--ink-border-strong)}
+    .gate-btn.destructive{background:transparent;color:var(--hazard);border:1px solid var(--hazard)}
+    .gate-btn.destructive:hover{background:var(--hazard);color:#fff}
+    .gate-btn:disabled{opacity:0.5;cursor:not-allowed}
+    .gate-link{color:var(--brass);cursor:pointer;font-size:13px;margin-top:16px;display:inline-block;font-weight:600}
+    .gate-link:hover{color:var(--brass-hover)}
+    .gate-error{color:var(--hazard);font-size:13px;margin-top:10px;min-height:18px}
+    .gate-hint{color:var(--ink-text-faint);font-size:11px;margin-top:6px}
+    /* Instrument table */
+    .gate-admin-panel{margin-top:14px;border:1px solid var(--ink-border);border-radius:var(--radius-panel);background:var(--ink-canvas);overflow:hidden}
+    .gate-table{width:100%;border-collapse:collapse;font-size:12px}
+    .gate-table th{padding:10px 12px;text-align:left;color:var(--ink-text-faint);font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border-bottom:1px solid var(--ink-border);background:var(--ink-panel-soft)}
+    .gate-table td{padding:10px 12px;border-bottom:1px solid var(--ink-border);vertical-align:top}
+    .gate-table tr:last-child td{border-bottom:none}
+    .gate-table tr{transition:background var(--duration-fast) var(--ease-out)}
+    .gate-table tbody tr:hover{background:rgba(255,255,255,0.02)}
+    .gate-table tbody tr:focus-within{background:rgba(255,255,255,0.03);outline:none}
+    .gate-table .mono{font-family:var(--font-mono);letter-spacing:0.04em}
+    .gate-table tr.row-enter{animation:rowIn var(--duration-base) var(--ease-out)}
+    .gate-table tr.row-exit{animation:rowOut var(--duration-base) var(--ease-out) forwards}
+    @keyframes rowIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes rowOut{to{opacity:0;transform:translateY(-4px);height:0;padding:0}}
+    .gate-badge{padding:3px 8px;border-radius:var(--radius-pill);font-size:10px;font-weight:700;white-space:nowrap;border:1px solid transparent}
+    .gate-badge-unused{background:var(--signal-teal-soft);color:var(--signal-teal);border-color:var(--signal-teal)}
+    .gate-badge-used{background:var(--hazard-soft);color:var(--hazard);border-color:var(--hazard)}
+    .gate-badge-online{background:var(--signal-teal);color:#fff;border-color:var(--signal-teal)}
+    .gate-badge-offline{background:transparent;color:var(--ink-text-faint);border-color:var(--ink-border)}
+    .gate-badge-dead{background:transparent;color:var(--ink-text-faint);border-color:var(--ink-border)}
+    .gate-details{margin-top:8px;padding-top:8px;border-top:1px solid var(--ink-border);font-family:var(--font-sans);font-size:11px;color:var(--ink-text-muted);line-height:1.7}
+    .gate-details b{color:var(--ink-text)}
     #appShell.hidden{display:none}
-    .gate-logout{position:fixed;top:14px;right:14px;z-index:9998;background:#1a1d24;color:#fff;border:1px solid #2a2e39;padding:8px 14px;border-radius:20px;font-size:12px;cursor:pointer;display:none;font-weight:600}
+    .gate-logout{position:fixed;top:14px;right:14px;z-index:9998;background:var(--ink-panel);color:var(--ink-text);border:1px solid var(--ink-border);padding:8px 14px;border-radius:var(--radius-pill);font-size:12px;font-weight:600;cursor:pointer;display:none}
     .gate-logout.show{display:block}
-    .gate-logout:hover{background:#242836}
+    .gate-logout:hover{border-color:var(--ink-border-strong)}
+    @media (prefers-reduced-motion: reduce){ .gate-table tr.row-enter,.gate-table tr.row-exit{animation:none} }
   </style>
 </head>
 <body>
-  <!-- Security Gate -->
-  <div id="securityGate">
+  <!-- Security Gate — Instrument Panel -->
+  <div id="securityGate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+    <!-- User gate -->
     <div class="gate-card" id="gateLogin">
-      <div style="font-size:32px;margin-bottom:4px">🔑</div>
-      <h2>Enter Security Key</h2>
-      <p class="muted">One-time use only. After logout key expires.</p>
-      <input id="gateKeyInput" class="gate-input" placeholder="XXXX-XXXX-XXXX-XXXX" autocomplete="off" spellcheck="false">
-      <button id="gateUnlockBtn" class="gate-btn" onclick="gateUserLogin()">Unlock OmniTools →</button>
-      <div id="gateLoginMsg" class="gate-error"></div>
-      <div style="margin-top:18px;padding-top:16px;border-top:1px solid #1f2330">
-        <span class="gate-link" onclick="gateShowAdminLogin()">Admin Login →</span>
+      <div style="font-size:28px;margin-bottom:4px" aria-hidden="true">⌖</div>
+      <h2 id="gateTitle">Enter security key</h2>
+      <p class="muted">One-time use. Key expires after logout.</p>
+      <div class="gate-field">
+        <label class="gate-label" for="gateKeyInput">Security key</label>
+        <input id="gateKeyInput" class="gate-input mono" placeholder="XXXX-XXXX-XXXX-XXXX" autocomplete="off" spellcheck="false" aria-describedby="gateKeyHint" aria-required="true">
+        <div id="gateKeyHint" class="gate-hint">Format: XXXX-XXXX-XXXX-XXXX — letters A–Z, digits 2–9</div>
       </div>
-      <p class="muted" style="margin-top:10px;font-size:11px;opacity:0.7">Protected by one-time keys</p>
+      <button id="gateUnlockBtn" class="gate-btn" onclick="gateUserLogin()">Unlock OmniTools</button>
+      <div id="gateLoginMsg" class="gate-error" role="alert" aria-live="polite"></div>
+      <div style="margin-top:18px;padding-top:16px;border-top:1px solid var(--ink-border)">
+        <button class="gate-link" style="background:none;border:none" onclick="gateShowAdminLogin()">Admin login</button>
+      </div>
     </div>
+    <!-- Admin login -->
     <div class="gate-card hidden" id="gateAdminLogin">
-      <div style="font-size:24px;margin-bottom:4px">🛡️</div>
-      <h2>Admin Access</h2>
-      <p class="muted" style="margin-bottom:12px">Enter admin credentials</p>
-      <input id="gateAdminId" class="gate-input left" placeholder="Admin ID" autocomplete="username" spellcheck="false">
-      <input id="gateAdminPass" type="password" class="gate-input left" placeholder="Password" autocomplete="current-password">
-      <button class="gate-btn" onclick="gateAdminLogin()">Login to Dashboard →</button>
-      <div id="gateAdminMsg" class="gate-error"></div>
-      <span class="gate-link" onclick="gateShowUserLogin()">← Back to User Login</span>
+      <div style="font-size:22px;margin-bottom:4px" aria-hidden="true">⬢</div>
+      <h2>Admin access</h2>
+      <p class="muted" style="margin-bottom:12px">Enter admin credentials to manage keys.</p>
+      <div class="gate-field">
+        <label class="gate-label" for="gateAdminId">Admin ID</label>
+        <input id="gateAdminId" class="gate-input left" placeholder="" autocomplete="username" spellcheck="false" aria-required="true">
+      </div>
+      <div class="gate-field">
+        <label class="gate-label" for="gateAdminPass">Password</label>
+        <div class="gate-password-wrap">
+          <input id="gateAdminPass" type="password" class="gate-input left" placeholder="" autocomplete="current-password" aria-required="true">
+          <button type="button" class="gate-show-btn touch-44" id="gateShowPassBtn" aria-label="Show password" aria-pressed="false" onclick="gateTogglePass()">Show</button>
+        </div>
+      </div>
+      <button class="gate-btn" onclick="gateAdminLogin()">Login to dashboard</button>
+      <div id="gateAdminMsg" class="gate-error" role="alert" aria-live="polite"></div>
+      <button class="gate-link" style="background:none;border:none" onclick="gateShowUserLogin()">Back to user login</button>
     </div>
-    <div class="gate-card hidden" id="gateAdminPanel" style="max-width:560px;text-align:left">
-      <h2 style="text-align:center">Admin Dashboard <span style="font-size:10px;background:#4f46e5;padding:3px 7px;border-radius:20px;vertical-align:middle">DB</span></h2>
-      <p class="muted" style="text-align:center;margin:6px 0 12px">Unused: <b id="gateUnused" style="color:#10b981">-</b> &nbsp;|&nbsp; Used: <b id="gateUsed" style="color:#ef4444">-</b> &nbsp;|&nbsp; Total: <b id="gateTotal">-</b></p>
-      <div style="display:flex;gap:8px"><button class="gate-btn" onclick="gateGenerateKeys(100)">Generate 100 Keys</button><button class="gate-btn secondary" onclick="gateGenerateKeys(10)">+10</button></div>
-      <div style="display:flex;gap:8px"><button class="gate-btn secondary" onclick="gateLoadKeys()">↻ Refresh</button><button class="gate-btn" style="background:#ef4444" onclick="gateClearUsed()">Delete Used</button></div>
-      <div id="gateKeyList" class="gate-admin-panel">Loading...</div>
-      <p class="muted" style="font-size:11px;text-align:center;margin-top:8px">💡 Click a <b>used</b> key to see device, location & time</p>
-      <button class="gate-btn" style="background:#10b981" onclick="gateDownloadKeys()">Download Unused (txt)</button>
+    <!-- Admin dashboard — instrument panel -->
+    <div class="gate-card hidden" id="gateAdminPanel" style="max-width:720px;text-align:left">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <h2 style="margin:0">Admin dashboard</h2>
+        <span style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-text-faint);border:1px solid var(--ink-border);padding:3px 7px;border-radius:var(--radius-pill)">DB</span>
+      </div>
+      <div aria-live="polite" aria-atomic="true" style="text-align:center;margin:8px 0 12px;color:var(--ink-text-muted);font-size:13px">
+        Unused: <b id="gateUnused" style="color:var(--signal-teal)">-</b> &nbsp;|&nbsp; Used: <b id="gateUsed" style="color:var(--hazard)">-</b> &nbsp;|&nbsp; Total: <b id="gateTotal">-</b>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="gate-btn" style="flex:1;min-width:140px" onclick="gateGenerateKeys(100)">Generate 100 keys</button>
+        <button class="gate-btn secondary" style="flex:0 0 auto" onclick="gateGenerateKeys(10)">+10</button>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="gate-btn secondary" style="flex:1" onclick="gateLoadKeys()">Refresh</button>
+        <button class="gate-btn destructive" style="flex:1" onclick="gateClearUsed()">Delete used</button>
+      </div>
+      <div class="gate-admin-panel" style="margin-top:14px">
+        <table class="gate-table" aria-label="Security keys">
+          <thead>
+            <tr><th scope="col">Key</th><th scope="col">Status</th><th scope="col">Last seen</th></tr>
+          </thead>
+          <tbody id="gateKeyBody">
+            <tr><td colspan="3" style="text-align:center;color:var(--ink-text-muted);padding:20px">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="gate-hint" style="text-align:center;margin-top:8px">Select a used key row to reveal device, location and time. Keys are monospace — real data.</p>
+      <button class="gate-btn" style="background:var(--signal-teal);border-color:var(--signal-teal);color:#fff" onclick="gateDownloadKeys()">Download unused (txt)</button>
       <button class="gate-btn secondary" onclick="gateAdminLogout()">Logout</button>
     </div>
   </div>
@@ -125,21 +179,32 @@
 
     <main id="top">
       <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-watermark" aria-hidden="true">TOOLS</div>
         <div class="hero-copy">
-          <div class="eyebrow"><span class="status-dot"></span> A smarter way to get things done</div>
-          <h1 id="hero-title">Your everyday tools,<br><span>in one place.</span></h1>
-          <p>One focused workspace for the small jobs that keep your day moving. Simple tools, designed to feel like superpowers.</p>
-          <a class="button button-primary" href="#tools">Explore all tools <span aria-hidden="true">-&gt;</span></a>
+          <p style="margin:0 0 12px;color:var(--text-muted);font-size:var(--text-sm)">A focused workspace for document and data work.</p>
+          <h1 id="hero-title">Your everyday tools,<br>in one place</h1>
+          <p>Small utilities for converting documents, generating keys and automating repetitive steps. Built as precise instruments — panels, keys and drawers, not marketing gloss.</p>
+          <a class="button button-primary" href="#tools">Explore all tools</a>
         </div>
-        <div class="hero-orbit" aria-hidden="true">
-          <div class="orbit-ring ring-one"></div>
-          <div class="orbit-ring ring-two"></div>
-          <div class="orbit-core"><span>O</span></div>
-          <span class="orbit-chip chip-one">DOCX</span>
-          <span class="orbit-chip chip-two">AI</span>
-          <span class="orbit-chip chip-three">CSV</span>
-          <span class="orbit-chip chip-four">FLOW</span>
+        <div class="hero-panel" aria-hidden="true">
+          <div class="hero-panel-head">
+            <span class="hero-panel-title">Key generator — preview</span>
+            <span class="hero-panel-meta">Live panel</span>
+          </div>
+          <div class="hero-panel-body">
+            <div class="hero-key-row">
+              <span class="hero-key mono">A3F9-K2P8-M7Q1-R4W6</span>
+              <span class="gate-badge gate-badge-unused">UNUSED</span>
+            </div>
+            <div class="hero-key-row">
+              <span class="hero-key mono">B7L2-Q9W4-E1R8-T5Y3</span>
+              <span class="gate-badge gate-badge-used">USED</span>
+            </div>
+            <div class="hero-panel-foot">
+              <span>Generated 100 keys</span>
+              <span class="mono" style="color:var(--text-faint)">2026-09-05</span>
+            </div>
+          </div>
+          <div class="hero-panel-rail" aria-hidden="true"></div>
         </div>
       </section>
 
@@ -279,6 +344,14 @@
   async function gateGenerateKeys(n){
     try{ await gateRequireDB(); const keys=[]; for(let i=0;i<n;i++) keys.push({key:gateGenKey(), status:"unused"}); const {error}=await gateSupabase.from("security_keys").insert(keys); if(error) throw error; alert(n+" keys generated!"); gateLoadKeys(); }catch(e){ alert(e.message); }
   }
+  function gateTogglePass(){
+    const inp=document.getElementById("gateAdminPass"), btn=document.getElementById("gateShowPassBtn");
+    const show=inp.type==="password";
+    inp.type=show?"text":"password";
+    btn.textContent=show?"Hide":"Show";
+    btn.setAttribute("aria-pressed", show?"true":"false");
+    btn.setAttribute("aria-label", show?"Hide password":"Show password");
+  }
   function gateFormatDate(s){
     if(!s) return "—";
     try{ const d=new Date(s); return d.toLocaleString(); }catch{ return s; }
@@ -286,34 +359,56 @@
   async function gateLoadKeys(){
     try{
       await gateRequireDB();
-      const list=document.getElementById("gateKeyList"); list.textContent="Loading...";
+      const tbody=document.getElementById("gateKeyBody");
+      tbody.innerHTML='<tr><td colspan="3" style="text-align:center;color:var(--ink-text-muted);padding:20px">Loading…</td></tr>';
       const {data, error}=await gateSupabase.from("security_keys").select("*").order("created_at",{ascending:false}).limit(500);
       if(error) throw error;
       document.getElementById("gateUnused").textContent=data.filter(k=>k.status==="unused").length;
       document.getElementById("gateUsed").textContent=data.filter(k=>k.status==="used").length;
       document.getElementById("gateTotal").textContent=data.length;
-      if(!data.length){ list.innerHTML="<p class='muted' style='text-align:center'>No keys yet. Generate 100.</p>"; return; }
-      list.innerHTML="";
+      if(!data.length){ tbody.innerHTML='<tr><td colspan="3" style="text-align:center;color:var(--ink-text-muted);padding:20px">No keys yet. Generate 100.</td></tr>'; return; }
+      tbody.innerHTML="";
       data.forEach(k=>{
         const isUsed=k.status==="used";
         const isOnline=k.is_online===true;
         let badgeClass="gate-badge-unused", badgeText="UNUSED";
-        if(isUsed) { badgeClass=isOnline?"gate-badge-online":"gate-badge-dead"; badgeText=isOnline?"● ONLINE":"○ OFFLINE / DEAD"; }
-        const d=document.createElement("div"); d.className="gate-key"+(isUsed?" used":"");
-        const details=isUsed?`
-          <div class="gate-key-details">
+        if(isUsed) { badgeClass=isOnline?"gate-badge-online":"gate-badge-dead"; badgeText=isOnline?"ONLINE":"OFFLINE / DEAD"; }
+        const tr=document.createElement("tr");
+        tr.tabIndex=isUsed?0:-1;
+        tr.setAttribute("role", isUsed?"button":"row");
+        if(isUsed) tr.setAttribute("aria-expanded","false");
+        tr.addEventListener("keydown", e=>{ if(isUsed && (e.key==="Enter"||e.key===" ")){ e.preventDefault(); tr.click(); }});
+        const detailsId="gate-details-"+k.id;
+        tr.innerHTML=`
+          <td class="mono">${k.key}${isUsed?`<div id="${detailsId}" class="gate-details" hidden>
             <div><b>Device:</b> ${k.device||"Unknown"}</div>
             <div><b>Location:</b> ${k.location||"Unknown"} ${k.ip?`(${k.ip})`:""}</div>
             <div><b>Used:</b> ${gateFormatDate(k.used_at)}</div>
             <div><b>Last seen:</b> ${gateFormatDate(k.last_seen||k.used_at)}</div>
-            <div><b>Status:</b> ${isOnline?'<span style="color:#22c55e">● Online</span>':'<span style="color:#a1a1aa">○ Offline / Dead (logged out)</span>'}</div>
+            <div><b>Status:</b> ${isOnline?'<span style="color:var(--signal-teal)">Online</span>':'<span style="color:var(--ink-text-faint)">Offline / Dead</span>'}</div>
             <div style="margin-top:4px;opacity:0.7;word-break:break-all"><b>UA:</b> ${k.user_agent||"—"}</div>
-          </div>`:`<div class="gate-key-details"><b>Status:</b> Never used • Ready to assign</div>`;
-        d.innerHTML=`<div class="gate-key-header"><span>${k.key}</span><span class="gate-badge ${badgeClass}">${badgeText}</span></div>${details}`;
-        if(isUsed) d.onclick=()=> d.classList.toggle("expanded");
-        list.appendChild(d);
+          </div>`:""}
+          </td>
+          <td><span class="gate-badge ${badgeClass}">${badgeText}</span></td>
+          <td class="mono" style="color:var(--ink-text-muted);font-size:11px">${isUsed?gateFormatDate(k.last_seen||k.used_at):"—"}</td>
+        `;
+        if(isUsed){
+          tr.style.cursor="pointer";
+          tr.addEventListener("click", ()=>{
+            const det=document.getElementById(detailsId);
+            const expanded=det.hidden===false;
+            det.hidden=expanded;
+            tr.setAttribute("aria-expanded", expanded?"false":"true");
+          });
+          // enter animation
+          tr.classList.add("row-enter");
+        }
+        tbody.appendChild(tr);
       });
-    }catch(e){ document.getElementById("gateKeyList").textContent="Error: "+e.message; }
+    }catch(e){
+      const tbody=document.getElementById("gateKeyBody");
+      if(tbody) tbody.innerHTML=`<tr><td colspan="3" style="color:var(--hazard);text-align:center;padding:20px">Error: ${e.message}</td></tr>`;
+    }
   }
   async function gateClearUsed(){ if(!confirm("Delete used keys?")) return; try{ await gateRequireDB(); const {error}=await gateSupabase.from("security_keys").delete().eq("status","used"); if(error) throw error; gateLoadKeys(); }catch(e){ alert(e.message);} }
   async function gateDownloadKeys(){ try{ await gateRequireDB(); const {data,error}=await gateSupabase.from("security_keys").select("key").eq("status","unused").order("created_at"); if(error) throw error; if(!data.length) return alert("No unused keys"); const txt=data.map(r=>r.key).join("\n"); const b=new Blob([txt],{type:"text/plain"}); const a=document.createElement("a"); a.href=URL.createObjectURL(b); a.download="omni-keys.txt"; a.click(); }catch(e){ alert(e.message);} }

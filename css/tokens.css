@@ -1,0 +1,149 @@
+/* OmniTools — Instrument Panel Design Tokens
+   Single source of truth. All components build from these variables.
+   Dark is default; light via [data-theme="light"].
+   Rationale: Instrument Panel — steel/graphite surfaces, brass hardware, hairline seams.
+*/
+
+/* Load type — IBM Plex Sans (UI) + IBM Plex Mono (data) */
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap");
+
+:root {
+  /* ——— Dark (primary/default) ——— */
+  --ink-canvas: #1B1C1E;
+  --ink-panel: #232427;
+  --ink-panel-soft: #2A2C2E;
+  --ink-border: rgba(255,255,255,0.08);
+  --ink-border-strong: rgba(255,255,255,0.14);
+  --ink-text: #EDEAE3;
+  --ink-text-muted: #A6A29B;
+  --ink-text-faint: #7E7B75;
+
+  /* Light */
+  --paper-canvas: #EDEBE6;
+  --paper-panel: #F7F5F1;
+  --paper-panel-soft: #EDE9E2;
+  --paper-border: rgba(20,20,18,0.12);
+  --paper-border-strong: rgba(20,20,18,0.18);
+  --paper-text: #201F1D;
+  --paper-text-muted: #63605A;
+  --paper-text-faint: #8C8881;
+
+  /* Accents — shared */
+  --brass: #B8863B;
+  --brass-hover: #9D6F2E;
+  --brass-text: #8A5F1E;
+  --brass-soft: rgba(184,134,59,0.12);
+  --brass-border: rgba(184,134,59,0.28);
+  --signal-teal: #2F7A6B;
+  --signal-teal-soft: rgba(47,122,107,0.12);
+  --hazard: #C4472B;
+  --hazard-hover: #A93D25;
+  --hazard-soft: rgba(196,71,43,0.12);
+
+  /* Semantic — default to dark */
+  --canvas: var(--ink-canvas);
+  --panel: var(--ink-panel);
+  --panel-soft: var(--ink-panel-soft);
+  --border: var(--ink-border);
+  --border-strong: var(--ink-border-strong);
+  --text: var(--ink-text);
+  --text-muted: var(--ink-text-muted);
+  --text-faint: var(--ink-text-faint);
+
+  /* Type */
+  --font-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Code", monospace;
+  --text-base: 16px;
+  --leading-body: 1.6;
+  --leading-heading: 1.15;
+  --tracking-tight: -0.02em;
+
+  /* Scale — 1.25 ratio off 16px: 12.8 / 16 / 20 / 25 / 31 / 39 / 49 / 61 */
+  --text-xs: 0.8rem;    /* 12.8 */
+  --text-sm: 0.875rem;  /* 14 */
+  --text-base-r: 1rem;  /* 16 */
+  --text-md: 1.25rem;   /* 20 */
+  --text-lg: 1.5625rem; /* 25 */
+  --text-xl: 1.9375rem; /* 31 */
+  --text-2xl: 2.4375rem;/* 39 */
+  --text-3xl: 3.0625rem;/* 49 */
+
+  /* Spacing — 4px base */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* Shape — panels are sharp, controls are rounded */
+  --radius-panel: 4px;
+  --radius-control: 10px;
+  --radius-pill: 999px;
+  --radius-key: 8px;
+
+  /* Elevation — hairline, not shadow */
+  --hairline: 1px solid var(--border);
+  --hairline-strong: 1px solid var(--border-strong);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-base: 220ms;
+
+  /* Focus */
+  --focus-ring: 0 0 0 2px var(--canvas), 0 0 0 4px var(--brass);
+
+  /* Legacy aliases — map old --primary/--accent etc to new system for gradual migration */
+  --primary: var(--brass);
+  --accent: var(--brass);
+  --secondary: var(--signal-teal);
+  --success: var(--signal-teal);
+  --bg: var(--canvas);
+  --surface: var(--panel);
+  --surface-soft: var(--panel-soft);
+  --muted: var(--text-muted);
+  --muted-strong: var(--text);
+  --shadow: none;
+  --shadow-small: none;
+  --radius-lg: var(--radius-panel);
+  --radius-md: var(--radius-panel);
+  --radius-sm: var(--radius-control);
+}
+
+[data-theme="light"] {
+  --canvas: var(--paper-canvas);
+  --panel: var(--paper-panel);
+  --panel-soft: var(--paper-panel-soft);
+  --border: var(--paper-border);
+  --border-strong: var(--paper-border-strong);
+  --text: var(--paper-text);
+  --text-muted: var(--paper-text-muted);
+  --text-faint: var(--paper-text-faint);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  :root { --duration-fast: 1ms; --duration-base: 1ms; }
+}
+
+/* Base resets that enforce tokens */
+html { font-size: var(--text-base); }
+body {
+  font-family: var(--font-sans);
+  background: var(--canvas);
+  color: var(--text);
+  line-height: var(--leading-body);
+}
+code, kbd, pre, .mono { font-family: var(--font-mono); }
+
+/* Focus — high-visibility offset ring, never outline:none without replacement */
+:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+:focus:not(:focus-visible) { box-shadow: none; }
+
+/* Ensure minimum 44×44 touch target for icon controls via utility */
+.touch-44 { min-width: 44px; min-height: 44px; }
