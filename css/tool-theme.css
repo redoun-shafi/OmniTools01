@@ -9,7 +9,8 @@
 [data-theme="dark"] { --primary:#9fbd74; --secondary:#d39b5f; --accent:#e3bf68; --tool-bg:#172019; --tool-surface:#213025; --tool-surface-soft:#293a2b; --tool-border:#405542; --tool-text:#f5f1e8; --tool-muted:#b9c3b2; --tool-danger:#f17a67; --tool-success:#91cb8d; }
 [data-theme="colorful"] { --primary:#5c4fb1; --secondary:#d26b48; --accent:#e2ad45; --tool-bg:#f5f0ff; --tool-surface:#fffaff; --tool-surface-soft:#eee8ff; --tool-border:#d9d0ef; --tool-text:#26203d; --tool-muted:#716a84; --tool-danger:#c63f50; --tool-success:#3d8b68; }
 
-.theme-control select { min-height: 40px; border: 1px solid var(--tool-border); border-radius: 10px; background: var(--tool-surface); color: var(--tool-text); padding: 8px 28px 8px 10px; font: 600 12px "DM Sans", sans-serif; cursor: pointer; }
+.theme-control select { min-height: 44px; border: 1px solid var(--tool-border); border-radius: 10px; background: var(--tool-surface); color: var(--tool-text); padding: 8px 28px 8px 10px; font: 600 12px "DM Sans", system-ui, sans-serif; cursor: pointer; }
+.theme-control select:focus-visible { outline: 3px solid color-mix(in srgb, var(--primary) 55%, white); outline-offset: 2px; }
 html[data-theme] .extension-hero { background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 13%, var(--tool-surface)), color-mix(in srgb, var(--secondary) 10%, var(--tool-surface))); }
 html[data-theme] .extension-card { background: var(--tool-surface); border-color: var(--tool-border); }
 html[data-theme] .extension-note { background: color-mix(in srgb, #f59e0b 12%, var(--tool-surface)); color: var(--tool-text); }
