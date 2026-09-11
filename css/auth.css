@@ -1,0 +1,510 @@
+/* Calm Blue — OmniTools Authentication & User System Stylesheet
+   Palette: Sky Blue #90D5FF, Bright Blue #57B9FF, Dusty Blue #77B1D4, Slate Blue #517891, Canvas #FFFFFF, Off-White #FAFCFF
+   Font: "Tenor Sans", sans-serif
+*/
+
+/* --- Topbar Auth Controls --- */
+.omni-auth-container {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  font-family: var(--font-primary, "Tenor Sans", sans-serif);
+}
+
+.omni-auth-btn-signin {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 6px 16px;
+  border: 1px solid var(--tool-border, var(--border));
+  border-radius: var(--radius-pill, 9999px);
+  background: var(--tool-surface, var(--surface));
+  color: var(--tool-text, var(--text));
+  font-size: 0.82rem;
+  font-family: inherit;
+  cursor: pointer;
+  letter-spacing: var(--tracking-normal, 0.01em);
+  transition: all var(--duration-fast, 180ms) ease;
+  box-shadow: var(--shadow-subtle, 0 1px 2px rgba(81, 120, 145, 0.06));
+}
+
+.omni-auth-btn-signin:hover {
+  border-color: var(--color-bright-blue, #57B9FF);
+  color: var(--color-bright-blue, #57B9FF);
+  background: var(--surface-soft, #F2F8FD);
+  transform: translateY(-1px);
+}
+
+.omni-auth-user-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 12px 4px 4px;
+  border: 1px solid var(--tool-border, var(--border));
+  border-radius: var(--radius-pill, 9999px);
+  background: var(--tool-surface, var(--surface));
+  color: var(--tool-text, var(--text));
+  cursor: pointer;
+  font-family: inherit;
+  transition: all var(--duration-fast, 180ms) ease;
+  user-select: none;
+}
+
+.omni-auth-user-badge:hover,
+.omni-auth-user-badge[aria-expanded="true"] {
+  border-color: var(--color-bright-blue, #57B9FF);
+  background: var(--surface-soft, #F2F8FD);
+}
+
+.omni-auth-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-bright-blue, #57B9FF);
+  color: #FFFFFF;
+  display: grid;
+  place-items: center;
+  font-size: 0.76rem;
+  font-weight: 500;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(81, 120, 145, 0.15);
+  flex-shrink: 0;
+}
+
+.omni-auth-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.omni-auth-user-name {
+  font-size: 0.8rem;
+  color: var(--tool-text, var(--text));
+  max-width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.omni-auth-caret {
+  width: 12px;
+  height: 12px;
+  opacity: 0.65;
+  transition: transform var(--duration-fast, 180ms) ease;
+}
+
+.omni-auth-user-badge[aria-expanded="true"] .omni-auth-caret {
+  transform: rotate(180deg);
+}
+
+/* User Profile Dropdown Menu */
+.omni-auth-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 260px;
+  background: var(--tool-surface, var(--surface));
+  border: 1px solid var(--tool-border, var(--border));
+  border-radius: var(--radius-lg, 12px);
+  box-shadow: var(--shadow-modal, 0 16px 36px -8px rgba(81, 120, 145, 0.22));
+  padding: 8px;
+  z-index: 100;
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  animation: omniFadeIn 0.15s ease-out;
+}
+
+.omni-auth-dropdown.open {
+  display: flex;
+}
+
+.omni-dropdown-header {
+  padding: 10px 12px 12px;
+  border-bottom: 1px solid var(--tool-border, var(--border));
+  margin-bottom: 4px;
+}
+
+.omni-dropdown-user-fullname {
+  font-size: 0.88rem;
+  font-weight: 400;
+  color: var(--tool-text, var(--text));
+  margin-bottom: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.omni-dropdown-user-email {
+  font-size: 0.74rem;
+  color: var(--tool-muted, var(--text-muted));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.omni-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm, 6px);
+  font-size: 0.8rem;
+  color: var(--tool-text, var(--text));
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all var(--duration-fast, 180ms) ease;
+}
+
+.omni-dropdown-item:hover {
+  background: var(--surface-soft, #F2F8FD);
+  color: var(--color-bright-blue, #57B9FF);
+}
+
+.omni-dropdown-item.danger {
+  color: #d9534f;
+}
+
+.omni-dropdown-item.danger:hover {
+  background: rgba(217, 83, 79, 0.08);
+  color: #c9302c;
+}
+
+.omni-dropdown-divider {
+  height: 1px;
+  background: var(--tool-border, var(--border));
+  margin: 4px 0;
+}
+
+/* --- Auth Modal Overlay & Card --- */
+.omni-auth-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(24, 40, 51, 0.55);
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  font-family: var(--font-primary, "Tenor Sans", sans-serif);
+}
+
+.omni-auth-modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.omni-auth-modal {
+  width: 100%;
+  max-width: 440px;
+  background: var(--tool-surface, var(--surface));
+  border: 1px solid var(--tool-border, var(--border));
+  border-radius: var(--radius-lg, 12px);
+  box-shadow: 0 24px 48px -12px rgba(81, 120, 145, 0.3);
+  overflow: hidden;
+  transform: translateY(12px) scale(0.98);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.omni-auth-modal-overlay.open .omni-auth-modal {
+  transform: translateY(0) scale(1);
+}
+
+.omni-auth-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--tool-border, var(--border));
+  background: var(--surface-soft, #F2F8FD);
+}
+
+.omni-auth-modal-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.12rem;
+  color: var(--tool-text, var(--text));
+  font-weight: 400;
+  margin: 0;
+}
+
+.omni-auth-modal-title span.badge {
+  font-size: 0.68rem;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill, 9999px);
+  background: var(--color-sky-blue, #90D5FF);
+  color: var(--color-slate-blue, #517891);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.omni-auth-modal-close {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm, 6px);
+  color: var(--tool-muted, var(--text-muted));
+  font-size: 1.25rem;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  transition: all var(--duration-fast, 180ms) ease;
+}
+
+.omni-auth-modal-close:hover {
+  background: var(--tool-surface, var(--surface));
+  color: var(--tool-text, var(--text));
+  border-color: var(--tool-border, var(--border));
+}
+
+/* Modal Navigation Tabs */
+.omni-auth-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--tool-border, var(--border));
+  background: var(--tool-surface, var(--surface));
+  padding: 0 16px;
+  gap: 8px;
+}
+
+.omni-auth-tab {
+  padding: 12px 14px;
+  font-size: 0.82rem;
+  color: var(--tool-muted, var(--text-muted));
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all var(--duration-fast, 180ms) ease;
+}
+
+.omni-auth-tab:hover {
+  color: var(--tool-text, var(--text));
+}
+
+.omni-auth-tab.active {
+  color: var(--color-bright-blue, #57B9FF);
+  border-bottom-color: var(--color-bright-blue, #57B9FF);
+}
+
+.omni-auth-modal-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 75vh;
+  overflow-y: auto;
+}
+
+/* Form Elements */
+.omni-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.omni-form-label {
+  font-size: 0.8rem;
+  color: var(--tool-text, var(--text));
+  letter-spacing: var(--tracking-wide, 0.02em);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.omni-form-label a {
+  font-size: 0.75rem;
+  color: var(--color-bright-blue, #57B9FF);
+  text-decoration: none;
+}
+
+.omni-form-label a:hover {
+  text-decoration: underline;
+}
+
+.omni-form-input {
+  min-height: 42px;
+  padding: 8px 14px;
+  border: 1px solid var(--tool-border, var(--border));
+  border-radius: var(--radius-control, 8px);
+  background: var(--bg, var(--color-off-white, #FAFCFF));
+  color: var(--tool-text, var(--text));
+  font-size: 0.85rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color var(--duration-fast, 180ms) ease, box-shadow var(--duration-fast, 180ms) ease;
+  width: 100%;
+}
+
+.omni-form-input:focus {
+  border-color: var(--color-bright-blue, #57B9FF);
+  box-shadow: var(--focus-ring, 0 0 0 3px rgba(87, 185, 255, 0.25));
+  background: var(--tool-surface, var(--surface));
+}
+
+.omni-form-input::placeholder {
+  color: var(--tool-muted, var(--text-muted));
+  opacity: 0.65;
+}
+
+.omni-form-help {
+  font-size: 0.72rem;
+  color: var(--tool-muted, var(--text-muted));
+  line-height: 1.4;
+}
+
+/* Buttons */
+.omni-auth-submit {
+  min-height: 44px;
+  padding: 10px 20px;
+  background: var(--color-bright-blue, #57B9FF);
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-control, 8px);
+  font-size: 0.86rem;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--duration-fast, 180ms) ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: var(--shadow-subtle, 0 1px 2px rgba(81, 120, 145, 0.06));
+}
+
+.omni-auth-submit:hover:not(:disabled) {
+  background: #47abf2;
+  transform: translateY(-1px);
+}
+
+.omni-auth-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.omni-btn-secondary {
+  min-height: 40px;
+  padding: 8px 16px;
+  background: var(--color-sky-blue, #90D5FF);
+  color: var(--color-slate-blue, #517891);
+  border: 1px solid var(--tool-border, var(--border));
+  border-radius: var(--radius-control, 8px);
+  font-size: 0.82rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all var(--duration-fast, 180ms) ease;
+}
+
+.omni-btn-secondary:hover {
+  background: #7ecbfb;
+  transform: translateY(-1px);
+}
+
+/* Auth Alerts & Messages */
+.omni-auth-alert {
+  padding: 10px 14px;
+  border-radius: var(--radius-md, 8px);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  display: none;
+}
+
+.omni-auth-alert.visible {
+  display: block;
+  animation: omniFadeIn 0.2s ease;
+}
+
+.omni-auth-alert.error {
+  background: rgba(217, 83, 79, 0.12);
+  border: 1px solid rgba(217, 83, 79, 0.35);
+  color: #b92c28;
+}
+
+[data-theme="dark"] .omni-auth-alert.error {
+  background: rgba(217, 83, 79, 0.2);
+  border-color: rgba(217, 83, 79, 0.5);
+  color: #ff8581;
+}
+
+.omni-auth-alert.success {
+  background: rgba(87, 185, 255, 0.15);
+  border: 1px solid var(--color-bright-blue, #57B9FF);
+  color: var(--color-slate-blue, #517891);
+}
+
+[data-theme="dark"] .omni-auth-alert.success {
+  background: rgba(87, 185, 255, 0.2);
+  color: var(--color-sky-blue, #90D5FF);
+}
+
+.omni-auth-alert.info {
+  background: var(--surface-soft, #F2F8FD);
+  border: 1px solid var(--tool-border, var(--border));
+  color: var(--tool-text, var(--text));
+}
+
+.omni-auth-footer-link {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--tool-muted, var(--text-muted));
+  margin-top: 6px;
+}
+
+.omni-auth-footer-link a {
+  color: var(--color-bright-blue, #57B9FF);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.omni-auth-footer-link a:hover {
+  text-decoration: underline;
+}
+
+/* Spinner indicator */
+.omni-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #FFFFFF;
+  border-radius: 50%;
+  animation: omniSpin 0.6s linear infinite;
+  display: inline-block;
+}
+
+@keyframes omniSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes omniFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive adjustment */
+@media (max-width: 480px) {
+  .omni-auth-user-name {
+    display: none;
+  }
+  .omni-auth-modal {
+    max-width: 100%;
+    margin: 10px;
+  }
+  .omni-auth-dropdown {
+    width: 230px;
+  }
+}

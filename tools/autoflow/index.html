@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="../../css/tokens.css">
   <link rel="stylesheet" href="../../css/tool-page.css">
   <link rel="stylesheet" href="../../css/tool-theme.css">
+  <link rel="stylesheet" href="../../css/auth.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <div class="tool-shell">
@@ -103,6 +105,15 @@
       <p class="tool-note">Auto Flow v3.1.0 &bull; OmniTools Calm Blue Edition &bull; Local in-browser processing</p>
     </main>
   </div>
+  <script src="../../js/supabase-client.js"></script>
+  <script src="../../js/auth-ui.js"></script>
   <script src="../../js/theme.js"></script>
+  <script>
+    document.querySelector('.extension-button')?.addEventListener('click', function() {
+      if (window.OmniSupabase && typeof window.OmniSupabase.logToolActivity === 'function') {
+        window.OmniSupabase.logToolActivity('Auto Flow', 'download_extension', { version: '3.1.0' });
+      }
+    });
+  </script>
 </body>
 </html>
