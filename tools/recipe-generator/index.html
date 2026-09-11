@@ -248,9 +248,11 @@
 
     .progress-bar {
       height: 100%;
-      width: 0%;
+      width: 100%;
       background: var(--color-bright-blue);
-      transition: width 0.2s ease;
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.2s ease;
     }
 
     .progress-text {
@@ -449,7 +451,7 @@ function generate() {
     setTimeout(() => {
       count++;
       let percent = Math.floor((count / inputs.length) * 100);
-      bar.style.width = percent + "%";
+      bar.style.transform = "scaleX(" + percent / 100 + ")";
       text.innerText = percent + "%";
     }, i * 2);
   });
@@ -496,7 +498,7 @@ function downloadDoc() {
 function clearGrid() {
   document.querySelectorAll("td input").forEach(input => { input.value = ""; });
   document.getElementById("output").innerText = "Your generated recipe index will appear here.";
-  document.getElementById("progressBar").style.width = "0%";
+  document.getElementById("progressBar").style.transform = "scaleX(0)";
   document.getElementById("progressText").innerText = "0%";
 }
 </script>
