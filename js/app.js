@@ -35,13 +35,38 @@ function renderTools() {
       ${tool.updated ? `<div class="card-updated"><span class="updated-dot"></span> ${tool.updated}</div>` : ''}
       <div class="tool-card-footer">
         <span class="tool-category">${tool.category}</span>
-        ${tool.status === 'Coming soon' ? '<span class="tool-coming">Coming soon</span>' : `<a class="tool-open" href="${tool.href}">Open tool &rarr;</a>`}
+        ${tool.status === 'Coming soon' ? '<span class="tool-coming">Coming soon</span>' : `<a class="tool-open" href="${tool.href}" data-tool-name="${escapeAttr(tool.name)}">Open tool &rarr;</a>`}
       </div>
     </article>
   `).join('');
 
   count.textContent = `${visible.length} ${visible.length === 1 ? 'tool' : 'tools'}`;
   emptyState.hidden = visible.length !== 0;
+
+  // Intercept tool link clicks to require sign in / sign up
+  grid.querySelectorAll('.tool-open').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      const toolName = link.dataset.toolName || 'this tool';
+      if (!href || href === '#') return;
+
+      if (window.OmniSupabase && window.OmniAuthUI) {
+        e.preventDefault();
+        window.OmniSupabase.getUser().then(user => {
+          if (user) {
+            window.location.href = href;
+          } else {
+            window.OmniAuthUI.openModal('signin', `Please sign in or create an account to access ${toolName}`, href);
+          }
+        });
+      }
+    });
+  });
+}
+
+function escapeAttr(str) {
+  if (!str) return '';
+  return String(str).replace(/"/g, '&quot;');
 }
 
 document.querySelectorAll('.category-button').forEach(button => {

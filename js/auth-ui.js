@@ -9,6 +9,8 @@
   // Active tab in Auth Modal: 'signin' | 'signup' | 'forgot' | 'settings'
   let activeTab = 'signin';
   let isModalOpen = false;
+  let pendingRedirectUrl = null;
+  let pendingSuccessCallback = null;
 
   /**
    * Initializes the Auth UI components on DOM ready
@@ -16,6 +18,7 @@
   function initAuthUI() {
     injectAuthModal();
     mountTopbarControls();
+    checkAndRenderToolGate();
     subscribeToAuth();
   }
 
@@ -174,7 +177,7 @@
             </div>
             <button type="submit" class="omni-auth-submit" id="omniBtnSubmitSignIn">Sign In</button>
             <div class="omni-auth-footer-link">
-              Don't have an account? <a href="javascript:void(0)" id="omniLinkToSignUp">Sign up</a>
+              Don't have an account? <a href="javascript:void(0)" id="omniLinkToSignUp">Create one for free</a>
             </div>
           </form>
 
@@ -285,9 +288,12 @@
       hideAlert();
 
       try {
-        await window.OmniSupabase.signIn({ email, password });
+        const user = await window.OmniSupabase.signIn({ email, password });
         showAlert('Signed in successfully!', 'success');
-        setTimeout(() => closeAuthModal(), 600);
+        setTimeout(() => {
+          closeAuthModal();
+          handleAuthSuccess(user);
+        }, 500);
       } catch (err) {
         showAlert(err.message || 'Failed to sign in. Please verify your credentials.', 'error');
       } finally {
@@ -319,7 +325,10 @@
           showAlert('Account created! Please check your email inbox to confirm your address before signing in.', 'success');
         } else {
           showAlert('Account registered and signed in!', 'success');
-          setTimeout(() => closeAuthModal(), 800);
+          setTimeout(() => {
+            closeAuthModal();
+            handleAuthSuccess(res.user);
+          }, 600);
         }
       } catch (err) {
         showAlert(err.message || 'Failed to create account.', 'error');
@@ -380,6 +389,21 @@
     });
   }
 
+  function handleAuthSuccess(user) {
+    if (pendingRedirectUrl) {
+      const target = pendingRedirectUrl;
+      pendingRedirectUrl = null;
+      window.location.href = target;
+      return;
+    }
+
+    if (typeof pendingSuccessCallback === 'function') {
+      const cb = pendingSuccessCallback;
+      pendingSuccessCallback = null;
+      cb(user);
+    }
+  }
+
   /**
    * Switches modal tabs
    */
@@ -419,15 +443,25 @@
     }
   }
 
-  function openAuthModal(initialTab = 'signin') {
+  /**
+   * Opens the Auth modal with options
+   */
+  function openAuthModal(initialTab = 'signin', alertMsg = null, targetUrl = null, onSuccess = null) {
     const overlay = document.getElementById('omniAuthModalOverlay');
     if (!overlay) return;
+
+    if (targetUrl) pendingRedirectUrl = targetUrl;
+    if (onSuccess) pendingSuccessCallback = onSuccess;
 
     switchTab(initialTab);
     overlay.classList.add('open');
     overlay.setAttribute('aria-hidden', 'false');
     isModalOpen = true;
     updateConfigBadge();
+
+    if (alertMsg) {
+      showAlert(alertMsg, 'info');
+    }
 
     // Focus initial input
     setTimeout(() => {
@@ -482,10 +516,98 @@
     }
   }
 
+  /**
+   * Tool Gating & Access Barrier Logic
+   */
+  function isToolPage() {
+    return window.location.pathname.includes('/tools/') || document.body.hasAttribute('data-tool-page');
+  }
+
+  function getToolNameFromPage() {
+    const h1 = document.querySelector('h1')?.textContent?.trim();
+    if (h1) return h1;
+    const title = document.title.split('|')[0]?.trim();
+    return title || 'this tool';
+  }
+
+  function checkAndRenderToolGate() {
+    if (!isToolPage()) return;
+    if (!window.OmniSupabase) return;
+
+    window.OmniSupabase.getUser().then(user => {
+      let gate = document.getElementById('omniToolGateOverlay');
+
+      if (!user) {
+        // User is not signed in: Render or activate Gate Barrier
+        const toolName = getToolNameFromPage();
+        if (!gate) {
+          gate = document.createElement('div');
+          gate.id = 'omniToolGateOverlay';
+          gate.className = 'omni-tool-gate-overlay';
+          gate.innerHTML = `
+            <div class="omni-tool-gate-card">
+              <div class="omni-gate-icon-wrap" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </div>
+              <div class="omni-gate-eyebrow">Authentication Required</div>
+              <h2 class="omni-gate-title">Sign in to use ${escapeHtml(toolName)}</h2>
+              <p class="omni-gate-desc">Create a free OmniTools account or sign in to convert files, generate indexes, and save your tool activity.</p>
+              <div class="omni-gate-actions">
+                <button class="omni-gate-btn-primary" id="omniGateBtnSignIn">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+                  Sign In to Continue
+                </button>
+                <button class="omni-gate-btn-secondary" id="omniGateBtnSignUp">
+                  Create Free Account
+                </button>
+              </div>
+              <a class="omni-gate-back-link" href="../../index.html">&larr; Return to OmniTools Toolbox</a>
+            </div>
+          `;
+          document.body.appendChild(gate);
+
+          gate.querySelector('#omniGateBtnSignIn')?.addEventListener('click', () => {
+            openAuthModal('signin', `Please sign in to access ${toolName}`);
+          });
+
+          gate.querySelector('#omniGateBtnSignUp')?.addEventListener('click', () => {
+            openAuthModal('signup', `Create a free account to access ${toolName}`);
+          });
+        }
+        gate.classList.add('active');
+      } else {
+        // User is authenticated: remove or hide gate
+        if (gate) {
+          gate.classList.remove('active');
+        }
+      }
+    });
+  }
+
+  function requireAuth(onSuccess, alertMessage, targetUrl) {
+    if (!window.OmniSupabase) {
+      if (typeof onSuccess === 'function') onSuccess(null);
+      return;
+    }
+
+    window.OmniSupabase.getUser().then(user => {
+      if (user) {
+        if (typeof onSuccess === 'function') onSuccess(user);
+      } else {
+        openAuthModal('signin', alertMessage || 'Sign in or create an account to access this tool.', targetUrl, onSuccess);
+      }
+    });
+  }
+
   function subscribeToAuth() {
     if (window.OmniSupabase) {
       window.OmniSupabase.onAuthStateChange((event, session, user) => {
         mountTopbarControls();
+        checkAndRenderToolGate();
+        window.dispatchEvent(new CustomEvent('omni:auth-state-changed', { detail: { event, session, user } }));
       });
     }
   }
@@ -504,7 +626,9 @@
   window.OmniAuthUI = {
     openModal: openAuthModal,
     closeModal: closeAuthModal,
-    switchTab: switchTab
+    switchTab: switchTab,
+    requireAuth: requireAuth,
+    checkToolAccess: checkAndRenderToolGate
   };
 
   if (document.readyState === 'loading') {

@@ -495,6 +495,175 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* --- Tool Access Gate Barrier --- */
+.omni-tool-gate-overlay {
+  position: fixed;
+  inset: 0;
+  top: 60px; /* Below topbar */
+  background: color-mix(in srgb, var(--tool-bg, var(--bg, #FAFCFF)) 92%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+  font-family: var(--font-primary, "Tenor Sans", sans-serif);
+}
+
+.omni-tool-gate-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.omni-tool-gate-card {
+  max-width: 480px;
+  width: 100%;
+  background: var(--tool-surface, var(--surface, #FFFFFF));
+  border: 1px solid var(--tool-border, var(--border, #C7E7FF));
+  border-radius: var(--radius-lg, 14px);
+  box-shadow: var(--shadow-modal, 0 20px 48px -12px rgba(81, 120, 145, 0.22));
+  padding: 36px 32px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  animation: omniGatePop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes omniGatePop {
+  from { transform: translateY(16px) scale(0.96); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.omni-gate-icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(87, 185, 255, 0.15);
+  border: 1px solid var(--color-bright-blue, #57B9FF);
+  color: var(--color-bright-blue, #57B9FF);
+  display: grid;
+  place-items: center;
+  margin-bottom: 4px;
+}
+
+.omni-gate-icon-wrap svg {
+  width: 26px;
+  height: 26px;
+}
+
+.omni-gate-eyebrow {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide, 0.05em);
+  color: var(--tool-muted, var(--text-muted, #517891));
+}
+
+.omni-gate-title {
+  margin: 0;
+  font-size: 1.45rem;
+  font-weight: 400;
+  color: var(--tool-text, var(--text, #182833));
+  letter-spacing: var(--tracking-normal, 0.01em);
+}
+
+.omni-gate-desc {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--tool-muted, var(--text-muted, #517891));
+  line-height: 1.6;
+  max-width: 380px;
+}
+
+.omni-gate-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.omni-gate-btn-primary {
+  min-height: 44px;
+  padding: 10px 24px;
+  background: var(--color-bright-blue, #57B9FF);
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-control, 8px);
+  font-size: 0.88rem;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all var(--duration-fast, 180ms) ease;
+  box-shadow: var(--shadow-subtle, 0 1px 2px rgba(81, 120, 145, 0.08));
+}
+
+.omni-gate-btn-primary:hover {
+  background: #47abf2;
+  transform: translateY(-1px);
+}
+
+.omni-gate-btn-secondary {
+  min-height: 42px;
+  padding: 8px 20px;
+  background: var(--color-sky-blue, #90D5FF);
+  color: var(--color-slate-blue, #517891);
+  border: 1px solid var(--tool-border, var(--border, #C7E7FF));
+  border-radius: var(--radius-control, 8px);
+  font-size: 0.86rem;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all var(--duration-fast, 180ms) ease;
+}
+
+.omni-gate-btn-secondary:hover {
+  background: #7ecbfb;
+  transform: translateY(-1px);
+}
+
+.omni-gate-back-link {
+  font-size: 0.8rem;
+  color: var(--tool-muted, var(--text-muted, #517891));
+  text-decoration: none;
+  margin-top: 6px;
+  transition: color var(--duration-fast, 180ms) ease;
+}
+
+.omni-gate-back-link:hover {
+  color: var(--color-bright-blue, #57B9FF);
+}
+
+/* Card Lock Badges */
+.card-lock-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: var(--radius-pill, 9999px);
+  background: rgba(81, 120, 145, 0.1);
+  color: var(--tool-muted, var(--text-muted, #517891));
+  font-size: 0.72rem;
+  border: 1px solid var(--tool-border, var(--border, #C7E7FF));
+}
+
+.card-lock-badge svg {
+  width: 11px;
+  height: 11px;
+}
+
 /* Responsive adjustment */
 @media (max-width: 480px) {
   .omni-auth-user-name {
