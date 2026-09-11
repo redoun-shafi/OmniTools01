@@ -21,8 +21,8 @@
 
   // Default project credentials placeholder (or user-provided via settings modal)
   const DEFAULT_CONFIG = {
-    supabaseUrl: 'https://xyzcompany.supabase.co',
-    supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.placeholder'
+    supabaseUrl: 'https://pwhjmythxdfidteoykpn.supabase.co',
+    supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB3aGpteXRoeGRmaWR0ZW95a3BuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkxMzg0NDcsImV4cCI6MjEwNDcxNDQ0N30.cX9eCLKDqTlLcf9I29ZQZ0SgHfnESiZdOHIltmK9UYM'
   };
 
   let supabaseClient = null;
