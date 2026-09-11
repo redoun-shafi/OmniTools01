@@ -428,13 +428,39 @@ h1 {
 .last-updated time {
   color: var(--tool-text, var(--text));
 }
-}
 
 .last-updated-dot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background: var(--color-bright-blue);
+}
+
+.fact-strip {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+  font-size: 0.75rem;
+}
+
+.fact-item {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  padding: 6px 14px;
+  border: 1px solid var(--tool-border, var(--border));
+  border-radius: var(--radius-pill);
+  background: var(--tool-surface-soft, var(--surface-soft));
+  color: var(--tool-text, var(--text));
+}
+
+.fact-item-label {
+  color: var(--tool-muted, var(--text-muted));
+}
+
+.fact-item strong, .fact-item span {
+  font-weight: 400;
 }
 
 @media (max-width: 700px) {

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Recipe Index Studio | OmniTools</title>
   <link rel="icon" href="../../assets/omnitools-mark.svg" type="image/svg+xml">
-  <meta name="description" content="Recipe Index Studio by OmniTools — Paste spreadsheet rows, preview an index, and export as DOC.">
+  <meta name="description" content="Recipe Index Studio by OmniTools — Paste spreadsheet rows, preview an alphabetically organized index, and export as DOC.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,109 +16,12 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
-    body {
-      font-family: var(--font-primary);
-      background: var(--tool-bg, var(--bg));
-      color: var(--tool-text, var(--text));
-      line-height: var(--leading-body);
-      margin: 0;
-      padding-bottom: 48px;
-    }
-
-    .omni-topbar {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      width: 100%;
-      padding: 16px max(24px, calc((100% - 1180px) / 2));
-      border-bottom: 1px solid var(--tool-border, var(--border));
-      background: color-mix(in srgb, var(--tool-bg, var(--bg)) 94%, transparent);
-      backdrop-filter: blur(16px);
-    }
-
-    .omni-topbar-left {
-      display: inline-flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .omni-brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--tool-text, var(--text));
-      font-size: 1.1rem;
-      letter-spacing: var(--tracking-wide);
-    }
-
-    .omni-brand span {
-      color: var(--color-bright-blue);
-    }
-
-    .omni-mark {
-      display: grid;
-      place-items: center;
-      width: 32px;
-      height: 32px;
-      border-radius: var(--radius-sm);
-      background: var(--color-bright-blue);
-      color: var(--color-white);
-      font-size: 0.95rem;
-      box-shadow: var(--shadow-subtle);
-    }
-
-    .omni-back {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      min-height: 36px;
-      padding: 6px 14px;
-      border: 1px solid var(--tool-border, var(--border));
-      border-radius: var(--radius-pill);
-      color: var(--tool-muted, var(--text-muted));
-      font-size: 0.78rem;
-      transition: all var(--duration-fast) ease;
-      background: var(--tool-surface, var(--surface));
-    }
-
-    .omni-back:hover {
-      border-color: var(--color-bright-blue);
-      color: var(--color-bright-blue);
-      background: var(--surface-soft);
-    }
-
-    .page-intro {
-      width: min(1180px, calc(100% - 40px));
-      margin: 32px auto 24px;
-    }
-
-    .page-intro h1 {
-      margin: 0 0 8px;
-      font-size: clamp(2rem, 3.5vw, 2.6rem);
-      font-weight: 400;
-      color: var(--tool-text, var(--text));
-      letter-spacing: var(--tracking-normal);
-    }
-
-    .page-intro p {
-      margin: 0;
-      color: var(--tool-muted, var(--text-muted));
-      font-size: 0.92rem;
-      max-width: 680px;
-      line-height: 1.7;
-    }
-
     .recipe-layout {
       display: grid;
       grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
       gap: 24px;
       align-items: start;
-      width: min(1180px, calc(100% - 40px));
-      margin: 0 auto;
+      margin-top: 12px;
     }
 
     .card {
@@ -175,6 +78,11 @@
       background: transparent;
       color: var(--tool-text, var(--text));
       font-size: 0.84rem;
+      font-family: var(--font-primary);
+    }
+
+    td input:focus {
+      background: rgba(87, 185, 255, 0.12);
     }
 
     .buttons {
@@ -193,6 +101,7 @@
       background: var(--color-bright-blue);
       color: var(--color-white);
       font-size: 0.85rem;
+      font-family: var(--font-primary);
       transition: all var(--duration-fast) ease;
       box-shadow: var(--shadow-subtle);
     }
@@ -211,6 +120,7 @@
       background: var(--color-sky-blue);
       color: var(--color-slate-blue);
       font-size: 0.85rem;
+      font-family: var(--font-primary);
       transition: all var(--duration-fast) ease;
     }
 
@@ -228,6 +138,7 @@
       background: var(--color-slate-blue);
       color: var(--color-white);
       font-size: 0.85rem;
+      font-family: var(--font-primary);
       transition: all var(--duration-fast) ease;
     }
 
@@ -269,6 +180,7 @@
     .output-card h2 {
       margin: 0 0 14px;
       font-size: 1.15rem;
+      font-weight: 400;
       color: var(--tool-text, var(--text));
     }
 
@@ -298,209 +210,209 @@
         height: 300px;
       }
     }
-
-    @media (max-width: 650px) {
-      .omni-topbar {
-        padding-inline: 16px;
-      }
-      .page-intro, .recipe-layout {
-        width: calc(100% - 32px);
-      }
-    }
   </style>
 </head>
 
 <body>
+  <div class="tool-shell">
+    <header class="tool-header">
+      <div class="tool-header-left">
+        <a class="back-link" href="../../index.html" aria-label="Back to workspace">&larr; Back to toolbox</a>
+        <a class="tool-brand" href="../../index.html"><span class="tool-mark" aria-hidden="true">O</span> OmniTools</a>
+      </div>
+      <div class="tool-header-right">
+        <label class="theme-control">
+          <span class="sr-only">Choose theme</span>
+          <select id="themeSelect" aria-label="Choose color theme">
+            <option value="light">Light theme</option>
+            <option value="dark">Dark theme</option>
+            <option value="colorful">Calm theme</option>
+          </select>
+        </label>
+      </div>
+    </header>
 
-<header class="omni-topbar">
-  <div class="omni-topbar-left">
-    <a class="omni-back" href="../../index.html" aria-label="Back to workspace">&larr; Back to toolbox</a>
-    <a class="omni-brand" href="../../index.html" aria-label="OmniTools home"><span class="omni-mark" aria-hidden="true">O</span> Omni<span>Tools</span></a>
+    <main>
+      <section class="tool-intro">
+        <div>
+          <div class="eyebrow">Document Indexing Utility</div>
+          <h1>Recipe Index Studio</h1>
+          <p>Paste recipe and page data into the spreadsheet columns on the left, generate an alphabetically organized index, and export as a clean DOC document.</p>
+        </div>
+        <div class="tool-badge">Converter</div>
+      </section>
+
+      <div class="recipe-layout">
+        <section class="card input-card">
+          <div class="table-container">
+            <table id="grid"></table>
+          </div>
+
+          <div class="buttons">
+            <button class="btn-action-primary" onclick="generate()" title="Generate index from spreadsheet rows">Generate index</button>
+            <button class="btn-action-secondary" onclick="clearGrid()" title="Clear spreadsheet rows">Clear rows</button>
+            <button class="btn-action-dark" onclick="downloadDoc()" title="Export generated index as a DOC file">Download DOC</button>
+          </div>
+
+          <div class="progress-wrap">
+            <div id="progressBar" class="progress-bar"></div>
+          </div>
+
+          <div class="progress-text" id="progressText">0%</div>
+        </section>
+
+        <aside class="card output-card">
+          <h2>Generated Index</h2>
+          <pre id="output">Your generated recipe index will appear here.</pre>
+        </aside>
+      </div>
+
+      <p class="tool-note">All processing happens locally in your browser. No spreadsheet or document data is transmitted to external servers.</p>
+    </main>
   </div>
-  <div class="omni-topbar-right">
-    <label class="theme-control">
-      <span class="sr-only">Choose theme</span>
-      <select id="themeSelect" aria-label="Choose color theme">
-        <option value="light">Light theme</option>
-        <option value="dark">Dark theme</option>
-        <option value="colorful">Calm theme</option>
-      </select>
-    </label>
-  </div>
-</header>
 
-<div class="page-intro">
-  <div class="eyebrow">Document Indexing Utility</div>
-  <h1>Recipe Index Studio</h1>
-  <p>Paste recipe and page data into the spreadsheet columns on the left, generate an alphabetically organized index, and export as a clean DOC document.</p>
-</div>
+  <script>
+    const rows = 200;
+    const cols = 3;
+    const table = document.getElementById("grid");
 
-<div class="recipe-layout">
-  <section class="card input-card">
-    <div class="table-container">
-      <table id="grid"></table>
-    </div>
+    // Header
+    let header = "<tr><th></th>";
+    for (let c = 0; c < cols; c++) {
+      header += `<th>${String.fromCharCode(65 + c)}</th>`;
+    }
+    header += "</tr>";
+    table.innerHTML += header;
 
-    <div class="buttons">
-      <button class="btn-action-primary" onclick="generate()" title="Generate index from spreadsheet rows">Generate index</button>
-      <button class="btn-action-secondary" onclick="clearGrid()" title="Clear spreadsheet rows">Clear rows</button>
-      <button class="btn-action-dark" onclick="downloadDoc()" title="Export generated index as a DOC file">Download DOC</button>
-    </div>
-
-    <div class="progress-wrap">
-      <div id="progressBar" class="progress-bar"></div>
-    </div>
-
-    <div class="progress-text" id="progressText">0%</div>
-  </section>
-
-  <aside class="card output-card">
-    <h2>Generated Index</h2>
-    <pre id="output">Your generated recipe index will appear here.</pre>
-  </aside>
-</div>
-
-<script>
-const rows = 200;
-const cols = 3;
-const table = document.getElementById("grid");
-
-// Header
-let header = "<tr><th></th>";
-for (let c = 0; c < cols; c++) {
-  header += `<th>${String.fromCharCode(65 + c)}</th>`;
-}
-header += "</tr>";
-table.innerHTML += header;
-
-// Rows
-for (let r = 0; r < rows; r++) {
-  let rowHTML = `<tr><th>${r + 1}</th>`;
-  for (let c = 0; c < cols; c++) {
-    rowHTML += `
-      <td>
-        <input data-row="${r}" data-col="${c}">
-      </td>
-    `;
-  }
-  rowHTML += "</tr>";
-  table.innerHTML += rowHTML;
-}
-
-// Paste handling
-table.addEventListener("paste", function(e) {
-  const startCell = e.target;
-  if (startCell.tagName !== "INPUT") return;
-  e.preventDefault();
-  const pasteData = e.clipboardData.getData("text");
-  const rowsData = pasteData.split("\n");
-  const startRow = parseInt(startCell.dataset.row);
-  const startCol = parseInt(startCell.dataset.col);
-
-  rowsData.forEach((row, i) => {
-    const cells = row.split(/\t|,/);
-    cells.forEach((cell, j) => {
-      const target = document.querySelector(
-        `input[data-row="${startRow + i}"][data-col="${startCol + j}"]`
-      );
-      if (target) target.value = cell.trim();
-    });
-  });
-});
-
-// Generate index
-function generate() {
-  let data = [];
-  if (![...document.querySelectorAll("td input")].some(input => input.value.trim())) {
-    document.getElementById("progressText").innerText = "Add recipe data before generating.";
-    document.getElementById("output").innerText = "Nothing to generate yet. Paste recipe names and page numbers into the grid.";
-    return;
-  }
-
-  const inputs = document.querySelectorAll("td input");
-  const bar = document.getElementById("progressBar");
-  const text = document.getElementById("progressText");
-  let count = 0;
-  let missingRows = [];
-
-  inputs.forEach((input, i) => {
-    const row = input.dataset.row;
-    const col = input.dataset.col;
-
-    if (col == 0) {
-      const name = input.value.trim();
-      const page = document.querySelector(
-        `input[data-row="${row}"][data-col="1"]`
-      ).value.trim();
-
-      if (name && !page) {
-        missingRows.push(Number(row) + 1);
+    // Rows
+    for (let r = 0; r < rows; r++) {
+      let rowHTML = `<tr><th>${r + 1}</th>`;
+      for (let c = 0; c < cols; c++) {
+        rowHTML += `
+          <td>
+            <input data-row="${r}" data-col="${c}">
+          </td>
+        `;
       }
-
-      if (name && page) {
-        data.push({ name, page });
-      }
+      rowHTML += "</tr>";
+      table.innerHTML += rowHTML;
     }
 
-    setTimeout(() => {
-      count++;
-      let percent = Math.floor((count / inputs.length) * 100);
-      bar.style.transform = "scaleX(" + percent / 100 + ")";
-      text.innerText = percent + "%";
-    }, i * 2);
-  });
+    // Paste handling
+    table.addEventListener("paste", function(e) {
+      const startCell = e.target;
+      if (startCell.tagName !== "INPUT") return;
+      e.preventDefault();
+      const pasteData = e.clipboardData.getData("text");
+      const rowsData = pasteData.split("\n");
+      const startRow = parseInt(startCell.dataset.row);
+      const startCol = parseInt(startCell.dataset.col);
 
-  setTimeout(() => {
-    if (missingRows.length > 0) {
-      alert("Warning!\n\nMissing page number in rows:\n" + missingRows.join(", "));
-    }
-
-    data.sort((a, b) => a.name.localeCompare(b.name));
-    let currentLetter = "";
-    let output = [];
-
-    data.forEach(item => {
-      const letter = item.name.charAt(0).toUpperCase();
-      if (letter !== currentLetter) {
-        currentLetter = letter;
-        output.push("\n" + letter);
-      }
-      const dots = "..........";
-      output.push(item.name + " " + dots + item.page);
+      rowsData.forEach((row, i) => {
+        const cells = row.split(/\t|,/);
+        cells.forEach((cell, j) => {
+          const target = document.querySelector(
+            `input[data-row="${startRow + i}"][data-col="${startCol + j}"]`
+          );
+          if (target) target.value = cell.trim();
+        });
+      });
     });
 
-    let finalOutput = output.join("\n");
-    document.getElementById("output").innerText = finalOutput;
-    if (window.OmniSupabase && typeof window.OmniSupabase.logToolActivity === "function") {
-      window.OmniSupabase.logToolActivity("Recipe Index Studio", "generate_index", { recipeCount: data.length });
+    // Generate index
+    function generate() {
+      let data = [];
+      if (![...document.querySelectorAll("td input")].some(input => input.value.trim())) {
+        document.getElementById("progressText").innerText = "Add recipe data before generating.";
+        document.getElementById("output").innerText = "Nothing to generate yet. Paste recipe names and page numbers into the grid.";
+        return;
+      }
+
+      const inputs = document.querySelectorAll("td input");
+      const bar = document.getElementById("progressBar");
+      const text = document.getElementById("progressText");
+      let count = 0;
+      let missingRows = [];
+
+      inputs.forEach((input, i) => {
+        const row = input.dataset.row;
+        const col = input.dataset.col;
+
+        if (col == 0) {
+          const name = input.value.trim();
+          const page = document.querySelector(
+            `input[data-row="${row}"][data-col="1"]`
+          );
+          const pageVal = page ? page.value.trim() : "";
+
+          if (name && !pageVal) {
+            missingRows.push(Number(row) + 1);
+          }
+
+          if (name && pageVal) {
+            data.push({ name, page: pageVal });
+          }
+        }
+
+        setTimeout(() => {
+          count++;
+          let percent = Math.floor((count / inputs.length) * 100);
+          bar.style.transform = "scaleX(" + percent / 100 + ")";
+          text.innerText = percent + "%";
+        }, i * 2);
+      });
+
+      setTimeout(() => {
+        if (missingRows.length > 0) {
+          alert("Warning!\n\nMissing page number in rows:\n" + missingRows.join(", "));
+        }
+
+        data.sort((a, b) => a.name.localeCompare(b.name));
+        let currentLetter = "";
+        let output = [];
+
+        data.forEach(item => {
+          const letter = item.name.charAt(0).toUpperCase();
+          if (letter !== currentLetter) {
+            currentLetter = letter;
+            output.push("\n" + letter);
+          }
+          const dots = "..........";
+          output.push(item.name + " " + dots + item.page);
+        });
+
+        let finalOutput = output.join("\n");
+        document.getElementById("output").innerText = finalOutput;
+        if (window.OmniSupabase && typeof window.OmniSupabase.logToolActivity === "function") {
+          window.OmniSupabase.logToolActivity("Recipe Index Studio", "generate_index", { recipeCount: data.length });
+        }
+        alert("Recipe Index Generated Successfully!");
+      }, inputs.length * 2);
     }
-    alert("Recipe Index Generated Successfully!");
-  }, inputs.length * 2);
-}
 
-// Download DOC
-function downloadDoc() {
-  const text = document.getElementById("output").innerText;
-  if (!text || text === "Your generated recipe index will appear here.") {
-    document.getElementById("progressText").innerText = "Generate the index before downloading.";
-    return;
-  }
-  const blob = new Blob([text], { type: "application/msword" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "Recipe_Index.doc";
-  a.click();
-}
+    // Download DOC
+    function downloadDoc() {
+      const text = document.getElementById("output").innerText;
+      if (!text || text === "Your generated recipe index will appear here.") {
+        document.getElementById("progressText").innerText = "Generate the index before downloading.";
+        return;
+      }
+      const blob = new Blob([text], { type: "application/msword" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "Recipe_Index.doc";
+      a.click();
+    }
 
-function clearGrid() {
-  document.querySelectorAll("td input").forEach(input => { input.value = ""; });
-  document.getElementById("output").innerText = "Your generated recipe index will appear here.";
-  document.getElementById("progressBar").style.transform = "scaleX(0)";
-  document.getElementById("progressText").innerText = "0%";
-}
-</script>
-<script src="../../js/supabase-client.js"></script>
-<script src="../../js/auth-ui.js"></script>
-<script src="../../js/theme.js"></script>
+    function clearGrid() {
+      document.querySelectorAll("td input").forEach(input => { input.value = ""; });
+      document.getElementById("output").innerText = "Your generated recipe index will appear here.";
+      document.getElementById("progressBar").style.transform = "scaleX(0)";
+      document.getElementById("progressText").innerText = "0%";
+    }
+  </script>
+  <script src="../../js/supabase-client.js"></script>
+  <script src="../../js/auth-ui.js"></script>
+  <script src="../../js/theme.js"></script>
 </body>
 </html>
