@@ -85,10 +85,10 @@
   --surface-soft: #F2F8FD;
   --surface-highlight: var(--color-sky-blue);
   --surface-alt: rgba(144, 213, 255, 0.15);
-  --text: var(--color-slate-blue);
-  --text-muted: #6B8FA7;
-  --text-faint: #98B8CE;
-  --border: rgba(119, 177, 212, 0.3);
+  --text: #182833;
+  --text-muted: #3D596E;
+  --text-faint: #5D7C91;
+  --border: rgba(81, 120, 145, 0.28);
   --border-strong: var(--color-dusty-blue);
   --border-light: rgba(144, 213, 255, 0.4);
 

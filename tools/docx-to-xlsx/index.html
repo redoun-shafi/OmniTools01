@@ -47,11 +47,8 @@
       margin: 4px 0 10px;
       font-size: clamp(2rem, 4vw, 2.7rem);
       font-weight: 400;
-      color: var(--color-slate-blue);
+      color: var(--tool-text, var(--text));
       letter-spacing: var(--tracking-normal);
-    }
-    [data-theme="dark"] .intro h1 {
-      color: var(--text);
     }
     .intro p {
       max-width: 660px;
@@ -72,11 +69,8 @@
       white-space: nowrap;
     }
     .privacy-badge strong {
-      color: var(--color-slate-blue);
+      color: var(--tool-text, var(--text));
       display: block;
-    }
-    [data-theme="dark"] .privacy-badge strong {
-      color: var(--text);
     }
     .card {
       border: 1px solid var(--tool-border);
@@ -107,12 +101,9 @@
       transition: all var(--duration-fast) ease;
     }
     .mode-tab.active {
-      color: var(--color-slate-blue);
+      color: var(--tool-text, var(--text));
       background: var(--tool-surface);
       box-shadow: var(--shadow-subtle);
-    }
-    [data-theme="dark"] .mode-tab.active {
-      color: var(--text);
     }
     .workflow {
       display: none;
@@ -149,10 +140,7 @@
     .step h2 {
       margin: 14px 0 6px;
       font-size: 1.05rem;
-      color: var(--color-slate-blue);
-    }
-    [data-theme="dark"] .step h2 {
-      color: var(--text);
+      color: var(--tool-text, var(--text));
     }
     .step p {
       margin: 0;
@@ -270,13 +258,10 @@
       margin-top: 18px;
       padding: 14px 18px;
       border-radius: var(--radius-md);
-      color: var(--color-slate-blue);
+      color: var(--tool-text, var(--text));
       background: rgba(144, 213, 255, 0.25);
       border: 1px solid var(--tool-border);
       font-size: 0.84rem;
-    }
-    [data-theme="dark"] .ready-banner {
-      color: var(--text);
     }
     .ready-banner.visible {
       display: block;
@@ -300,10 +285,7 @@
     .stage-head h2 {
       margin: 4px 0 0;
       font-size: 1.25rem;
-      color: var(--color-slate-blue);
-    }
-    [data-theme="dark"] .stage-head h2 {
-      color: var(--text);
+      color: var(--tool-text, var(--text));
     }
     .stage-head p {
       margin: 0;
@@ -341,7 +323,7 @@
     }
     .match-head {
       padding: 10px 14px;
-      color: var(--color-slate-blue);
+      color: var(--tool-text, var(--text));
       background: rgba(144, 213, 255, 0.2);
       font-size: 0.74rem;
       letter-spacing: var(--tracking-wide);
@@ -474,14 +456,11 @@
     .chapter-heading {
       grid-column: 1 / -1;
       padding: 12px 14px 6px;
-      color: var(--color-slate-blue);
+      color: var(--tool-text, var(--text));
       font-family: var(--font-primary);
       font-size: 0.88rem;
       background: var(--tool-surface-soft);
       border-top: 1px solid var(--tool-border);
-    }
-    [data-theme="dark"] .chapter-heading {
-      color: var(--text);
     }
     .chapter-heading:first-child {
       border-top: 0;

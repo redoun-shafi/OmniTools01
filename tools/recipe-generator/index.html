@@ -98,12 +98,8 @@
       margin: 0 0 8px;
       font-size: clamp(2rem, 3.5vw, 2.6rem);
       font-weight: 400;
-      color: var(--color-slate-blue);
+      color: var(--tool-text, var(--text));
       letter-spacing: var(--tracking-normal);
-    }
-
-    [data-theme="dark"] .page-intro h1 {
-      color: var(--text);
     }
 
     .page-intro p {
@@ -154,7 +150,7 @@
 
     th {
       background: rgba(144, 213, 255, 0.25);
-      color: var(--color-slate-blue);
+      color: var(--tool-text, var(--text));
       font-weight: 400;
       position: sticky;
       top: 0;
@@ -271,11 +267,7 @@
     .output-card h2 {
       margin: 0 0 14px;
       font-size: 1.15rem;
-      color: var(--color-slate-blue);
-    }
-
-    [data-theme="dark"] .output-card h2 {
-      color: var(--text);
+      color: var(--tool-text, var(--text));
     }
 
     pre {

@@ -161,11 +161,7 @@ h1 {
   font-size: clamp(1.8rem, 3.5vw, 2.4rem);
   line-height: 1.2;
   letter-spacing: var(--tracking-normal);
-  color: var(--color-slate-blue);
-}
-
-[data-theme="dark"] h1 {
-  color: var(--text);
+  color: var(--tool-text, var(--text));
 }
 
 .tool-intro p {
@@ -237,11 +233,7 @@ h1 {
   margin: 0 0 10px;
   font-size: 1.15rem;
   letter-spacing: var(--tracking-normal);
-  color: var(--color-slate-blue);
-}
-
-[data-theme="dark"] .extension-card h2 {
-  color: var(--text);
+  color: var(--tool-text, var(--text));
 }
 
 .extension-card p {
@@ -347,13 +339,9 @@ h1 {
   border-radius: var(--radius-md);
   background: rgba(144, 213, 255, 0.2);
   border: 1px solid var(--tool-border);
-  color: var(--color-slate-blue);
+  color: var(--tool-text, var(--text));
   font-size: 0.8rem;
   line-height: 1.6;
-}
-
-[data-theme="dark"] .extension-note {
-  color: var(--text);
 }
 
 .install-guide {
@@ -363,11 +351,7 @@ h1 {
 .install-guide h2 {
   margin-top: 12px;
   font-size: 1.25rem;
-  color: var(--color-slate-blue);
-}
-
-[data-theme="dark"] .install-guide h2 {
-  color: var(--text);
+  color: var(--tool-text, var(--text));
 }
 
 .guide-grid {
@@ -442,11 +426,8 @@ h1 {
 }
 
 .last-updated time {
-  color: var(--color-slate-blue);
+  color: var(--tool-text, var(--text));
 }
-
-[data-theme="dark"] .last-updated time {
-  color: var(--text);
 }
 
 .last-updated-dot {

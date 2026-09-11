@@ -27,10 +27,11 @@
 
   --bg: var(--color-off-white);
   --surface: var(--color-white);
-  --surface-soft: #F0F7FC;
-  --text: var(--color-slate-blue);
-  --text-muted: #6B8FA7;
-  --border: rgba(119, 177, 212, 0.35);
+  --surface-soft: #F2F8FD;
+  --text: #182833;
+  --text-muted: #3D596E;
+  --text-faint: #5D7C91;
+  --border: rgba(81, 120, 145, 0.28);
   --border-strong: var(--color-dusty-blue);
 
   --duration-fast: 0.15s;
@@ -165,10 +166,6 @@ button, input, select, textarea {
 .brand-name {
   font-size: 1.25rem;
   letter-spacing: var(--tracking-wide);
-  color: var(--color-slate-blue);
-}
-
-[data-theme="dark"] .brand-name {
   color: var(--text);
 }
 
@@ -261,10 +258,6 @@ button, input, select, textarea {
   font-size: clamp(2.2rem, 4.5vw, 3.4rem);
   line-height: 1.15;
   font-weight: 400;
-  color: var(--color-slate-blue);
-}
-
-[data-theme="dark"] .hero h1 {
   color: var(--text);
 }
 
@@ -324,10 +317,6 @@ button, input, select, textarea {
   background: var(--surface-soft);
   font-size: 0.76rem;
   letter-spacing: var(--tracking-wide);
-  color: var(--color-slate-blue);
-}
-
-[data-theme="dark"] .hero-panel-head {
   color: var(--text);
 }
 
@@ -355,7 +344,7 @@ button, input, select, textarea {
 .hero-key {
   font-size: 0.82rem;
   letter-spacing: var(--tracking-wide);
-  color: var(--color-slate-blue);
+  color: var(--text);
 }
 
 [data-theme="dark"] .hero-key {
@@ -403,10 +392,6 @@ button, input, select, textarea {
   margin: 4px 0 0;
   font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 400;
-  color: var(--color-slate-blue);
-}
-
-[data-theme="dark"] .section-heading h2 {
   color: var(--text);
 }
 
@@ -500,17 +485,13 @@ kbd {
 
 .category-button:hover {
   border-color: var(--color-bright-blue);
-  color: var(--color-slate-blue);
-}
-
-[data-theme="dark"] .category-button:hover {
   color: var(--text);
 }
 
 .category-button.active {
   border-color: var(--color-bright-blue);
   background: rgba(144, 213, 255, 0.22);
-  color: var(--color-slate-blue);
+  color: var(--text);
 }
 
 [data-theme="dark"] .category-button.active {
@@ -571,7 +552,7 @@ kbd {
   padding: 3px 8px;
   border-radius: var(--radius-pill);
   background: rgba(87, 185, 255, 0.2);
-  color: var(--color-slate-blue);
+  color: var(--text);
   font-size: 0.65rem;
   letter-spacing: var(--tracking-wide);
 }
@@ -595,12 +576,8 @@ kbd {
   margin: 16px 0 8px;
   font-size: 1.08rem;
   font-weight: 400;
-  color: var(--color-slate-blue);
-  line-height: 1.35;
-}
-
-[data-theme="dark"] .tool-card h3 {
   color: var(--text);
+  line-height: 1.35;
 }
 
 .tool-card p {
@@ -637,7 +614,7 @@ kbd {
 }
 
 .tool-open:hover {
-  color: var(--color-slate-blue);
+  color: var(--text);
 }
 
 [data-theme="dark"] .tool-open:hover {
@@ -659,10 +636,6 @@ kbd {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  color: var(--color-slate-blue);
-}
-
-[data-theme="dark"] .footer-brand {
   color: var(--text);
 }
 
@@ -840,7 +813,7 @@ kbd {
 
       <div class="tool-grid" id="toolGrid"></div>
       <div id="emptyState" style="display:none; text-align:center; padding: 48px 0; border: 1px dashed var(--border); border-radius: var(--radius-lg);">
-        <h3 style="color:var(--color-slate-blue); margin-bottom:4px;">No tools found</h3>
+        <h3 style="color:var(--text); margin-bottom:4px;">No tools found</h3>
         <p style="color:var(--text-muted); margin:0;">Try another search query or choose a different category filter.</p>
       </div>
     </section>
@@ -1001,7 +974,7 @@ function openToolModal(id) {
     modalContent.innerHTML = `
       <div style="margin-bottom:18px;">
         <div class="eyebrow" style="color:var(--color-bright-blue)">Interactive Studio</div>
-        <h2 style="margin:4px 0 8px; color:var(--color-slate-blue); font-weight:400; font-size:1.8rem;">Recipe Index Studio</h2>
+        <h2 style="margin:4px 0 8px; color:var(--text); font-weight:400; font-size:1.8rem;">Recipe Index Studio</h2>
         <p style="color:var(--text-muted); margin:0 0 16px; font-size:0.9rem;">Paste or type recipe names and page numbers in the grid below to generate an alphabetical index.</p>
       </div>
       <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
@@ -1022,11 +995,11 @@ function openToolModal(id) {
     modalContent.innerHTML = `
       <div style="margin-bottom:18px;">
         <div class="eyebrow" style="color:var(--color-bright-blue)">Converter Studio</div>
-        <h2 style="margin:4px 0 8px; color:var(--color-slate-blue); font-weight:400; font-size:1.8rem;">Canva Bulk Recipe Interior Converter</h2>
+        <h2 style="margin:4px 0 8px; color:var(--text); font-weight:400; font-size:1.8rem;">Canva Bulk Recipe Interior Converter</h2>
         <p style="color:var(--text-muted); margin:0 0 16px; font-size:0.9rem;">Quickly structure and transform recipe document inputs into structured Canva data sets.</p>
       </div>
       <div style="border: 2px dashed var(--color-bright-blue); border-radius:var(--radius-lg); padding:32px; text-align:center; background:var(--surface-soft);">
-        <p style="font-size:1.1rem; color:var(--color-slate-blue); margin:0 0 8px;">Drag & Drop DOCX Recipe Book</p>
+        <p style="font-size:1.1rem; color:var(--text); margin:0 0 8px;">Drag & Drop DOCX Recipe Book</p>
         <p style="font-size:0.82rem; color:var(--text-muted); margin:0 0 16px;">Or view live deployed tool at <a href="https://redoun-shafi.github.io/OmniTools/tools/docx-to-xlsx/" target="_blank" style="color:var(--color-bright-blue); text-decoration:underline;">GitHub Pages</a></p>
         <a class="button button-primary" href="https://redoun-shafi.github.io/OmniTools/tools/docx-to-xlsx/" target="_blank">Open Full Converter Page</a>
       </div>
@@ -1035,12 +1008,12 @@ function openToolModal(id) {
     modalContent.innerHTML = `
       <div style="margin-bottom:18px;">
         <div class="eyebrow" style="color:var(--color-bright-blue)">Extension Hub</div>
-        <h2 style="margin:4px 0 8px; color:var(--color-slate-blue); font-weight:400; font-size:1.8rem;">Auto Flow for Chrome (v3.1.0)</h2>
+        <h2 style="margin:4px 0 8px; color:var(--text); font-weight:400; font-size:1.8rem;">Auto Flow for Chrome (v3.1.0)</h2>
         <p style="color:var(--text-muted); margin:0 0 16px; font-size:0.9rem;">Automate prompt queues in Google Labs Flow with hands-free local batching.</p>
       </div>
       <div style="border: 1px solid var(--border); border-radius:var(--radius-lg); padding:24px; background:var(--surface-soft); display:flex; justify-content:space-between; align-items:center;">
         <div>
-          <h3 style="margin:0 0 4px; color:var(--color-slate-blue);">Download Package v3.1.0</h3>
+          <h3 style="margin:0 0 4px; color:var(--text);">Download Package v3.1.0</h3>
           <p style="margin:0; font-size:0.82rem; color:var(--text-muted);">ZIP package with full manifest and content scripts</p>
         </div>
         <a class="button button-primary" href="https://github.com/redoun-shafi/OmniTools/raw/main/assets/autoflow-v3.1.zip" download>Download ZIP</a>
