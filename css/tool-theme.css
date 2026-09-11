@@ -1,26 +1,108 @@
-/* Instrument Panel — tool theme maps to tokens */
-:root {
-  --primary: var(--brass); --secondary: var(--signal-teal); --accent: var(--brass);
-  --tool-bg: var(--ink-canvas); --tool-surface: var(--ink-panel); --tool-surface-soft: var(--ink-panel-soft);
-  --tool-border: var(--ink-border); --tool-text: var(--ink-text); --tool-muted: var(--ink-text-muted);
-  --tool-danger: var(--hazard); --tool-success: var(--signal-teal);
-  --bg: var(--tool-bg); --surface: var(--tool-surface); --border: var(--tool-border);
-  --text: var(--tool-text); --muted: var(--tool-muted);
-}
-[data-theme="light"] {
-  --tool-bg: var(--paper-canvas); --tool-surface: var(--paper-panel); --tool-surface-soft: var(--paper-panel-soft);
-  --tool-border: var(--paper-border); --tool-text: var(--paper-text); --tool-muted: var(--paper-text-muted);
-  --bg: var(--tool-bg); --surface: var(--tool-surface); --border: var(--tool-border);
-  --text: var(--tool-text); --muted: var(--tool-muted);
-}
-[data-theme="dark"] { /* alias for consistency — dark is default, same as :root */ }
+/* Calm Blue — Tool Theme Mappings
+   Exact Colors: #90D5FF, #57B9FF, #77B1D4, #517891, #FFFFFF, #FAFCFF
+   Font: "Tenor Sans", sans-serif
+*/
 
-.theme-control select { min-height:44px; border:1px solid var(--tool-border); border-radius:var(--radius-control); background:var(--tool-surface); color:var(--tool-text); padding:8px 28px 8px 10px; font:600 12px var(--font-sans); cursor:pointer; }
-.theme-control select:focus-visible { box-shadow: var(--focus-ring); outline:none; }
-html[data-theme] .extension-hero { background: var(--tool-surface); border:1px solid var(--tool-border); }
-html[data-theme] .extension-card { background: var(--tool-surface); border:1px solid var(--tool-border); }
-html[data-theme] .extension-note { background: var(--tool-surface-soft); color: var(--tool-text); border:1px solid var(--tool-border); }
-html[data-theme] .btn-convert, html[data-theme] .btn-merge { background: var(--brass); color:#1B1C1E; }
-html[data-theme] .btn-zip { background: var(--signal-teal); color:#fff; }
-html[data-theme="light"] { color-scheme: light; }
-html[data-theme="dark"], :root { color-scheme: dark; }
+:root {
+  --primary: var(--color-bright-blue);
+  --secondary: var(--color-sky-blue);
+  --accent: var(--color-bright-blue);
+  --muted: var(--color-dusty-blue);
+  --dark: var(--color-slate-blue);
+
+  --tool-bg: var(--bg);
+  --tool-surface: var(--surface);
+  --tool-surface-soft: var(--surface-soft);
+  --tool-border: var(--border);
+  --tool-text: var(--text);
+  --tool-muted: var(--text-muted);
+
+  --bg: var(--tool-bg);
+  --surface: var(--tool-surface);
+  --border: var(--tool-border);
+  --text: var(--tool-text);
+}
+
+[data-theme="dark"] {
+  --tool-bg: #182833;
+  --tool-surface: #203544;
+  --tool-surface-soft: #284254;
+  --tool-border: rgba(144, 213, 255, 0.16);
+  --tool-text: #F2F8FD;
+  --tool-muted: var(--color-dusty-blue);
+
+  --bg: var(--tool-bg);
+  --surface: var(--tool-surface);
+  --border: var(--tool-border);
+  --text: var(--tool-text);
+  --muted: var(--tool-muted);
+}
+
+[data-theme="colorful"], [data-theme="calm"] {
+  --tool-bg: #EDF6FC;
+  --tool-surface: #FFFFFF;
+  --tool-surface-soft: #E2F0FA;
+  --tool-border: rgba(87, 185, 255, 0.25);
+  --tool-text: var(--color-slate-blue);
+  --tool-muted: #5D849E;
+
+  --bg: var(--tool-bg);
+  --surface: var(--tool-surface);
+  --border: var(--tool-border);
+  --text: var(--tool-text);
+  --muted: var(--tool-muted);
+}
+
+.theme-control select {
+  min-height: 38px;
+  border: 1px solid var(--tool-border);
+  border-radius: var(--radius-pill);
+  background: var(--tool-surface);
+  color: var(--tool-text);
+  padding: 6px 16px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  outline: none;
+  font-family: var(--font-primary);
+  transition: border-color var(--duration-fast) ease;
+}
+
+.theme-control select:hover {
+  border-color: var(--color-bright-blue);
+}
+
+.theme-control select:focus-visible {
+  box-shadow: var(--focus-ring);
+  outline: none;
+}
+
+html[data-theme] .extension-hero,
+html[data-theme] .extension-card {
+  background: var(--tool-surface);
+  border: 1px solid var(--tool-border);
+}
+
+html[data-theme] .extension-note {
+  background: var(--tool-surface-soft);
+  color: var(--tool-text);
+  border: 1px solid var(--tool-border);
+}
+
+html[data-theme] .btn-convert,
+html[data-theme] .btn-merge {
+  background: var(--color-bright-blue);
+  color: var(--color-white);
+}
+
+html[data-theme] .btn-zip {
+  background: var(--color-sky-blue);
+  color: var(--color-slate-blue);
+}
+
+html[data-theme="light"], :root {
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+}

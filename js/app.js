@@ -1,10 +1,10 @@
 const tools = [
-  { name: 'Canva Bulk Recipe Interior Converter', description: 'Convert recipe chapters into separate Excel interiors and match food images automatically.', category: 'Converters', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>', color: '#2563eb', status: 'Ready', href: 'tools/docx-to-xlsx/' },
-  { name: 'Recipe Index Studio', description: 'Paste spreadsheet rows, preview a polished recipe index, and export it as a DOC file.', category: 'Converters', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>', color: '#ea580c', status: 'Ready', href: 'tools/recipe-generator/' },
-  { name: 'Auto Flow', description: 'Queue prompts and automate bulk image generation with the Chrome extension. — v3.1.0', category: 'Extensions', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>', color: '#7c3aed', status: 'Extension', href: 'tools/autoflow/', badge: 'NEW VERSION', updated: 'Last updated: September 5, 2026', version: 'v3.1.0' },
-  { name: 'CSV Cleaner', description: 'Prepare messy spreadsheet data for your next workflow in a few clicks.', category: 'Converters', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16M4 12h16M4 19h16M8 3v4M16 10v4M10 17v4"/></svg>', color: '#059669', status: 'Coming soon', href: '#' },
-  { name: 'Prompt Builder', description: 'Shape clear, reusable prompts for the way you work and create.', category: 'AI Tools', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h14v12H8l-3 3z"/><path d="m9 9 2 2 4-4"/></svg>', color: '#0891b2', status: 'Coming soon', href: '#' },
-  { name: 'OCR Extractor', description: 'Pull useful text from images and scanned documents without the busywork.', category: 'AI Tools', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7V5a1 1 0 0 1 1-1h2M17 4h2a1 1 0 0 1 1 1v2M20 17v2a1 1 0 0 1-1 1h-2M7 20H5a1 1 0 0 1-1-1v-2"/><path d="M8 9h8v6H8z"/></svg>', color: '#db2777', status: 'Coming soon', href: '#' }
+  { name: 'Canva Bulk Recipe Interior Converter', description: 'Convert recipe chapters into separate Excel interiors and match food images automatically.', category: 'Converters', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>', color: '#57B9FF', status: 'Ready', href: 'tools/docx-to-xlsx/' },
+  { name: 'Recipe Index Studio', description: 'Paste spreadsheet rows, preview a polished recipe index, and export it as a DOC file.', category: 'Converters', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>', color: '#77B1D4', status: 'Ready', href: 'tools/recipe-generator/' },
+  { name: 'Auto Flow', description: 'Queue prompts and automate bulk image generation with the Chrome extension. — v3.1.0', category: 'Extensions', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>', color: '#517891', status: 'Extension', href: 'tools/autoflow/', badge: 'NEW VERSION', updated: 'Last updated: September 5, 2026', version: 'v3.1.0' },
+  { name: 'CSV Cleaner', description: 'Prepare messy spreadsheet data for your next workflow in a few clicks.', category: 'Converters', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16M4 12h16M4 19h16M8 3v4M16 10v4M10 17v4"/></svg>', color: '#90D5FF', status: 'Coming soon', href: '#' },
+  { name: 'Prompt Builder', description: 'Shape clear, reusable prompts for the way you work and create.', category: 'AI Tools', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h14v12H8l-3 3z"/><path d="m9 9 2 2 4-4"/></svg>', color: '#57B9FF', status: 'Coming soon', href: '#' },
+  { name: 'OCR Extractor', description: 'Pull useful text from images and scanned documents without the busywork.', category: 'AI Tools', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7V5a1 1 0 0 1 1-1h2M17 4h2a1 1 0 0 1 1 1v2M20 17v2a1 1 0 0 1-1 1h-2M7 20H5a1 1 0 0 1-1-1v-2"/><path d="M8 9h8v6H8z"/></svg>', color: '#77B1D4', status: 'Coming soon', href: '#' }
 ];
 
 const grid = document.querySelector('#toolGrid');
@@ -22,7 +22,7 @@ function renderTools() {
   });
 
   grid.innerHTML = visible.map(tool => `
-    <article class="tool-card" style="--tool-color:${tool.color}">
+    <article class="tool-card" style="--tool-accent:${tool.color}">
       <div class="card-top">
         <div class="tool-icon" aria-hidden="true">${tool.icon}</div>
         <div class="card-badges">
@@ -35,7 +35,7 @@ function renderTools() {
       ${tool.updated ? `<div class="card-updated"><span class="updated-dot"></span> ${tool.updated}</div>` : ''}
       <div class="tool-card-footer">
         <span class="tool-category">${tool.category}</span>
-        ${tool.status === 'Coming soon' ? '<span class="tool-coming">Coming soon</span>' : `<a class="tool-open" href="${tool.href}">Open tool</a>`}
+        ${tool.status === 'Coming soon' ? '<span class="tool-coming">Coming soon</span>' : `<a class="tool-open" href="${tool.href}">Open tool &rarr;</a>`}
       </div>
     </article>
   `).join('');
@@ -63,16 +63,17 @@ document.addEventListener('keydown', event => {
 
 const menuToggle = document.querySelector('#menuToggle');
 const mobileMenu = document.querySelector('#mobileMenu');
-menuToggle.addEventListener('click', () => {
-  const isOpen = mobileMenu.classList.toggle('open');
-  menuToggle.setAttribute('aria-expanded', String(isOpen));
-});
-mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
-  mobileMenu.classList.remove('open');
-  menuToggle.setAttribute('aria-expanded', 'false');
-}));
+if (menuToggle && mobileMenu) {
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+  mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  }));
+}
 
-// Maze-inspired scroll + reveal animations
 const progress = document.querySelector('#scrollProgress');
 const header = document.querySelector('.site-header');
 function onScroll() {
@@ -84,33 +85,4 @@ function onScroll() {
 window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      const el = entry.target;
-      // stagger tool cards
-      if (el.classList.contains('tool-card')) {
-        const index = Array.from(document.querySelectorAll('.tool-card')).indexOf(el);
-        el.style.transitionDelay = (index % 3) * 0.08 + 's';
-      }
-      el.classList.add('in-view');
-      observer.unobserve(el);
-    }
-  });
-}, { threshold: 0.15 });
-
-function observeStatic() {
-  document.querySelectorAll('.section-heading, .toolbar').forEach(el => observer.observe(el));
-}
-
-// Hook into renderTools to re-observe after each render
-const _renderToolsOrig = renderTools;
-renderTools = function() {
-  _renderToolsOrig();
-  requestAnimationFrame(() => {
-    document.querySelectorAll('.tool-card').forEach(el => observer.observe(el));
-  });
-};
-
-observeStatic();
 renderTools();

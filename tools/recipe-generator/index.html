@@ -4,70 +4,139 @@
   <meta charset="UTF-8">
   <title>Recipe Index Studio | OmniTools</title>
   <link rel="icon" href="../../assets/omnitools-mark.svg" type="image/svg+xml">
-  <meta name="description" content="Recipe Index Generator by OmniTools">
+  <meta name="description" content="Recipe Index Studio by OmniTools — Paste spreadsheet rows, preview an index, and export as DOC.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/tokens.css">
   <link rel="stylesheet" href="../../css/tool-page.css">
   <link rel="stylesheet" href="../../css/tool-theme.css">
 
   <style>
-    :root {
-      --bg: #f5f7fb;
-      --text: #222;
-      --card: #ffffff;
-      --border: #ddd;
-      --accent: #4a6cf7;
-    }
-
-    body.dark {
-      --bg: #1e1f26;
-      --text: #eee;
-      --card: #2a2c36;
-      --border: #444;
-      --accent: #7aa2ff;
-    }
-
     body {
-      font-family: "DM Sans", system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      padding: 20px;
-      transition: 0.3s;
-      line-height: 1.6;
-    }
-    h1, h2, h3, button, input, select, textarea { font-family: "DM Sans", system-ui, -apple-system, sans-serif; }
-
-    h1 {
-      margin-bottom: 0;
+      font-family: var(--font-primary);
+      background: var(--tool-bg, var(--bg));
+      color: var(--tool-text, var(--text));
+      line-height: var(--leading-body);
+      margin: 0;
+      padding-bottom: 48px;
     }
 
-    h3 {
-      margin-top: 5px;
-      font-weight: normal;
-      color: gray;
-    }
-
-    .topbar {
+    .omni-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      width: 100%;
+      padding: 16px max(24px, calc((100% - 1180px) / 2));
+      border-bottom: 1px solid var(--tool-border, var(--border));
+      background: color-mix(in srgb, var(--tool-bg, var(--bg)) 94%, transparent);
+      backdrop-filter: blur(16px);
+    }
+
+    .omni-topbar-left {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .omni-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--tool-text, var(--text));
+      font-size: 1.1rem;
+      letter-spacing: var(--tracking-wide);
+    }
+
+    .omni-brand span {
+      color: var(--color-bright-blue);
+    }
+
+    .omni-mark {
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      background: var(--color-bright-blue);
+      color: var(--color-white);
+      font-size: 0.95rem;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .omni-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 36px;
+      padding: 6px 14px;
+      border: 1px solid var(--tool-border, var(--border));
+      border-radius: var(--radius-pill);
+      color: var(--tool-muted, var(--text-muted));
+      font-size: 0.78rem;
+      transition: all var(--duration-fast) ease;
+      background: var(--tool-surface, var(--surface));
+    }
+
+    .omni-back:hover {
+      border-color: var(--color-bright-blue);
+      color: var(--color-bright-blue);
+      background: var(--surface-soft);
+    }
+
+    .page-intro {
+      width: min(1180px, calc(100% - 40px));
+      margin: 32px auto 24px;
+    }
+
+    .page-intro h1 {
+      margin: 0 0 8px;
+      font-size: clamp(2rem, 3.5vw, 2.6rem);
+      font-weight: 400;
+      color: var(--color-slate-blue);
+      letter-spacing: var(--tracking-normal);
+    }
+
+    [data-theme="dark"] .page-intro h1 {
+      color: var(--text);
+    }
+
+    .page-intro p {
+      margin: 0;
+      color: var(--tool-muted, var(--text-muted));
+      font-size: 0.92rem;
+      max-width: 680px;
+      line-height: 1.7;
+    }
+
+    .recipe-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
+      gap: 24px;
+      align-items: start;
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
     }
 
     .card {
-      background: var(--card);
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      margin-top: 15px;
+      background: var(--tool-surface, var(--surface));
+      border: 1px solid var(--tool-border, var(--border));
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-subtle);
     }
 
     .table-container {
-      max-height: 600px;
+      max-height: 520px;
       overflow: auto;
-      border: 1px solid var(--border);
-      border-radius: 8px;
+      border: 1px solid var(--tool-border, var(--border));
+      border-radius: var(--radius-md);
+      background: var(--tool-surface-soft, var(--surface-soft));
     }
 
     table {
@@ -76,21 +145,29 @@
     }
 
     th, td {
-      border: 1px solid var(--border);
+      border: 1px solid var(--tool-border, var(--border));
       width: 180px;
-      height: 30px;
-      padding: 4px;
+      height: 34px;
+      padding: 6px 10px;
+      font-size: 0.84rem;
     }
 
     th {
-      background: #f0f0f0;
+      background: rgba(144, 213, 255, 0.25);
+      color: var(--color-slate-blue);
+      font-weight: 400;
       position: sticky;
       top: 0;
       z-index: 2;
     }
 
-    body.dark th {
-      background: #333;
+    [data-theme="dark"] th {
+      background: var(--surface-soft);
+      color: var(--text);
+    }
+
+    td {
+      background: var(--tool-surface, var(--surface));
     }
 
     td input {
@@ -98,97 +175,142 @@
       border: none;
       outline: none;
       background: transparent;
-      color: var(--text);
+      color: var(--tool-text, var(--text));
+      font-size: 0.84rem;
     }
 
     .buttons {
-      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
     }
 
-    button {
-      padding: 8px 16px;
-      margin-right: 5px;
+    .btn-action-primary {
+      min-height: 42px;
+      padding: 8px 20px;
       border: none;
-      border-radius: 6px;
+      border-radius: var(--radius-control);
       cursor: pointer;
-      background: var(--accent);
-      color: white;
+      background: var(--color-bright-blue);
+      color: var(--color-white);
+      font-size: 0.85rem;
+      transition: all var(--duration-fast) ease;
+      box-shadow: var(--shadow-subtle);
     }
 
-    .toggle {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text);
+    .btn-action-primary:hover {
+      background: #47abf2;
+      transform: translateY(-1px);
+    }
+
+    .btn-action-secondary {
+      min-height: 42px;
+      padding: 8px 18px;
+      border: 1px solid var(--tool-border, var(--border));
+      border-radius: var(--radius-control);
+      cursor: pointer;
+      background: var(--color-sky-blue);
+      color: var(--color-slate-blue);
+      font-size: 0.85rem;
+      transition: all var(--duration-fast) ease;
+    }
+
+    .btn-action-secondary:hover {
+      background: #7ecbfb;
+      transform: translateY(-1px);
+    }
+
+    .btn-action-dark {
+      min-height: 42px;
+      padding: 8px 20px;
+      border: none;
+      border-radius: var(--radius-control);
+      cursor: pointer;
+      background: var(--color-slate-blue);
+      color: var(--color-white);
+      font-size: 0.85rem;
+      transition: all var(--duration-fast) ease;
+    }
+
+    .btn-action-dark:hover {
+      background: #42647a;
+      transform: translateY(-1px);
     }
 
     .progress-wrap {
-      margin-top: 10px;
-      background: var(--border);
-      height: 8px;
-      border-radius: 5px;
+      margin-top: 18px;
+      background: var(--tool-border, var(--border));
+      height: 6px;
+      border-radius: 4px;
       overflow: hidden;
-      position: relative;
     }
 
     .progress-bar {
       height: 100%;
       width: 0%;
-      background: var(--accent);
-      transition: 0.2s;
+      background: var(--color-bright-blue);
+      transition: width 0.2s ease;
     }
 
     .progress-text {
-      font-size: 12px;
-      margin-top: 4px;
+      font-size: 0.76rem;
+      margin-top: 6px;
+      color: var(--tool-muted, var(--text-muted));
+    }
+
+    .output-card {
+      position: sticky;
+      top: 96px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .output-card h2 {
+      margin: 0 0 14px;
+      font-size: 1.15rem;
+      color: var(--color-slate-blue);
+    }
+
+    [data-theme="dark"] .output-card h2 {
+      color: var(--text);
     }
 
     pre {
-      background: var(--card);
-      padding: 10px;
-      height: 250px;
+      background: var(--tool-surface-soft, var(--surface-soft));
+      color: var(--tool-text, var(--text));
+      padding: 16px;
+      height: min(520px, 60vh);
       overflow: auto;
-      border-radius: 8px;
-      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--tool-border, var(--border));
+      font-family: var(--font-primary);
+      font-size: 0.85rem;
+      line-height: 1.7;
+      margin: 0;
+      white-space: pre-wrap;
     }
 
-    /* Unified header — same as whole website (tool-header) */
-    .omni-topbar {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      width: 100%;
-      margin: -20px 0 24px;
-      padding: 14px max(20px,calc((100% - 1180px)/2));
-      border-bottom: 1px solid var(--tool-border, var(--border));
-      background: color-mix(in srgb, var(--tool-bg, var(--bg)) 92%, transparent);
-      backdrop-filter: blur(16px);
+    @media (max-width: 920px) {
+      .recipe-layout {
+        grid-template-columns: 1fr;
+      }
+      .output-card {
+        position: static;
+      }
+      pre {
+        height: 300px;
+      }
     }
-    .omni-topbar-left { display: inline-flex; align-items: center; gap: 16px; }
-    .omni-topbar-right { display: inline-flex; align-items: center; gap: 12px; margin-left: auto; }
-    .omni-brand { display: inline-flex; align-items: center; gap: 10px; color: var(--tool-text, var(--text)); text-decoration: none; font-family: "DM Sans", system-ui, -apple-system, sans-serif; font-weight: 800; letter-spacing: -.04em; font-size: 1rem; }
-    .omni-mark { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 11px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; box-shadow: 0 9px 20px color-mix(in srgb, var(--primary) 22%, transparent); font-weight: 800; }
-    .omni-back { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 6px 12px; border: 1px solid transparent; border-radius: 999px; color: var(--tool-text, var(--text)); font-family: "DM Sans", system-ui, sans-serif; font-size: 12px; font-weight: 700; text-decoration: none; white-space: nowrap; transition: background .2s, border-color .2s, color .2s; }
-    .omni-back:hover { border-color: var(--tool-border, var(--border)); background: var(--tool-surface, var(--card)); color: var(--primary); text-decoration: none; }
-    :focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 55%, white); outline-offset: 3px; }
-    body { font-family: "DM Sans", system-ui, -apple-system, sans-serif; min-height: 100vh; line-height: 1.6; }
-    h1, h2, h3 { font-family: "DM Sans", system-ui, -apple-system, sans-serif; }
-    .card { border: 1px solid var(--border); }
-    button { font-family: inherit; transition: transform .2s, filter .2s; }
-    button:hover { transform: translateY(-1px); filter: brightness(1.06); }
-    @media (max-width: 620px) { .omni-topbar { margin-top: -20px; }.omni-back { font-size: 11px; }.topbar { align-items: flex-start; gap: 12px; flex-direction: column; } }
-    html[data-theme] { --bg: var(--tool-bg); --text: var(--tool-text); --card: var(--tool-surface); --border: var(--tool-border); --accent: var(--primary); }
-    .recipe-layout { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(300px, .65fr); gap: 20px; align-items: start; max-width: 1180px; margin: 0 auto; }
-    .input-card { min-width: 0; }
-    .output-card { position: sticky; top: 82px; min-width: 0; }
-    .output-card h3 { margin: 0 0 12px; }
-    .output-card pre { height: min(600px, 65vh); margin: 0; white-space: pre-wrap; }
-    .theme-control select { border-color: var(--tool-border, var(--border)); background: var(--tool-surface, var(--card)); color: var(--tool-text, var(--text)); }
-    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
-    .topbar h1 { max-width: 820px; line-height: 1.18; }
-    @media (max-width: 900px) { .recipe-layout { grid-template-columns: 1fr; }.output-card { position: static; }.output-card pre { height: 320px; } }
+
+    @media (max-width: 650px) {
+      .omni-topbar {
+        padding-inline: 16px;
+      }
+      .page-intro, .recipe-layout {
+        width: calc(100% - 32px);
+      }
+    }
   </style>
 </head>
 
@@ -196,132 +318,103 @@
 
 <header class="omni-topbar">
   <div class="omni-topbar-left">
-    <a class="omni-back" href="../../index.html" aria-label="Back to toolbox">← Back to toolbox</a>
-    <a class="omni-brand" href="../../index.html" aria-label="OmniTools home"><span class="omni-mark" aria-hidden="true">O</span> OmniTools</a>
+    <a class="omni-back" href="../../index.html" aria-label="Back to workspace">&larr; Back to toolbox</a>
+    <a class="omni-brand" href="../../index.html" aria-label="OmniTools home"><span class="omni-mark" aria-hidden="true">O</span> Omni<span>Tools</span></a>
   </div>
   <div class="omni-topbar-right">
-    <label class="theme-control"><span class="sr-only">Choose theme</span><select id="themeSelect" aria-label="Choose color theme"><option value="light">Light</option><option value="dark">Dark</option><option value="colorful">Colorful</option></select></label>
+    <label class="theme-control">
+      <span class="sr-only">Choose theme</span>
+      <select id="themeSelect" aria-label="Choose color theme">
+        <option value="light">Light theme</option>
+        <option value="dark">Dark theme</option>
+        <option value="colorful">Calm theme</option>
+      </select>
+    </label>
   </div>
 </header>
 
-<div class="topbar">
-  <div>
-    <h1>Recipe Index Studio</h1>
-    <h3>Paste your Google Sheet rows on the left, preview the finished index on the right, then export a clean DOC file.</h3>
-  </div>
+<div class="page-intro">
+  <div class="eyebrow">Document Indexing Utility</div>
+  <h1>Recipe Index Studio</h1>
+  <p>Paste recipe and page data into the spreadsheet columns on the left, generate an alphabetically organized index, and export as a clean DOC document.</p>
 </div>
 
 <div class="recipe-layout">
-<section class="card input-card">
+  <section class="card input-card">
+    <div class="table-container">
+      <table id="grid"></table>
+    </div>
 
-  <div class="table-container">
-    <table id="grid"></table>
-  </div>
+    <div class="buttons">
+      <button class="btn-action-primary" onclick="generate()" title="Generate index from spreadsheet rows">Generate index</button>
+      <button class="btn-action-secondary" onclick="clearGrid()" title="Clear spreadsheet rows">Clear rows</button>
+      <button class="btn-action-dark" onclick="downloadDoc()" title="Export generated index as a DOC file">Download DOC</button>
+    </div>
 
-  <div class="buttons">
-    <button onclick="generate()" title="Read the filled rows and create the four-column recipe index">Generate index</button>
-    <button onclick="clearGrid()" class="toggle" title="Remove all spreadsheet entries and reset the preview">Clear rows</button>
-    <button onclick="downloadDoc()" title="Download the generated preview as a DOC file">Download DOC</button>
-  </div>
+    <div class="progress-wrap">
+      <div id="progressBar" class="progress-bar"></div>
+    </div>
 
-  <div class="progress-wrap">
-    <div id="progressBar" class="progress-bar"></div>
-  </div>
+    <div class="progress-text" id="progressText">0%</div>
+  </section>
 
-  <div class="progress-text" id="progressText">0%</div>
-
-</section>
-
-<aside class="card output-card">
-  <h3>Generated index</h3>
-  <pre id="output">Your generated recipe index will appear here.</pre>
-</aside>
+  <aside class="card output-card">
+    <h2>Generated Index</h2>
+    <pre id="output">Your generated recipe index will appear here.</pre>
+  </aside>
 </div>
 
 <script>
-
 const rows = 200;
 const cols = 3;
-
 const table = document.getElementById("grid");
 
-
-// HEADER
+// Header
 let header = "<tr><th></th>";
-
 for (let c = 0; c < cols; c++) {
   header += `<th>${String.fromCharCode(65 + c)}</th>`;
 }
-
 header += "</tr>";
-
 table.innerHTML += header;
 
-
-// ROWS
+// Rows
 for (let r = 0; r < rows; r++) {
-
   let rowHTML = `<tr><th>${r + 1}</th>`;
-
   for (let c = 0; c < cols; c++) {
-
     rowHTML += `
       <td>
         <input data-row="${r}" data-col="${c}">
       </td>
     `;
   }
-
   rowHTML += "</tr>";
-
   table.innerHTML += rowHTML;
 }
 
-
-
-// PASTE SYSTEM
+// Paste handling
 table.addEventListener("paste", function(e) {
-
   const startCell = e.target;
-
   if (startCell.tagName !== "INPUT") return;
-
   e.preventDefault();
-
   const pasteData = e.clipboardData.getData("text");
-
   const rowsData = pasteData.split("\n");
-
   const startRow = parseInt(startCell.dataset.row);
-
   const startCol = parseInt(startCell.dataset.col);
 
   rowsData.forEach((row, i) => {
-
     const cells = row.split(/\t|,/);
-
     cells.forEach((cell, j) => {
-
       const target = document.querySelector(
         `input[data-row="${startRow + i}"][data-col="${startCol + j}"]`
       );
-
       if (target) target.value = cell.trim();
-
     });
-
   });
-
 });
 
-
-
-
-// GENERATE
+// Generate index
 function generate() {
-
   let data = [];
-
   if (![...document.querySelectorAll("td input")].some(input => input.value.trim())) {
     document.getElementById("progressText").innerText = "Add recipe data before generating.";
     document.getElementById("output").innerText = "Nothing to generate yet. Paste recipe names and page numbers into the grid.";
@@ -329,142 +422,75 @@ function generate() {
   }
 
   const inputs = document.querySelectorAll("td input");
-
   const bar = document.getElementById("progressBar");
-
   const text = document.getElementById("progressText");
-
   let count = 0;
-
   let missingRows = [];
 
-
   inputs.forEach((input, i) => {
-
     const row = input.dataset.row;
-
     const col = input.dataset.col;
 
-
     if (col == 0) {
-
       const name = input.value.trim();
-
       const page = document.querySelector(
         `input[data-row="${row}"][data-col="1"]`
       ).value.trim();
 
-
-      // WARNING CHECK
       if (name && !page) {
         missingRows.push(Number(row) + 1);
       }
 
-
       if (name && page) {
         data.push({ name, page });
       }
-
     }
-
 
     setTimeout(() => {
-
       count++;
-
       let percent = Math.floor((count / inputs.length) * 100);
-
       bar.style.width = percent + "%";
-
       text.innerText = percent + "%";
-
     }, i * 2);
-
   });
 
-
-
   setTimeout(() => {
-
-    // WARNING
     if (missingRows.length > 0) {
-
-      alert(
-        "Warning!\n\nMissing page number in rows:\n" +
-        missingRows.join(", ")
-      );
-
+      alert("Warning!\n\nMissing page number in rows:\n" + missingRows.join(", "));
     }
 
-
-    // SORT
     data.sort((a, b) => a.name.localeCompare(b.name));
-
     let currentLetter = "";
-
     let output = [];
 
-
     data.forEach(item => {
-
       const letter = item.name.charAt(0).toUpperCase();
-
       if (letter !== currentLetter) {
-
         currentLetter = letter;
-
         output.push("\n" + letter);
-
       }
-
       const dots = "..........";
-
       output.push(item.name + " " + dots + item.page);
-
     });
 
-
-
-
-    // Final output — single clean index without column dividers (accessibility fix)
     let finalOutput = output.join("\n");
-
-
     document.getElementById("output").innerText = finalOutput;
-
-
-    // COMPLETE MESSAGE
     alert("Recipe Index Generated Successfully!");
-
   }, inputs.length * 2);
-
 }
 
-
-
-
-// DOWNLOAD DOC
+// Download DOC
 function downloadDoc() {
-
   const text = document.getElementById("output").innerText;
-
   if (!text || text === "Your generated recipe index will appear here.") {
     document.getElementById("progressText").innerText = "Generate the index before downloading.";
     return;
   }
-
-  const blob = new Blob([text], {
-    type: "application/msword"
-  });
-
+  const blob = new Blob([text], { type: "application/msword" });
   const a = document.createElement("a");
-
   a.href = URL.createObjectURL(blob);
-
   a.download = "Recipe_Index.doc";
-
   a.click();
-
 }
 
 function clearGrid() {
@@ -473,32 +499,7 @@ function clearGrid() {
   document.getElementById("progressBar").style.width = "0%";
   document.getElementById("progressText").innerText = "0%";
 }
-
-
-
 </script>
 <script src="../../js/theme.js"></script>
-<style>
-  body { background:var(--tool-bg); color:var(--tool-text); }
-  .card { background:var(--tool-surface); border-color:var(--tool-border); box-shadow:0 18px 45px color-mix(in srgb,var(--primary) 8%,transparent); }
-  .table-container { background:var(--tool-surface-soft); border-color:var(--tool-border); }
-  th { background:color-mix(in srgb,var(--primary) 10%,var(--tool-surface)); color:var(--tool-text); }
-  td { background:var(--tool-surface); }
-  .topbar h1 { font-size:clamp(2rem,4vw,3.5rem); letter-spacing:-.07em; }
-  .topbar h3,.progress-text { color:var(--tool-muted); }
-  .recipe-layout { gap:24px; }
-  .page-intro { width:min(1180px,calc(100% - 40px)); margin:0 auto 24px; }
-  .input-card,.output-card { padding:20px; border-radius:22px; }
-  .input-card { display:flex; flex-direction:column; }
-  .input-card .buttons { order:2; display:flex; flex-wrap:wrap; gap:8px; }
-  .input-card .buttons button { margin:0; min-height:42px; }
-  .input-card .progress-wrap,.input-card .progress-text { order:3; }
-  .output-card { min-height:640px; }
-  .output-card pre { background:var(--tool-surface-soft); border-color:var(--tool-border); color:var(--tool-text); line-height:1.75; }
-  .toggle { color:var(--tool-text); background:var(--tool-surface); border-color:var(--tool-border); }
-  @media (max-width:900px) { .output-card { min-height:0; } }
-  @media (max-width:650px) { .omni-topbar { padding-inline:14px; }.page-intro { width:calc(100% - 28px); } }
-</style>
-
 </body>
 </html>

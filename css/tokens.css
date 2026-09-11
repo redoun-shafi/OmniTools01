@@ -1,74 +1,48 @@
-/* OmniTools — Instrument Panel Design Tokens
-   Single source of truth. All components build from these variables.
-   Dark is default; light via [data-theme="light"].
-   Rationale: Instrument Panel — steel/graphite surfaces, brass hardware, hairline seams.
+/* Calm Blue — AI-Ready Design System Tokens
+   Single source of truth for OmniTools.
+   Colors:
+     Sky Blue:    #90D5FF
+     Bright Blue: #57B9FF
+     Dusty Blue:  #77B1D4
+     Slate Blue:  #517891
+     Canvas:      #FFFFFF / #FAFCFF
+   Typography:
+     Tenor Sans
 */
 
-/* Load type — IBM Plex Sans (UI) + IBM Plex Mono (data) */
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Tenor+Sans&display=swap");
 
 :root {
-  /* ——— Dark (primary/default) ——— */
-  --ink-canvas: #1B1C1E;
-  --ink-panel: #232427;
-  --ink-panel-soft: #2A2C2E;
-  --ink-border: rgba(255,255,255,0.08);
-  --ink-border-strong: rgba(255,255,255,0.14);
-  --ink-text: #EDEAE3;
-  --ink-text-muted: #A6A29B;
-  --ink-text-faint: #7E7B75;
+  /* Exact 4 HEX Colors */
+  --color-sky-blue: #90D5FF;
+  --color-bright-blue: #57B9FF;
+  --color-dusty-blue: #77B1D4;
+  --color-slate-blue: #517891;
+  --color-white: #FFFFFF;
+  --color-off-white: #FAFCFF;
 
-  /* Light */
-  --paper-canvas: #EDEBE6;
-  --paper-panel: #F7F5F1;
-  --paper-panel-soft: #EDE9E2;
-  --paper-border: rgba(20,20,18,0.12);
-  --paper-border-strong: rgba(20,20,18,0.18);
-  --paper-text: #201F1D;
-  --paper-text-muted: #63605A;
-  --paper-text-faint: #8C8881;
-
-  /* Accents — shared */
-  --brass: #B8863B;
-  --brass-hover: #9D6F2E;
-  --brass-text: #8A5F1E;
-  --brass-soft: rgba(184,134,59,0.12);
-  --brass-border: rgba(184,134,59,0.28);
-  --signal-teal: #2F7A6B;
-  --signal-teal-soft: rgba(47,122,107,0.12);
-  --hazard: #C4472B;
-  --hazard-hover: #A93D25;
-  --hazard-soft: rgba(196,71,43,0.12);
-
-  /* Semantic — default to dark */
-  --canvas: var(--ink-canvas);
-  --panel: var(--ink-panel);
-  --panel-soft: var(--ink-panel-soft);
-  --border: var(--ink-border);
-  --border-strong: var(--ink-border-strong);
-  --text: var(--ink-text);
-  --text-muted: var(--ink-text-muted);
-  --text-faint: var(--ink-text-faint);
-
-  /* Type */
-  --font-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Code", monospace;
+  /* Typography */
+  --font-primary: "Tenor Sans", sans-serif;
+  --font-sans: "Tenor Sans", sans-serif;
+  --font-mono: "Tenor Sans", ui-monospace, monospace;
   --text-base: 16px;
-  --leading-body: 1.6;
-  --leading-heading: 1.15;
-  --tracking-tight: -0.02em;
+  --leading-body: 1.65;
+  --leading-heading: 1.25;
+  --tracking-normal: 0.01em;
+  --tracking-wide: 0.04em;
+  --tracking-wider: 0.08em;
 
-  /* Scale — 1.25 ratio off 16px: 12.8 / 16 / 20 / 25 / 31 / 39 / 49 / 61 */
-  --text-xs: 0.8rem;    /* 12.8 */
-  --text-sm: 0.875rem;  /* 14 */
-  --text-base-r: 1rem;  /* 16 */
-  --text-md: 1.25rem;   /* 20 */
-  --text-lg: 1.5625rem; /* 25 */
-  --text-xl: 1.9375rem; /* 31 */
-  --text-2xl: 2.4375rem;/* 39 */
-  --text-3xl: 3.0625rem;/* 49 */
+  /* Type Scale */
+  --text-xs: 0.75rem;   /* 12px */
+  --text-sm: 0.875rem;  /* 14px */
+  --text-base-r: 1rem;  /* 16px */
+  --text-md: 1.125rem;  /* 18px */
+  --text-lg: 1.375rem;  /* 22px */
+  --text-xl: 1.75rem;   /* 28px */
+  --text-2xl: 2.25rem;  /* 36px */
+  --text-3xl: 3rem;     /* 48px */
 
-  /* Spacing — 4px base */
+  /* Spacing */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -79,71 +53,149 @@
   --space-10: 40px;
   --space-12: 48px;
   --space-16: 64px;
+  --space-20: 80px;
 
-  /* Shape — panels are sharp, controls are rounded */
-  --radius-panel: 4px;
-  --radius-control: 10px;
+  /* Shape — understated, refined */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
   --radius-pill: 999px;
-  --radius-key: 8px;
+  --radius-panel: 12px;
+  --radius-control: 8px;
 
-  /* Elevation — hairline, not shadow */
-  --hairline: 1px solid var(--border);
-  --hairline-strong: 1px solid var(--border-strong);
+  /* Elevation — airy, understated */
+  --shadow-subtle: 0 2px 8px rgba(81, 120, 145, 0.08);
+  --shadow-card: 0 4px 20px rgba(81, 120, 145, 0.08);
+  --shadow-hover: 0 8px 30px rgba(81, 120, 145, 0.12);
+  --shadow-glow: 0 0 24px rgba(144, 213, 255, 0.4);
 
-  /* Motion */
+  /* Transitions */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --duration-fast: 150ms;
   --duration-base: 220ms;
 
-  /* Focus */
-  --focus-ring: 0 0 0 2px var(--canvas), 0 0 0 4px var(--brass);
+  /* Focus Indicator */
+  --focus-ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--color-bright-blue);
 
-  /* Legacy aliases — map old --primary/--accent etc to new system for gradual migration */
-  --primary: var(--brass);
-  --accent: var(--brass);
-  --secondary: var(--signal-teal);
-  --success: var(--signal-teal);
-  --bg: var(--canvas);
-  --surface: var(--panel);
-  --surface-soft: var(--panel-soft);
-  --muted: var(--text-muted);
-  --muted-strong: var(--text);
-  --shadow: none;
-  --shadow-small: none;
-  --radius-lg: var(--radius-panel);
-  --radius-md: var(--radius-panel);
-  --radius-sm: var(--radius-control);
+  /* Light Theme (Default) */
+  --bg: var(--color-off-white);
+  --canvas: var(--color-off-white);
+  --surface: var(--color-white);
+  --surface-soft: #F2F8FD;
+  --surface-highlight: var(--color-sky-blue);
+  --surface-alt: rgba(144, 213, 255, 0.15);
+  --text: var(--color-slate-blue);
+  --text-muted: #6B8FA7;
+  --text-faint: #98B8CE;
+  --border: rgba(119, 177, 212, 0.3);
+  --border-strong: var(--color-dusty-blue);
+  --border-light: rgba(144, 213, 255, 0.4);
+
+  /* Brand Tokens */
+  --primary: var(--color-bright-blue);
+  --primary-hover: #3AA9FA;
+  --secondary: var(--color-sky-blue);
+  --accent: var(--color-bright-blue);
+  --muted: var(--color-dusty-blue);
+  --dark: var(--color-slate-blue);
+
+  /* Tool semantic mapping */
+  --tool-bg: var(--bg);
+  --tool-surface: var(--surface);
+  --tool-surface-soft: var(--surface-soft);
+  --tool-text: var(--text);
+  --tool-muted: var(--text-muted);
+  --tool-border: var(--border);
 }
 
-[data-theme="light"] {
-  --canvas: var(--paper-canvas);
-  --panel: var(--paper-panel);
-  --panel-soft: var(--paper-panel-soft);
-  --border: var(--paper-border);
-  --border-strong: var(--paper-border-strong);
-  --text: var(--paper-text);
-  --text-muted: var(--paper-text-muted);
-  --text-faint: var(--paper-text-faint);
+[data-theme="dark"] {
+  --bg: #182833;
+  --canvas: #182833;
+  --surface: #203544;
+  --surface-soft: #284254;
+  --surface-highlight: #2A485C;
+  --surface-alt: rgba(144, 213, 255, 0.08);
+  --text: #F2F8FD;
+  --text-muted: var(--color-dusty-blue);
+  --text-faint: #6B8FA7;
+  --border: rgba(144, 213, 255, 0.16);
+  --border-strong: rgba(144, 213, 255, 0.32);
+  --border-light: rgba(144, 213, 255, 0.1);
+  --shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --shadow-card: 0 6px 24px rgba(0, 0, 0, 0.3);
+  --shadow-hover: 0 10px 32px rgba(0, 0, 0, 0.4);
+  --focus-ring: 0 0 0 2px #182833, 0 0 0 4px var(--color-bright-blue);
+
+  --tool-bg: var(--bg);
+  --tool-surface: var(--surface);
+  --tool-surface-soft: var(--surface-soft);
+  --tool-text: var(--text);
+  --tool-muted: var(--text-muted);
+  --tool-border: var(--border);
 }
 
-/* Reduced motion */
+[data-theme="colorful"], [data-theme="calm"] {
+  --bg: #EDF6FC;
+  --canvas: #EDF6FC;
+  --surface: #FFFFFF;
+  --surface-soft: #E2F0FA;
+  --surface-highlight: var(--color-sky-blue);
+  --surface-alt: rgba(87, 185, 255, 0.12);
+  --text: var(--color-slate-blue);
+  --text-muted: #5D849E;
+  --text-faint: #8FB2C8;
+  --border: rgba(87, 185, 255, 0.25);
+  --border-strong: var(--color-bright-blue);
+  --border-light: rgba(144, 213, 255, 0.5);
+
+  --tool-bg: var(--bg);
+  --tool-surface: var(--surface);
+  --tool-surface-soft: var(--surface-soft);
+  --tool-text: var(--text);
+  --tool-muted: var(--text-muted);
+  --tool-border: var(--border);
+}
+
+/* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  :root { --duration-fast: 1ms; --duration-base: 1ms; }
+  :root {
+    --duration-fast: 1ms;
+    --duration-base: 1ms;
+  }
 }
 
-/* Base resets that enforce tokens */
-html { font-size: var(--text-base); }
+/* Global Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: var(--text-base);
+  scroll-behavior: smooth;
+}
+
 body {
-  font-family: var(--font-sans);
-  background: var(--canvas);
+  margin: 0;
+  font-family: var(--font-primary);
+  background: var(--bg);
   color: var(--text);
   line-height: var(--leading-body);
+  letter-spacing: var(--tracking-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-code, kbd, pre, .mono { font-family: var(--font-mono); }
 
-/* Focus — high-visibility offset ring, never outline:none without replacement */
-:focus-visible { outline: none; box-shadow: var(--focus-ring); }
-:focus:not(:focus-visible) { box-shadow: none; }
+h1, h2, h3, h4, h5, h6,
+p, span, a, button, input, select, textarea, label, table, th, td {
+  font-family: var(--font-primary);
+}
 
-/* Ensure minimum 44×44 touch target for icon controls via utility */
-.touch-44 { min-width: 44px; min-height: 44px; }
+/* Accessible Focus Outlines */
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+:focus:not(:focus-visible) {
+  outline: none;
+}
