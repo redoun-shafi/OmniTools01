@@ -6,7 +6,7 @@
 (function () {
   'use strict';
 
-  // Active tab in Auth Modal: 'signin' | 'signup' | 'forgot' | 'settings'
+  // Active tab in Auth Modal: 'signin' | 'signup' | 'forgot'
   let activeTab = 'signin';
   let isModalOpen = false;
   let pendingRedirectUrl = null;
@@ -70,11 +70,6 @@
               <div class="omni-dropdown-user-fullname">${escapeHtml(name)}</div>
               <div class="omni-dropdown-user-email">${escapeHtml(email)}</div>
             </div>
-            <button class="omni-dropdown-item" id="omniBtnSettings" role="menuitem">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-              Supabase Settings
-            </button>
-            <div class="omni-dropdown-divider"></div>
             <button class="omni-dropdown-item danger" id="omniBtnSignOut" role="menuitem">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
               Sign out
@@ -85,7 +80,6 @@
         // Wire dropdown toggle
         const badge = container.querySelector('#omniUserBadge');
         const dropdown = container.querySelector('#omniUserDropdown');
-        const btnSettings = container.querySelector('#omniBtnSettings');
         const btnSignOut = container.querySelector('#omniBtnSignOut');
 
         badge?.addEventListener('click', (e) => {
@@ -96,11 +90,6 @@
             dropdown.classList.add('open');
             badge.setAttribute('aria-expanded', 'true');
           }
-        });
-
-        btnSettings?.addEventListener('click', () => {
-          closeAllDropdowns();
-          openAuthModal('settings');
         });
 
         btnSignOut?.addEventListener('click', async () => {
@@ -156,7 +145,6 @@
           <button class="omni-auth-tab active" data-tab="signin" role="tab">Sign In</button>
           <button class="omni-auth-tab" data-tab="signup" role="tab">Create Account</button>
           <button class="omni-auth-tab" data-tab="forgot" role="tab">Forgot Password</button>
-          <button class="omni-auth-tab" data-tab="settings" role="tab">Settings</button>
         </div>
 
         <div class="omni-auth-modal-body">
@@ -215,23 +203,6 @@
             <button type="submit" class="omni-auth-submit" id="omniBtnSubmitForgot">Send Reset Link</button>
             <div class="omni-auth-footer-link">
               Remembered your password? <a href="javascript:void(0)" id="omniLinkBackSignIn">Back to Sign In</a>
-            </div>
-          </form>
-
-          <!-- Tab: Supabase Settings -->
-          <form id="omniFormSettings" class="omni-auth-tab-content" style="display:none;">
-            <p class="omni-form-help">Configure your custom Supabase Project URL and Anon Public API Key. Stored securely in your browser's local storage.</p>
-            <div class="omni-form-group">
-              <label class="omni-form-label" for="omniSettingUrl">Supabase Project URL</label>
-              <input class="omni-form-input" type="url" id="omniSettingUrl" placeholder="https://xyzproject.supabase.co" required>
-            </div>
-            <div class="omni-form-group">
-              <label class="omni-form-label" for="omniSettingKey">Anon Public API Key</label>
-              <input class="omni-form-input" type="password" id="omniSettingKey" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6..." required>
-            </div>
-            <div style="display:flex;gap:8px;">
-              <button type="submit" class="omni-auth-submit" style="flex:1;" id="omniBtnSaveSettings">Save & Connect</button>
-              <button type="button" class="omni-btn-secondary" id="omniBtnTestConnection">Test</button>
             </div>
           </form>
         </div>
@@ -356,37 +327,6 @@
         setLoading(submitBtn, false, 'Send Reset Link');
       }
     });
-
-    // Form: Settings
-    const formSettings = overlay.querySelector('#omniFormSettings');
-    formSettings?.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const url = overlay.querySelector('#omniSettingUrl').value;
-      const key = overlay.querySelector('#omniSettingKey').value;
-      const submitBtn = overlay.querySelector('#omniBtnSaveSettings');
-
-      try {
-        window.OmniSupabase.saveConfig(url, key);
-        showAlert('Supabase settings updated and connected!', 'success');
-        updateConfigBadge();
-      } catch (err) {
-        showAlert(err.message, 'error');
-      }
-    });
-
-    // Test Connection Button
-    const btnTest = overlay.querySelector('#omniBtnTestConnection');
-    btnTest?.addEventListener('click', async () => {
-      const url = overlay.querySelector('#omniSettingUrl').value;
-      const key = overlay.querySelector('#omniSettingKey').value;
-      if (url && key) {
-        window.OmniSupabase.saveConfig(url, key);
-      }
-      btnTest.innerText = 'Testing...';
-      const result = await window.OmniSupabase.checkConnection();
-      btnTest.innerText = 'Test';
-      showAlert(result.message, result.ok ? 'success' : 'error');
-    });
   }
 
   function handleAuthSuccess(user) {
@@ -423,8 +363,7 @@
     const forms = {
       signin: overlay.querySelector('#omniFormSignIn'),
       signup: overlay.querySelector('#omniFormSignUp'),
-      forgot: overlay.querySelector('#omniFormForgot'),
-      settings: overlay.querySelector('#omniFormSettings')
+      forgot: overlay.querySelector('#omniFormForgot')
     };
 
     Object.keys(forms).forEach(key => {
@@ -432,15 +371,6 @@
         forms[key].style.display = (key === tabName) ? 'block' : 'none';
       }
     });
-
-    // Pre-populate settings form when opening settings tab
-    if (tabName === 'settings' && window.OmniSupabase) {
-      const conf = window.OmniSupabase.getConfig();
-      const urlInput = overlay.querySelector('#omniSettingUrl');
-      const keyInput = overlay.querySelector('#omniSettingKey');
-      if (urlInput) urlInput.value = conf.supabaseUrl.includes('xyzcompany') ? '' : conf.supabaseUrl;
-      if (keyInput) keyInput.value = conf.supabaseKey.includes('placeholder') ? '' : conf.supabaseKey;
-    }
   }
 
   /**
@@ -531,60 +461,11 @@
   }
 
   function checkAndRenderToolGate() {
-    if (!isToolPage()) return;
-    if (!window.OmniSupabase) return;
-
-    window.OmniSupabase.getUser().then(user => {
-      let gate = document.getElementById('omniToolGateOverlay');
-
-      if (!user) {
-        // User is not signed in: Render or activate Gate Barrier
-        const toolName = getToolNameFromPage();
-        if (!gate) {
-          gate = document.createElement('div');
-          gate.id = 'omniToolGateOverlay';
-          gate.className = 'omni-tool-gate-overlay';
-          gate.innerHTML = `
-            <div class="omni-tool-gate-card">
-              <div class="omni-gate-icon-wrap" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                </svg>
-              </div>
-              <div class="omni-gate-eyebrow">Authentication Required</div>
-              <h2 class="omni-gate-title">Sign in to use ${escapeHtml(toolName)}</h2>
-              <p class="omni-gate-desc">Create a free OmniTools account or sign in to convert files, generate indexes, and save your tool activity.</p>
-              <div class="omni-gate-actions">
-                <button class="omni-gate-btn-primary" id="omniGateBtnSignIn">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
-                  Sign In to Continue
-                </button>
-                <button class="omni-gate-btn-secondary" id="omniGateBtnSignUp">
-                  Create Free Account
-                </button>
-              </div>
-              <a class="omni-gate-back-link" href="../../index.html">&larr; Return to OmniTools Toolbox</a>
-            </div>
-          `;
-          document.body.appendChild(gate);
-
-          gate.querySelector('#omniGateBtnSignIn')?.addEventListener('click', () => {
-            openAuthModal('signin', `Please sign in to access ${toolName}`);
-          });
-
-          gate.querySelector('#omniGateBtnSignUp')?.addEventListener('click', () => {
-            openAuthModal('signup', `Create a free account to access ${toolName}`);
-          });
-        }
-        gate.classList.add('active');
-      } else {
-        // User is authenticated: remove or hide gate
-        if (gate) {
-          gate.classList.remove('active');
-        }
-      }
-    });
+    // Open access for all tools without blocking modal or barrier
+    const gate = document.getElementById('omniToolGateOverlay');
+    if (gate) {
+      gate.remove();
+    }
   }
 
   function requireAuth(onSuccess, alertMessage, targetUrl) {

@@ -1,36 +1,47 @@
-/* Calm Blue — AI-Ready Design System Tokens
-   Single source of truth for OmniTools.
-   Colors:
-     Sky Blue:    #90D5FF
-     Bright Blue: #57B9FF
-     Dusty Blue:  #77B1D4
-     Slate Blue:  #517891
-     Canvas:      #FFFFFF / #FAFCFF
+/* OmniTools — AI Tool Design System Tokens
+   Design System inspired by modern AI Tool Web Template
+   Color Palette:
+     Primary Dark Navy: #202940
+     Dark Brown:        #4B4038
+     Muted Taupe:       #9A8678
+     Warm Beige:        #CAAA98
+     Canvas/Surface:    #FAF7F5 / #FFFFFF / #151B2B
    Typography:
-     Tenor Sans
+     Josefin Sans (applied everywhere across all weights and components)
 */
 
-@import url("https://fonts.googleapis.com/css2?family=Tenor+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap");
 
 :root {
-  /* Exact 4 HEX Colors */
-  --color-sky-blue: #90D5FF;
-  --color-bright-blue: #57B9FF;
-  --color-dusty-blue: #77B1D4;
-  --color-slate-blue: #517891;
-  --color-white: #FFFFFF;
-  --color-off-white: #FAFCFF;
+  /* Exact Palette Tokens */
+  --color-primary-navy: #202940;
+  --color-dark-brown:   #4B4038;
+  --color-muted-taupe:  #9A8678;
+  --color-warm-beige:   #CAAA98;
+  --color-white:        #FFFFFF;
+  --color-off-white:    #FAF7F5;
+  --color-canvas-warm:  #F5EFEB;
 
-  /* Typography */
-  --font-primary: "Tenor Sans", sans-serif;
-  --font-sans: "Tenor Sans", sans-serif;
-  --font-mono: "Tenor Sans", ui-monospace, monospace;
+  /* Backward compatibility aliases */
+  --color-sky-blue:    #CAAA98;
+  --color-bright-blue: #202940;
+  --color-dusty-blue:  #9A8678;
+  --color-slate-blue:  #4B4038;
+
+  /* Typography — Josefin Sans Everywhere */
+  --font-primary: "Josefin Sans", sans-serif;
+  --font-sans: "Josefin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-heading: "Josefin Sans", sans-serif;
+  --font-mono: "Josefin Sans", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
   --text-base: 16px;
-  --leading-body: 1.65;
-  --leading-heading: 1.25;
+  --leading-body: 1.6;
+  --leading-heading: 1.2;
+  --tracking-tight: -0.01em;
   --tracking-normal: 0.01em;
   --tracking-wide: 0.04em;
   --tracking-wider: 0.08em;
+  --tracking-widest: 0.12em;
 
   /* Type Scale */
   --text-xs: 0.75rem;   /* 12px */
@@ -40,7 +51,7 @@
   --text-lg: 1.375rem;  /* 22px */
   --text-xl: 1.75rem;   /* 28px */
   --text-2xl: 2.25rem;  /* 36px */
-  --text-3xl: 3rem;     /* 48px */
+  --text-3xl: 3.25rem;  /* 52px */
 
   /* Spacing */
   --space-1: 4px;
@@ -55,20 +66,20 @@
   --space-16: 64px;
   --space-20: 80px;
 
-  /* Shape — understated, refined */
+  /* Shapes */
   --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
   --radius-pill: 999px;
-  --radius-panel: 12px;
-  --radius-control: 8px;
+  --radius-panel: 16px;
+  --radius-control: 10px;
 
-  /* Elevation — airy, understated */
-  --shadow-subtle: 0 2px 8px rgba(81, 120, 145, 0.08);
-  --shadow-card: 0 4px 20px rgba(81, 120, 145, 0.08);
-  --shadow-hover: 0 8px 30px rgba(81, 120, 145, 0.12);
-  --shadow-glow: 0 0 24px rgba(144, 213, 255, 0.4);
+  /* Elevation */
+  --shadow-subtle: 0 2px 10px rgba(32, 41, 64, 0.05);
+  --shadow-card: 0 8px 24px -4px rgba(32, 41, 64, 0.08);
+  --shadow-hover: 0 16px 36px -6px rgba(32, 41, 64, 0.14);
+  --shadow-glow: 0 0 28px rgba(202, 170, 152, 0.35);
 
   /* Transitions */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -76,29 +87,30 @@
   --duration-base: 220ms;
 
   /* Focus Indicator */
-  --focus-ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--color-bright-blue);
+  --focus-ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--color-primary-navy);
 
-  /* Light Theme (Default) */
+  /* Light Theme (Default Warm AI Studio) */
   --bg: var(--color-off-white);
   --canvas: var(--color-off-white);
-  --surface: var(--color-white);
-  --surface-soft: #F2F8FD;
-  --surface-highlight: var(--color-sky-blue);
-  --surface-alt: rgba(144, 213, 255, 0.15);
-  --text: #182833;
-  --text-muted: #3D596E;
-  --text-faint: #5D7C91;
-  --border: rgba(81, 120, 145, 0.28);
-  --border-strong: var(--color-dusty-blue);
-  --border-light: rgba(144, 213, 255, 0.4);
+  --surface: #FFFFFF;
+  --surface-soft: #F5EFEB;
+  --surface-highlight: #EBE1D9;
+  --surface-alt: rgba(202, 170, 152, 0.18);
+  --text: var(--color-primary-navy);
+  --text-muted: var(--color-dark-brown);
+  --text-faint: var(--color-muted-taupe);
+  --border: rgba(154, 134, 120, 0.22);
+  --border-strong: var(--color-muted-taupe);
+  --border-light: rgba(202, 170, 152, 0.35);
 
   /* Brand Tokens */
-  --primary: var(--color-bright-blue);
-  --primary-hover: #3AA9FA;
-  --secondary: var(--color-sky-blue);
-  --accent: var(--color-bright-blue);
-  --muted: var(--color-dusty-blue);
-  --dark: var(--color-slate-blue);
+  --primary: var(--color-primary-navy);
+  --primary-hover: #151B2B;
+  --secondary: var(--color-warm-beige);
+  --accent: var(--color-warm-beige);
+  --accent-contrast: var(--color-primary-navy);
+  --muted: var(--color-muted-taupe);
+  --dark: var(--color-dark-brown);
 
   /* Tool semantic mapping */
   --tool-bg: var(--bg);
@@ -110,22 +122,27 @@
 }
 
 [data-theme="dark"] {
-  --bg: #182833;
-  --canvas: #182833;
-  --surface: #203544;
-  --surface-soft: #284254;
-  --surface-highlight: #2A485C;
-  --surface-alt: rgba(144, 213, 255, 0.08);
-  --text: #F2F8FD;
-  --text-muted: var(--color-dusty-blue);
-  --text-faint: #6B8FA7;
-  --border: rgba(144, 213, 255, 0.16);
-  --border-strong: rgba(144, 213, 255, 0.32);
-  --border-light: rgba(144, 213, 255, 0.1);
-  --shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.25);
-  --shadow-card: 0 6px 24px rgba(0, 0, 0, 0.3);
-  --shadow-hover: 0 10px 32px rgba(0, 0, 0, 0.4);
-  --focus-ring: 0 0 0 2px #182833, 0 0 0 4px var(--color-bright-blue);
+  --bg: #131824;
+  --canvas: #131824;
+  --surface: #202940;
+  --surface-soft: #28334E;
+  --surface-highlight: #323F60;
+  --surface-alt: rgba(202, 170, 152, 0.1);
+  --text: #FAF7F5;
+  --text-muted: var(--color-warm-beige);
+  --text-faint: #B59E8F;
+  --border: rgba(202, 170, 152, 0.16);
+  --border-strong: rgba(202, 170, 152, 0.35);
+  --border-light: rgba(202, 170, 152, 0.12);
+  --shadow-subtle: 0 2px 10px rgba(0, 0, 0, 0.3);
+  --shadow-card: 0 8px 28px rgba(0, 0, 0, 0.35);
+  --shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.45);
+  --focus-ring: 0 0 0 2px #131824, 0 0 0 4px var(--color-warm-beige);
+
+  --primary: var(--color-warm-beige);
+  --primary-hover: #D8BDAC;
+  --accent: var(--color-warm-beige);
+  --accent-contrast: var(--color-primary-navy);
 
   --tool-bg: var(--bg);
   --tool-surface: var(--surface);
@@ -136,18 +153,18 @@
 }
 
 [data-theme="colorful"], [data-theme="calm"] {
-  --bg: #EDF6FC;
-  --canvas: #EDF6FC;
+  --bg: #F4ECE6;
+  --canvas: #F4ECE6;
   --surface: #FFFFFF;
-  --surface-soft: #E2F0FA;
-  --surface-highlight: var(--color-sky-blue);
-  --surface-alt: rgba(87, 185, 255, 0.12);
-  --text: var(--color-slate-blue);
-  --text-muted: #5D849E;
-  --text-faint: #8FB2C8;
-  --border: rgba(87, 185, 255, 0.25);
-  --border-strong: var(--color-bright-blue);
-  --border-light: rgba(144, 213, 255, 0.5);
+  --surface-soft: #EFE4DC;
+  --surface-highlight: var(--color-warm-beige);
+  --surface-alt: rgba(75, 64, 56, 0.08);
+  --text: var(--color-primary-navy);
+  --text-muted: var(--color-dark-brown);
+  --text-faint: var(--color-muted-taupe);
+  --border: rgba(154, 134, 120, 0.28);
+  --border-strong: var(--color-muted-taupe);
+  --border-light: rgba(202, 170, 152, 0.45);
 
   --tool-bg: var(--bg);
   --tool-surface: var(--surface);
@@ -187,8 +204,8 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6,
-p, span, a, button, input, select, textarea, label, table, th, td {
-  font-family: var(--font-primary);
+p, span, a, button, input, select, textarea, label, table, th, td, kbd, code {
+  font-family: var(--font-primary) !important;
 }
 
 /* Accessible Focus Outlines */

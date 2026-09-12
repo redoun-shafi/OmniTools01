@@ -1,14 +1,18 @@
-/* Calm Blue — Tool Theme Mappings
-   Exact Colors: #90D5FF, #57B9FF, #77B1D4, #517891, #FFFFFF, #FAFCFF
-   Font: "Tenor Sans", sans-serif
+/* OmniTools — Tool Theme Mappings
+   Palette:
+   - #202940 — primary dark navy
+   - #4B4038 — dark brown
+   - #9A8678 — muted taupe
+   - #CAAA98 — warm beige
+   Font: "Josefin Sans", sans-serif
 */
 
 :root {
-  --primary: var(--color-bright-blue);
-  --secondary: var(--color-sky-blue);
-  --accent: var(--color-bright-blue);
-  --muted: var(--color-dusty-blue);
-  --dark: var(--color-slate-blue);
+  --primary: var(--color-primary-navy);
+  --secondary: var(--color-warm-beige);
+  --accent: var(--color-warm-beige);
+  --muted: var(--color-muted-taupe);
+  --dark: var(--color-dark-brown);
 
   --tool-bg: var(--bg);
   --tool-surface: var(--surface);
@@ -24,12 +28,12 @@
 }
 
 [data-theme="dark"] {
-  --tool-bg: #182833;
-  --tool-surface: #203544;
-  --tool-surface-soft: #284254;
-  --tool-border: rgba(144, 213, 255, 0.16);
-  --tool-text: #F2F8FD;
-  --tool-muted: var(--color-dusty-blue);
+  --tool-bg: #131824;
+  --tool-surface: #202940;
+  --tool-surface-soft: #28334E;
+  --tool-border: rgba(202, 170, 152, 0.18);
+  --tool-text: #FAF7F5;
+  --tool-muted: var(--color-warm-beige);
 
   --bg: var(--tool-bg);
   --surface: var(--tool-surface);
@@ -39,12 +43,12 @@
 }
 
 [data-theme="colorful"], [data-theme="calm"] {
-  --tool-bg: #EDF6FC;
+  --tool-bg: #F5EFEB;
   --tool-surface: #FFFFFF;
-  --tool-surface-soft: #E2F0FA;
-  --tool-border: rgba(87, 185, 255, 0.25);
-  --tool-text: var(--color-slate-blue);
-  --tool-muted: #5D849E;
+  --tool-surface-soft: #EBE1D9;
+  --tool-border: rgba(154, 134, 120, 0.28);
+  --tool-text: var(--color-primary-navy);
+  --tool-muted: var(--color-dark-brown);
 
   --bg: var(--tool-bg);
   --surface: var(--tool-surface);
@@ -68,7 +72,7 @@
 }
 
 .theme-control select:hover {
-  border-color: var(--color-bright-blue);
+  border-color: var(--color-dark-brown);
 }
 
 .theme-control select:focus-visible {
@@ -90,13 +94,13 @@ html[data-theme] .extension-note {
 
 html[data-theme] .btn-convert,
 html[data-theme] .btn-merge {
-  background: var(--color-bright-blue);
+  background: var(--color-primary-navy);
   color: var(--color-white);
 }
 
 html[data-theme] .btn-zip {
-  background: var(--color-sky-blue);
-  color: var(--color-slate-blue);
+  background: var(--color-warm-beige);
+  color: var(--color-primary-navy);
 }
 
 html[data-theme="light"], :root {

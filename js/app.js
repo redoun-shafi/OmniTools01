@@ -1,10 +1,10 @@
 const tools = [
-  { name: 'Canva Bulk Recipe Interior Converter', description: 'Convert recipe chapters into separate Excel interiors and match food images automatically.', category: 'Converters', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>', color: '#57B9FF', status: 'Ready', href: 'tools/docx-to-xlsx/' },
-  { name: 'Recipe Index Studio', description: 'Paste spreadsheet rows, preview a polished recipe index, and export it as a DOC file.', category: 'Converters', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>', color: '#77B1D4', status: 'Ready', href: 'tools/recipe-generator/' },
-  { name: 'Auto Flow', description: 'Queue prompts and automate bulk image generation with the Chrome extension. — v3.1.0', category: 'Extensions', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>', color: '#517891', status: 'Extension', href: 'tools/autoflow/', badge: 'NEW VERSION', updated: 'Last updated: September 5, 2026', version: 'v3.1.0' },
-  { name: 'CSV Cleaner', description: 'Prepare messy spreadsheet data for your next workflow in a few clicks.', category: 'Converters', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16M4 12h16M4 19h16M8 3v4M16 10v4M10 17v4"/></svg>', color: '#90D5FF', status: 'Coming soon', href: '#' },
-  { name: 'Prompt Builder', description: 'Shape clear, reusable prompts for the way you work and create.', category: 'AI Tools', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h14v12H8l-3 3z"/><path d="m9 9 2 2 4-4"/></svg>', color: '#57B9FF', status: 'Coming soon', href: '#' },
-  { name: 'OCR Extractor', description: 'Pull useful text from images and scanned documents without the busywork.', category: 'AI Tools', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7V5a1 1 0 0 1 1-1h2M17 4h2a1 1 0 0 1 1 1v2M20 17v2a1 1 0 0 1-1 1h-2M7 20H5a1 1 0 0 1-1-1v-2"/><path d="M8 9h8v6H8z"/></svg>', color: '#77B1D4', status: 'Coming soon', href: '#' }
+  { name: 'Canva Bulk Recipe Interior Converter', description: 'Convert recipe chapters into separate Excel interiors and match food images automatically.', category: 'Converters', icon: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>', color: '#202940', status: 'Ready', href: 'tools/docx-to-xlsx/' },
+  { name: 'Recipe Index Studio', description: 'Paste spreadsheet rows, preview a polished recipe index, and export it as a DOC file.', category: 'Converters', icon: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>', color: '#4B4038', status: 'Ready', href: 'tools/recipe-generator/' },
+  { name: 'Auto Flow', description: 'Queue prompts and automate bulk image generation with the Chrome extension. — v3.1.0', category: 'Extensions', icon: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>', color: '#202940', status: 'Extension', href: 'tools/autoflow/', badge: 'NEW VERSION', updated: 'Last updated: September 5, 2026', version: 'v3.1.0' },
+  { name: 'CSV Cleaner', description: 'Prepare messy spreadsheet data for your next workflow in a few clicks.', category: 'Converters', icon: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16M4 12h16M4 19h16M8 3v4M16 10v4M10 17v4"/></svg>', color: '#9A8678', status: 'Coming soon', href: '#' },
+  { name: 'Prompt Builder', description: 'Shape clear, reusable prompts for the way you work and create.', category: 'AI Tools', icon: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h14v12H8l-3 3z"/><path d="m9 9 2 2 4-4"/></svg>', color: '#CAAA98', status: 'Coming soon', href: '#' },
+  { name: 'OCR Extractor', description: 'Pull useful text from images and scanned documents without the busywork.', category: 'AI Tools', icon: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7V5a1 1 0 0 1 1-1h2M17 4h2a1 1 0 0 1 1 1v2M20 17v2a1 1 0 0 1-1 1h-2M7 20H5a1 1 0 0 1-1-1v-2"/><path d="M8 9h8v6H8z"/></svg>', color: '#4B4038', status: 'Coming soon', href: '#' }
 ];
 
 const grid = document.querySelector('#toolGrid');
@@ -43,25 +43,7 @@ function renderTools() {
   count.textContent = `${visible.length} ${visible.length === 1 ? 'tool' : 'tools'}`;
   emptyState.hidden = visible.length !== 0;
 
-  // Intercept tool link clicks to require sign in / sign up
-  grid.querySelectorAll('.tool-open').forEach(link => {
-    link.addEventListener('click', (e) => {
-      const href = link.getAttribute('href');
-      const toolName = link.dataset.toolName || 'this tool';
-      if (!href || href === '#') return;
-
-      if (window.OmniSupabase && window.OmniAuthUI) {
-        e.preventDefault();
-        window.OmniSupabase.getUser().then(user => {
-          if (user) {
-            window.location.href = href;
-          } else {
-            window.OmniAuthUI.openModal('signin', `Please sign in or create an account to access ${toolName}`, href);
-          }
-        });
-      }
-    });
-  });
+  // Removed tool link click interception so tools load without sign in block
 }
 
 function escapeAttr(str) {

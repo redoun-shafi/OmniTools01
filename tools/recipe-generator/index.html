@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../css/tokens.css">
   <link rel="stylesheet" href="../../css/tool-page.css">
   <link rel="stylesheet" href="../../css/tool-theme.css">
@@ -50,13 +50,12 @@
       width: 180px;
       height: 34px;
       padding: 6px 10px;
-      font-size: var(--text-sm);
     }
 
     th {
-      background: rgba(144, 213, 255, 0.25);
+      background: var(--surface-alt, rgba(202, 170, 152, 0.25));
       color: var(--tool-text, var(--text));
-      font-weight: 400;
+      font-weight: 500;
       position: sticky;
       top: 0;
       z-index: 2;
@@ -77,8 +76,8 @@
       outline: none;
       background: transparent;
       color: var(--tool-text, var(--text));
-      font-size: var(--text-sm);
       font-family: var(--font-primary);
+      font-size: inherit;
     }
 
     .buttons {
@@ -94,7 +93,7 @@
       border: none;
       border-radius: var(--radius-control);
       cursor: pointer;
-      background: var(--color-bright-blue);
+      background: var(--color-primary-navy);
       color: var(--color-white);
       font-size: var(--text-sm);
       font-family: var(--font-primary);
@@ -103,7 +102,7 @@
     }
 
     .btn-action-primary:hover {
-      background: #47abf2;
+      background: var(--color-dark-brown);
       transform: translateY(-1px);
     }
 
@@ -113,15 +112,15 @@
       border: 1px solid var(--tool-border, var(--border));
       border-radius: var(--radius-control);
       cursor: pointer;
-      background: var(--color-sky-blue);
-      color: var(--color-slate-blue);
+      background: var(--color-warm-beige);
+      color: var(--color-primary-navy);
       font-size: var(--text-sm);
       font-family: var(--font-primary);
       transition: all var(--duration-fast) ease;
     }
 
     .btn-action-secondary:hover {
-      background: #7ecbfb;
+      background: #bfa08f;
       transform: translateY(-1px);
     }
 
@@ -131,7 +130,7 @@
       border: none;
       border-radius: var(--radius-control);
       cursor: pointer;
-      background: var(--color-slate-blue);
+      background: var(--color-dark-brown);
       color: var(--color-white);
       font-size: var(--text-sm);
       font-family: var(--font-primary);
@@ -139,7 +138,7 @@
     }
 
     .btn-action-dark:hover {
-      background: #42647a;
+      background: var(--color-primary-navy);
       transform: translateY(-1px);
     }
 
@@ -154,7 +153,7 @@
     .progress-bar {
       height: 100%;
       width: 100%;
-      background: var(--color-bright-blue);
+      background: var(--color-primary-navy);
       transform: scaleX(0);
       transform-origin: left center;
       transition: transform 0.2s ease;
@@ -175,7 +174,7 @@
 
     .output-card h2 {
       margin: 0 0 14px;
-      font-size: var(--text-lg);
+      font-size: 1.5rem;
       font-weight: 400;
       color: var(--tool-text, var(--text));
     }
