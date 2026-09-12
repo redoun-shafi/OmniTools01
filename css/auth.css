@@ -1,5 +1,5 @@
 /* OmniTools — Authentication & User System Stylesheet
-   Palette:
+   Calm Blue Design System:
    - #202940 — primary dark navy
    - #4B4038 — dark brown
    - #9A8678 — muted taupe
@@ -7,7 +7,10 @@
    Font: "Josefin Sans", sans-serif
 */
 
-/* --- Topbar Auth Controls --- */
+/* ==========================================================================
+   1. Topbar Auth Controls & Dropdown
+   ========================================================================== */
+
 .omni-auth-container {
   display: inline-flex;
   align-items: center;
@@ -27,6 +30,7 @@
   color: var(--text);
   font-size: 0.82rem;
   font-family: inherit;
+  font-weight: 500;
   cursor: pointer;
   letter-spacing: var(--tracking-wide, 0.04em);
   transition: all var(--duration-base, 220ms) var(--ease-out);
@@ -68,7 +72,7 @@
   height: 30px;
   border-radius: 50%;
   background: var(--color-primary-navy, #202940);
-  color: #FFFFFF;
+  color: var(--color-white);
   display: grid;
   place-items: center;
   font-size: 0.78rem;
@@ -93,6 +97,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   letter-spacing: var(--tracking-normal, 0.01em);
+  font-weight: 500;
 }
 
 .omni-auth-caret {
@@ -169,6 +174,7 @@
   text-align: left;
   cursor: pointer;
   font-family: inherit;
+  font-weight: 500;
   letter-spacing: var(--tracking-normal, 0.01em);
   transition: all var(--duration-fast, 150ms) ease;
 }
@@ -193,7 +199,11 @@
   margin: 4px 0;
 }
 
-/* --- Auth Modal Overlay & Card --- */
+
+/* ==========================================================================
+   2. Auth Modal Overlay & Forms
+   ========================================================================== */
+
 .omni-auth-modal-overlay {
   position: fixed;
   inset: 0;
@@ -218,10 +228,10 @@
 
 .omni-auth-modal {
   width: 100%;
-  max-width: 460px;
+  max-width: 480px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius-xl, 20px);
+  border-radius: var(--radius-xl, 24px);
   box-shadow:
     0 32px 64px -16px rgba(32, 41, 64, 0.25),
     0 0 0 1px rgba(202, 170, 152, 0.2);
@@ -243,7 +253,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 24px 28px 20px;
+  padding: 22px 28px;
   border-bottom: 1px solid var(--border);
   background: var(--surface-soft);
 }
@@ -252,7 +262,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   color: var(--text);
   font-weight: 600;
   margin: 0;
@@ -318,6 +328,7 @@
   padding: 0 20px;
   gap: 0;
   position: relative;
+  overflow-x: auto;
 }
 
 .omni-auth-tab {
@@ -331,9 +342,10 @@
   font-family: inherit;
   letter-spacing: var(--tracking-wide, 0.04em);
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 600;
   transition: all var(--duration-base, 220ms) ease;
   position: relative;
+  white-space: nowrap;
 }
 
 .omni-auth-tab:hover {
@@ -360,15 +372,20 @@
   overflow-y: auto;
 }
 
-/* Form Elements */
+/* Form Groups & Inputs */
 .omni-form-group {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  margin-bottom: 16px;
+}
+
+.omni-form-group:last-of-type {
+  margin-bottom: 8px;
 }
 
 .omni-form-label {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
   letter-spacing: var(--tracking-wider, 0.08em);
   text-transform: uppercase;
@@ -379,11 +396,12 @@
 }
 
 .omni-form-label a {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   color: var(--color-primary-navy, #202940);
   text-decoration: none;
   text-transform: none;
   letter-spacing: var(--tracking-normal, 0.01em);
+  font-weight: 500;
 }
 
 .omni-form-label a:hover {
@@ -399,10 +417,10 @@
   min-height: 46px;
   padding: 10px 16px;
   border: 1px solid var(--border);
-  border-radius: var(--radius-md, 10px);
+  border-radius: var(--radius-md, 12px);
   background: var(--bg);
   color: var(--text);
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   font-family: inherit;
   outline: none;
   letter-spacing: var(--tracking-normal, 0.01em);
@@ -426,23 +444,182 @@
 }
 
 .omni-form-help {
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   color: var(--text-muted);
   line-height: 1.6;
   letter-spacing: var(--tracking-normal, 0.01em);
+  margin-top: 0;
+  margin-bottom: 16px;
 }
 
-/* Auth Submit Button */
+
+/* ==========================================================================
+   3. Password Wrapper, Visibility Toggle & Strength Meter
+   ========================================================================== */
+
+.omni-password-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.omni-password-wrap .omni-form-input {
+  padding-right: 46px;
+}
+
+.omni-pwd-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm, 6px);
+  transition: color var(--duration-fast, 150ms) ease, background var(--duration-fast, 150ms) ease;
+}
+
+.omni-pwd-toggle:hover {
+  color: var(--text);
+  background: var(--surface-soft);
+}
+
+/* Password Strength Meter */
+.omni-strength-meter {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.omni-strength-bar {
+  width: 100%;
+  height: 5px;
+  background: var(--surface-soft);
+  border-radius: var(--radius-pill, 9999px);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.omni-strength-bar-fill {
+  height: 100%;
+  width: 0%;
+  transition: width 0.3s ease, background-color 0.3s ease;
+  border-radius: var(--radius-pill, 9999px);
+}
+
+.omni-strength-bar-fill.strength-weak {
+  background: var(--color-error);
+}
+
+.omni-strength-bar-fill.strength-fair {
+  background: var(--color-warning);
+}
+
+.omni-strength-bar-fill.strength-good {
+  background: var(--color-muted-taupe);
+}
+
+.omni-strength-bar-fill.strength-strong {
+  background: var(--color-success);
+}
+
+.omni-strength-label {
+  font-size: 0.72rem;
+  letter-spacing: var(--tracking-normal, 0.01em);
+  font-weight: 500;
+  min-height: 14px;
+}
+
+.omni-strength-label.strength-weak {
+  color: var(--color-error);
+}
+
+.omni-strength-label.strength-fair {
+  color: var(--color-warning);
+}
+
+.omni-strength-label.strength-good {
+  color: var(--color-muted-taupe);
+}
+
+.omni-strength-label.strength-strong {
+  color: var(--color-success);
+}
+
+/* Inline Field Errors */
+.omni-field-error {
+  font-size: 0.74rem;
+  color: var(--color-error);
+  display: none;
+  margin-top: 4px;
+  letter-spacing: var(--tracking-normal, 0.01em);
+}
+
+[data-theme="dark"] .omni-field-error {
+  color: var(--color-error-light);
+}
+
+/* Checkbox and Terms */
+.omni-form-checkbox-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 4px;
+  margin-bottom: 12px;
+}
+
+.omni-checkbox-label {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  user-select: none;
+  line-height: 1.45;
+}
+
+.omni-checkbox-label input[type="checkbox"] {
+  accent-color: var(--color-primary-navy, #202940);
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.omni-terms-link {
+  color: var(--color-primary-navy, #202940);
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+[data-theme="dark"] .omni-terms-link {
+  color: var(--color-warm-beige, #CAAA98);
+}
+
+
+/* ==========================================================================
+   4. Auth Buttons & Action Elements
+   ========================================================================== */
+
 .omni-auth-submit {
   min-height: 48px;
   padding: 12px 24px;
   background: var(--color-primary-navy, #202940);
-  color: #FFFFFF;
+  color: var(--color-white);
   border: none;
-  border-radius: var(--radius-md, 10px);
-  font-size: 0.88rem;
+  border-radius: var(--radius-md, 12px);
+  font-size: 0.9rem;
   font-family: inherit;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: var(--tracking-wide, 0.04em);
   cursor: pointer;
   transition: all var(--duration-base, 220ms) var(--ease-out);
@@ -451,7 +628,8 @@
   justify-content: center;
   gap: 10px;
   box-shadow: var(--shadow-subtle);
-  margin-top: 4px;
+  margin-top: 8px;
+  width: 100%;
 }
 
 .omni-auth-submit:hover:not(:disabled) {
@@ -471,31 +649,10 @@
   box-shadow: none;
 }
 
-.omni-btn-secondary {
-  min-height: 42px;
-  padding: 8px 18px;
-  background: var(--color-warm-beige, #CAAA98);
-  color: var(--color-primary-navy, #202940);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md, 10px);
-  font-size: 0.82rem;
-  font-family: inherit;
-  font-weight: 500;
-  cursor: pointer;
-  letter-spacing: var(--tracking-normal, 0.01em);
-  transition: all var(--duration-base, 220ms) var(--ease-out);
-}
-
-.omni-btn-secondary:hover {
-  background: #bfa08f;
-  transform: translateY(-1px);
-}
-
-/* Auth Alerts & Messages */
 .omni-auth-alert {
   padding: 12px 16px;
   border-radius: var(--radius-md, 10px);
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   line-height: 1.55;
   letter-spacing: var(--tracking-normal, 0.01em);
   display: none;
@@ -537,16 +694,16 @@
 
 .omni-auth-footer-link {
   text-align: center;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
-  margin-top: 8px;
+  margin-top: 14px;
   letter-spacing: var(--tracking-normal, 0.01em);
 }
 
 .omni-auth-footer-link a {
   color: var(--color-primary-navy, #202940);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
   transition: color var(--duration-fast, 150ms) ease;
 }
 
@@ -559,237 +716,462 @@
   color: var(--color-warm-beige, #CAAA98);
 }
 
-/* Spinner indicator */
-.omni-spinner {
-  width: 15px;
-  height: 15px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-top-color: #FFFFFF;
+
+/* ==========================================================================
+   5. User Profile & Tool History Modal
+   ========================================================================== */
+
+.omni-profile-modal {
+  width: 100%;
+  max-width: 540px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl, 24px);
+  box-shadow:
+    0 32px 64px -16px rgba(32, 41, 64, 0.25),
+    0 0 0 1px rgba(202, 170, 152, 0.2);
+  overflow: hidden;
+  transform: translateY(16px) scale(0.97);
+  opacity: 0;
+  transition: transform 0.3s var(--ease-out), opacity 0.3s var(--ease-out);
+  display: flex;
+  flex-direction: column;
+}
+
+.omni-auth-modal-overlay.open .omni-profile-modal {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.omni-profile-modal-body {
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 72vh;
+  overflow-y: auto;
+}
+
+.omni-profile-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 18px;
+  border-radius: var(--radius-lg, 18px);
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+}
+
+.omni-profile-avatar-lg {
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
-  animation: omniSpin 0.65s linear infinite;
-  display: inline-block;
+  background: var(--color-primary-navy, #202940);
+  color: var(--color-white);
+  display: grid;
+  place-items: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(32, 41, 64, 0.25);
   flex-shrink: 0;
 }
 
-@keyframes omniSpin {
-  to { transform: rotate(360deg); }
+.omni-profile-avatar-lg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-@keyframes omniFadeSlide {
-  from { opacity: 0; transform: translateY(-6px); }
-  to { opacity: 1; transform: translateY(0); }
+.omni-profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
 }
 
-@keyframes omniFadeIn {
-  from { opacity: 0; transform: translateY(-4px); }
-  to { opacity: 1; transform: translateY(0); }
+.omni-profile-name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-/* --- Tool Access Gate Barrier --- */
-.omni-tool-gate-overlay {
-  position: fixed;
-  inset: 0;
-  top: 60px;
-  background: color-mix(in srgb, var(--bg) 90%, transparent);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  z-index: 900;
+.omni-profile-name {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.omni-profile-edit-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: var(--radius-sm, 6px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s var(--ease-out), visibility 0.3s var(--ease-out);
-  font-family: var(--font-primary, "Josefin Sans", sans-serif);
+  transition: all var(--duration-fast, 150ms) ease;
 }
 
-.omni-tool-gate-overlay.active {
-  opacity: 1;
-  visibility: visible;
+.omni-profile-edit-btn:hover {
+  color: var(--text);
+  background: var(--surface);
 }
 
-.omni-tool-gate-card {
-  max-width: 480px;
-  width: 100%;
+.omni-profile-email {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.omni-profile-meta-tags {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+
+.omni-profile-tag {
+  font-size: 0.68rem;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill, 9999px);
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius-xl, 20px);
-  box-shadow:
-    0 24px 56px -12px rgba(32, 41, 64, 0.18),
-    0 0 0 1px rgba(202, 170, 152, 0.2);
-  padding: 44px 36px;
-  text-align: center;
+  color: var(--text-muted);
+  letter-spacing: var(--tracking-wide, 0.04em);
+}
+
+.omni-profile-tag.active {
+  background: rgba(87, 185, 255, 0.15);
+  color: var(--color-primary-navy, #202940);
+  border-color: rgba(87, 185, 255, 0.3);
+  font-weight: 600;
+}
+
+[data-theme="dark"] .omni-profile-tag.active {
+  background: rgba(202, 170, 152, 0.2);
+  color: var(--color-warm-beige, #CAAA98);
+  border-color: rgba(202, 170, 152, 0.35);
+}
+
+.omni-profile-edit-box {
+  padding: 14px;
+  background: var(--surface-soft);
+  border-radius: var(--radius-md, 12px);
+  border: 1px solid var(--border);
+  animation: omniFadeSlide 0.2s var(--ease-out);
+}
+
+/* History Feed */
+.omni-history-section {
   display: flex;
   flex-direction: column;
+  gap: 12px;
+}
+
+.omni-history-head {
+  display: flex;
   align-items: center;
-  gap: 14px;
-  animation: omniGatePop 0.3s var(--ease-out);
+  justify-content: space-between;
 }
 
-@keyframes omniGatePop {
-  from { transform: translateY(20px) scale(0.95); opacity: 0; }
-  to { transform: translateY(0) scale(1); opacity: 1; }
-}
-
-.omni-gate-icon-wrap {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: var(--surface-soft);
-  border: 1px solid var(--border);
-  color: var(--color-primary-navy, #202940);
-  display: grid;
-  place-items: center;
-  margin-bottom: 6px;
-}
-
-.omni-gate-icon-wrap svg {
-  width: 26px;
-  height: 26px;
-}
-
-.omni-gate-eyebrow {
-  font-size: 0.68rem;
+.omni-history-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: var(--tracking-wider, 0.08em);
-  color: var(--color-muted-taupe, #9A8678);
-  font-weight: 600;
-}
-
-.omni-gate-title {
-  margin: 0;
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--text);
-  letter-spacing: var(--tracking-normal, 0.01em);
-  line-height: var(--leading-heading, 1.25);
-}
-
-.omni-gate-desc {
-  margin: 0;
-  font-size: 0.88rem;
   color: var(--text-muted);
-  line-height: 1.65;
-  max-width: 380px;
 }
 
-.omni-gate-actions {
+.omni-history-refresh-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill, 9999px);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 500;
+  transition: all var(--duration-fast, 150ms) ease;
+}
+
+.omni-history-refresh-btn:hover {
+  color: var(--text);
+  background: var(--surface-soft);
+  border-color: var(--color-dark-brown, #4B4038);
+}
+
+.omni-history-list {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width: 100%;
-  max-width: 320px;
-  margin-top: 10px;
+  max-height: 240px;
+  overflow-y: auto;
+  padding-right: 4px;
 }
 
-.omni-gate-btn-primary {
-  min-height: 48px;
-  padding: 12px 24px;
-  background: var(--color-primary-navy, #202940);
-  color: #FFFFFF;
-  border: none;
-  border-radius: var(--radius-md, 10px);
-  font-size: 0.88rem;
-  font-family: inherit;
-  font-weight: 500;
-  letter-spacing: var(--tracking-wide, 0.04em);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: all var(--duration-base, 220ms) var(--ease-out);
-  box-shadow: var(--shadow-subtle);
-}
-
-.omni-gate-btn-primary:hover {
-  background: var(--color-dark-brown, #4B4038);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(32, 41, 64, 0.25);
-}
-
-.omni-gate-btn-primary:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(32, 41, 64, 0.15);
-}
-
-.omni-gate-btn-secondary {
-  min-height: 44px;
-  padding: 10px 20px;
-  background: var(--color-warm-beige, #CAAA98);
-  color: var(--color-primary-navy, #202940);
+.omni-history-item {
+  padding: 12px 14px;
+  background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: var(--radius-md, 10px);
-  font-size: 0.86rem;
-  font-family: inherit;
-  font-weight: 500;
-  letter-spacing: var(--tracking-normal, 0.01em);
-  cursor: pointer;
+  border-radius: var(--radius-md, 12px);
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: all var(--duration-base, 220ms) var(--ease-out);
-}
-
-.omni-gate-btn-secondary:hover {
-  background: #bfa08f;
-  transform: translateY(-1px);
-}
-
-.omni-gate-back-link {
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  text-decoration: none;
-  margin-top: 8px;
-  letter-spacing: var(--tracking-normal, 0.01em);
-  transition: color var(--duration-fast, 150ms) ease;
-}
-
-.omni-gate-back-link:hover {
-  color: var(--color-primary-navy, #202940);
-}
-
-/* Card Lock Badges */
-.card-lock-badge {
-  display: inline-flex;
-  align-items: center;
+  flex-direction: column;
   gap: 4px;
-  padding: 3px 8px;
+  transition: border-color var(--duration-fast, 150ms) ease;
+}
+
+.omni-history-item:hover {
+  border-color: var(--color-muted-taupe, #9A8678);
+}
+
+.omni-history-item-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.omni-history-tool-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-primary-navy, #202940);
+  background: rgba(202, 170, 152, 0.25);
+  padding: 2px 8px;
   border-radius: var(--radius-pill, 9999px);
-  background: var(--surface-soft);
-  color: var(--text-muted);
-  font-size: 0.7rem;
   letter-spacing: var(--tracking-wide, 0.04em);
+}
+
+[data-theme="dark"] .omni-history-tool-badge {
+  background: rgba(202, 170, 152, 0.2);
+  color: var(--color-warm-beige, #CAAA98);
+}
+
+.omni-history-time {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.omni-history-action {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.omni-history-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.omni-history-tag {
+  font-size: 0.68rem;
+  background: var(--surface);
   border: 1px solid var(--border);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm, 6px);
+  color: var(--text-muted);
 }
 
-.card-lock-badge svg {
-  width: 11px;
-  height: 11px;
+.omni-history-empty {
+  text-align: center;
+  padding: 32px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
 }
 
-/* Responsive adjustments */
-@media (max-width: 520px) {
+.omni-history-empty-icon {
+  color: var(--text-muted);
+  opacity: 0.4;
+  margin-bottom: 4px;
+}
+
+.omni-history-empty-text {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.omni-history-empty-sub {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  max-width: 300px;
+}
+
+.omni-history-loading {
+  text-align: center;
+  padding: 24px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.omni-profile-modal-foot {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 18px 28px;
+  border-top: 1px solid var(--border);
+  background: var(--surface-soft);
+}
+
+.omni-btn-danger {
+  background: #c9302c !important;
+  color: var(--color-white) !important;
+  border: none !important;
+}
+
+.omni-btn-danger:hover {
+  background: #b92c28 !important;
+}
+
+
+/* ==========================================================================
+   6. Floating Toast Notifications
+   ========================================================================== */
+
+.omni-toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+  max-width: 380px;
+  width: calc(100% - 48px);
+  font-family: var(--font-primary, "Josefin Sans", sans-serif);
+}
+
+.omni-toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 16px);
+  box-shadow: 0 16px 36px -4px rgba(32, 41, 64, 0.2), 0 0 0 1px rgba(32, 41, 64, 0.05);
+  pointer-events: auto;
+  animation: omniToastSlideUp 0.3s var(--ease-out);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.omni-toast-dismissing {
+  opacity: 0;
+  transform: translateY(12px) scale(0.95);
+}
+
+.omni-toast-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.omni-toast-message {
+  font-size: 0.84rem;
+  color: var(--text);
+  line-height: 1.45;
+  letter-spacing: var(--tracking-normal, 0.01em);
+  font-weight: 500;
+  flex: 1;
+}
+
+.omni-toast-close {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm, 6px);
+  transition: all var(--duration-fast, 150ms) ease;
+}
+
+.omni-toast-close:hover {
+  color: var(--text);
+  background: var(--surface-soft);
+}
+
+.omni-toast-success .omni-toast-icon {
+  color: #16a34a;
+}
+
+.omni-toast-error .omni-toast-icon {
+  color: #c9302c;
+}
+
+.omni-toast-warning .omni-toast-icon {
+  color: #d97706;
+}
+
+.omni-toast-info .omni-toast-icon {
+  color: var(--color-primary-navy, #202940);
+}
+
+[data-theme="dark"] .omni-toast-info .omni-toast-icon {
+  color: var(--color-warm-beige, #CAAA98);
+}
+
+@keyframes omniToastSlideUp {
+  from { opacity: 0; transform: translateY(18px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+
+/* ==========================================================================
+   7. Responsive Adaptations
+   ========================================================================== */
+
+@media (max-width: 540px) {
   .omni-auth-user-name {
     display: none;
   }
-  .omni-auth-modal {
+  .omni-auth-modal,
+  .omni-profile-modal {
     max-width: 100%;
     margin: 12px;
-    border-radius: var(--radius-lg, 16px);
+    border-radius: var(--radius-lg, 18px);
   }
   .omni-auth-modal-head {
-    padding: 20px 20px 16px;
+    padding: 18px 20px 14px;
   }
-  .omni-auth-modal-body {
+  .omni-auth-modal-body,
+  .omni-profile-modal-body {
     padding: 20px;
   }
   .omni-auth-dropdown {
     width: 240px;
   }
-  .omni-tool-gate-card {
-    padding: 32px 24px;
+  .omni-toast-container {
+    bottom: 16px;
+    right: 16px;
+    width: calc(100% - 32px);
   }
 }

@@ -103,6 +103,14 @@
             <button class="category-button" type="button" data-category="AI Tools">AI tools</button>
             <button class="category-button" type="button" data-category="Extensions">Extensions</button>
           </div>
+          <div class="sort-box">
+            <label for="toolSort" class="sr-only">Sort tools</label>
+            <select id="toolSort" class="sort-select">
+              <option value="recommended">Recommended</option>
+              <option value="recent">Recently added</option>
+              <option value="alphabetical">Alphabetical (A-Z)</option>
+            </select>
+          </div>
         </div>
 
         <div class="tool-grid" id="toolGrid"></div>
@@ -110,6 +118,7 @@
           <div class="empty-icon">?</div>
           <h3>No tools found</h3>
           <p>Try another search query or choose a different category.</p>
+          <button class="button button-secondary reset-filters-btn" id="resetFiltersBtn" type="button">Reset filters</button>
         </div>
       </section>
 

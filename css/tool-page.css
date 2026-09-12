@@ -30,7 +30,7 @@ body {
 a {
   color: var(--color-primary-navy);
   text-decoration: none;
-  transition: color var(--duration-fast) ease;
+  transition: color var(--duration-fast, 150ms) ease;
 }
 
 a:hover {

@@ -1,10 +1,10 @@
 /* Calm Blue — OmniTools Main Stylesheet
-   Style: Minimal, calm, clean, airy, modern, elegant, refined, slightly editorial.
-   Exact Colors: #90D5FF, #57B9FF, #77B1D4, #517891, #FFFFFF, #FAFCFF
-   Primary Font: "Tenor Sans", sans-serif
+   Calm Blue Design System (Inspired by Dribbble AI Tool Website Design)
+   Color Palette: #202940 (navy), #4B4038 (dark brown), #9A8678 (muted taupe), #CAAA98 (warm beige)
+   Font: "Josefin Sans", sans-serif everywhere
 */
 
-@import url("https://fonts.googleapis.com/css2?family=Tenor+Sans&display=swap");
+@import url("tokens.css");
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -365,7 +365,7 @@ button:disabled {
 }
 
 .button-secondary:hover {
-  background: #EBE1D9;
+  background: var(--surface-highlight);
   transform: translateY(-2px);
 }
 
@@ -816,6 +816,128 @@ kbd {
   color: var(--text-muted);
   font-size: 0.76rem;
   font-style: italic;
+}
+
+.sort-box {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.sort-select {
+  min-height: 42px;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-primary);
+  font-size: 0.82rem;
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--duration-base) ease, box-shadow var(--duration-base) ease;
+}
+
+.sort-select:hover {
+  border-color: var(--primary);
+}
+
+.sort-select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(32, 41, 64, 0.15);
+}
+
+/* Skeleton Loading State */
+.skeleton-card {
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-subtle);
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-shimmer {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-soft);
+  border-radius: 4px;
+}
+
+.skeleton-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(202, 170, 152, 0.25), transparent);
+  animation: shimmer 1.6s infinite;
+}
+
+[data-theme="dark"] .skeleton-shimmer::after {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.skeleton-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-md);
+  margin-bottom: 16px;
+}
+
+.skeleton-title {
+  height: 20px;
+  width: 70%;
+  margin-bottom: 12px;
+}
+
+.skeleton-text {
+  height: 14px;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.skeleton-text.short {
+  width: 60%;
+}
+
+.skeleton-footer {
+  margin-top: auto;
+  padding-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--border);
+}
+
+.skeleton-btn {
+  height: 16px;
+  width: 80px;
+}
+
+.reset-filters-btn {
+  margin-top: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  padding: 8px 18px;
+  font-size: 0.82rem;
+  font-family: var(--font-primary);
+  transition: all var(--duration-fast) ease;
 }
 
 .empty-state {

@@ -1,11 +1,10 @@
-/* OmniTools — Tool Theme Mappings
-   Palette:
-   - #202940 — primary dark navy
-   - #4B4038 — dark brown
-   - #9A8678 — muted taupe
-   - #CAAA98 — warm beige
-   Font: "Josefin Sans", sans-serif
+/* OmniTools — Tool Theme System & Component Styling
+   Calm Blue Design System
+   Palette: #202940 (primary navy), #4B4038 (dark brown), #9A8678 (muted taupe), #CAAA98 (warm beige)
+   Font: "Josefin Sans", sans-serif universally applied
 */
+
+@import url("tokens.css");
 
 :root {
   --primary: var(--color-primary-navy);
@@ -20,11 +19,6 @@
   --tool-border: var(--border);
   --tool-text: var(--text);
   --tool-muted: var(--text-muted);
-
-  --bg: var(--tool-bg);
-  --surface: var(--tool-surface);
-  --border: var(--tool-border);
-  --text: var(--tool-text);
 }
 
 [data-theme="dark"] {
@@ -34,45 +28,34 @@
   --tool-border: rgba(202, 170, 152, 0.18);
   --tool-text: #FAF7F5;
   --tool-muted: var(--color-warm-beige);
-
-  --bg: var(--tool-bg);
-  --surface: var(--tool-surface);
-  --border: var(--tool-border);
-  --text: var(--tool-text);
-  --muted: var(--tool-muted);
 }
 
-[data-theme="colorful"], [data-theme="calm"] {
-  --tool-bg: #F5EFEB;
+[data-theme="calm"], [data-theme="colorful"] {
+  --tool-bg: #F4ECE6;
   --tool-surface: #FFFFFF;
-  --tool-surface-soft: #EBE1D9;
+  --tool-surface-soft: #EFE4DC;
   --tool-border: rgba(154, 134, 120, 0.28);
   --tool-text: var(--color-primary-navy);
   --tool-muted: var(--color-dark-brown);
-
-  --bg: var(--tool-bg);
-  --surface: var(--tool-surface);
-  --border: var(--tool-border);
-  --text: var(--tool-text);
-  --muted: var(--tool-muted);
 }
 
+/* Tool Navigation & Theme Control */
 .theme-control select {
   min-height: 38px;
-  border: 1px solid var(--tool-border);
+  border: 1px solid var(--border);
   border-radius: var(--radius-pill);
-  background: var(--tool-surface);
-  color: var(--tool-text);
+  background: var(--surface);
+  color: var(--text);
   padding: 6px 16px;
   font-size: 0.78rem;
   cursor: pointer;
   outline: none;
   font-family: var(--font-primary);
-  transition: border-color var(--duration-fast) ease;
+  transition: border-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
 }
 
 .theme-control select:hover {
-  border-color: var(--color-dark-brown);
+  border-color: var(--primary);
 }
 
 .theme-control select:focus-visible {
@@ -80,33 +63,29 @@
   outline: none;
 }
 
+/* Tool Container Card Overrides */
 html[data-theme] .extension-hero,
 html[data-theme] .extension-card {
-  background: var(--tool-surface);
-  border: 1px solid var(--tool-border);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
 }
 
 html[data-theme] .extension-note {
-  background: var(--tool-surface-soft);
-  color: var(--tool-text);
-  border: 1px solid var(--tool-border);
+  background: var(--surface-soft);
+  color: var(--text);
+  border: 1px solid var(--border);
 }
 
 html[data-theme] .btn-convert,
 html[data-theme] .btn-merge {
-  background: var(--color-primary-navy);
+  background: var(--primary);
   color: var(--color-white);
+  font-family: var(--font-primary);
 }
 
 html[data-theme] .btn-zip {
   background: var(--color-warm-beige);
   color: var(--color-primary-navy);
-}
-
-html[data-theme="light"], :root {
-  color-scheme: light;
-}
-
-html[data-theme="dark"] {
-  color-scheme: dark;
+  font-family: var(--font-primary);
 }

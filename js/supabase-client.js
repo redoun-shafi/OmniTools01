@@ -404,6 +404,20 @@
       updated_at: new Date().toISOString()
     };
 
+    // Update auth metadata if full_name is present
+    if (updates.full_name) {
+      try {
+        await client.auth.updateUser({
+          data: {
+            full_name: updates.full_name,
+            avatar_url: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(updates.full_name)}`
+          }
+        });
+      } catch (err) {
+        console.warn('[OmniSupabase] Could not sync user metadata:', err);
+      }
+    }
+
     const { data, error } = await client
       .from('profiles')
       .upsert({ id: uid, ...payload })
@@ -482,6 +496,16 @@
     }
   }
 
+  /**
+   * Helper to check if URL contains password recovery hash
+   */
+  function isRecoveryUrl() {
+    if (typeof window === 'undefined') return false;
+    const hash = window.location.hash || '';
+    const search = window.location.search || '';
+    return hash.includes('type=recovery') || search.includes('type=recovery');
+  }
+
   // Auto initialize on script load if window is ready
   if (typeof window !== 'undefined') {
     if (document.readyState === 'loading') {
@@ -510,6 +534,7 @@
     getSession: getSession,
     getProfile: getProfile,
     updateProfile: updateProfile,
+    isRecoveryUrl: isRecoveryUrl,
     logToolActivity: logToolActivity,
     getUserHistory: getUserHistory,
     onAuthStateChange: onAuthStateChange
